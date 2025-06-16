@@ -1,3 +1,4 @@
+```mermaid
 flowchart TB
     subgraph 一般応募者
         P0[TOPページ] --> |応募ボタン| P1[入力フォーム]
@@ -30,3 +31,4 @@ flowchart TB
         U0 --> U1[ユーザ編集]
         A1 --> Log[Audit Log]
     end
+```
