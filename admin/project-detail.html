@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロジェクト詳細 - レシートキャンペーンCMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- ナビゲーションバー -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="dashboard.html" class="text-xl font-semibold text-gray-900">レシートキャンペーンCMS</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-700">管理者: <span id="admin-name">admin</span></span>
+                    <button onclick="logout()" class="text-sm text-red-600 hover:text-red-800">ログアウト</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex">
+        <!-- サイドメニュー -->
+        <div class="w-64 bg-white shadow-sm min-h-screen">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">管理者メニュー</h2>
+                <nav class="space-y-2">
+                    <a href="dashboard.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
+                        </svg>
+                        ダッシュボード
+                    </a>
+                    <a href="projects.html" class="flex items-center px-3 py-2 text-sm font-medium text-white bg-primary rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        プロジェクト管理
+                    </a>
+                    <a href="users.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                        ユーザー管理
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- メインコンテンツ -->
+        <div class="flex-1 p-8">
+            <!-- ページヘッダー -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">プロジェクト詳細</h2>
+                        <p class="text-sm text-gray-600 mt-1">プロジェクトの詳細情報を確認・編集できます</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button onclick="window.location.href='projects.html'" 
+                                class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            一覧に戻る
+                        </button>
+                        <button onclick="saveProject()" 
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- プロジェクト詳細フォーム -->
+            <div class="bg-white shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <form id="project-detail-form" class="space-y-6">
+                        <input type="hidden" id="project-id">
+                        
+                        <!-- 基本情報 -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">基本情報</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="project-name" class="block text-sm font-medium text-gray-700">プロジェクト名</label>
+                                    <input type="text" id="project-name" name="projectName" required
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                </div>
+                                <div>
+                                    <label for="client-name" class="block text-sm font-medium text-gray-700">クライアント名</label>
+                                    <input type="text" id="client-name" name="clientName" required
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                </div>
+                                <div>
+                                    <label for="project-status" class="block text-sm font-medium text-gray-700">ステータス</label>
+                                    <select id="project-status" name="status"
+                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                        <option value="draft">下書き</option>
+                                        <option value="published">公開中</option>
+                                        <option value="closed">終了</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="created-date" class="block text-sm font-medium text-gray-700">作成日</label>
+                                    <input type="text" id="created-date" readonly
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm bg-gray-50 sm:text-sm">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- キャンペーン情報 -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">キャンペーン情報</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="campaign-title" class="block text-sm font-medium text-gray-700">キャンペーンタイトル</label>
+                                    <input type="text" id="campaign-title" name="campaignTitle"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                </div>
+                                <div>
+                                    <label for="campaign-description" class="block text-sm font-medium text-gray-700">キャンペーン説明</label>
+                                    <textarea id="campaign-description" name="campaignDescription" rows="4"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="start-date" class="block text-sm font-medium text-gray-700">開始日</label>
+                                        <input type="date" id="start-date" name="startDate"
+                                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                    </div>
+                                    <div>
+                                        <label for="end-date" class="block text-sm font-medium text-gray-700">終了日</label>
+                                        <input type="date" id="end-date" name="endDate"
+                                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 応募データ -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">応募データ</h3>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                                    <div>
+                                        <div class="text-2xl font-bold text-primary" id="total-submissions">0</div>
+                                        <div class="text-sm text-gray-600">総応募数</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-2xl font-bold text-secondary" id="today-submissions">0</div>
+                                        <div class="text-sm text-gray-600">今日の応募数</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-2xl font-bold text-accent" id="pending-submissions">0</div>
+                                        <div class="text-sm text-gray-600">未処理応募</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 操作ボタン -->
+                        <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+                            <button type="button" onclick="deleteProject()"
+                                    class="inline-flex items-center px-4 py-2 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                                削除
+                            </button>
+                            <button type="submit"
+                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                保存
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 認証チェック
+        function checkAuth() {
+            const userType = localStorage.getItem('userType');
+            const username = localStorage.getItem('username');
+            
+            if (userType !== 'admin' || !username) {
+                window.location.href = '../index.html';
+                return;
+            }
+            
+            document.getElementById('admin-name').textContent = username;
+        }
+
+        // ログアウト
+        function logout() {
+            localStorage.removeItem('userType');
+            localStorage.removeItem('username');
+            localStorage.removeItem('projectId');
+            window.location.href = '../index.html';
+        }
+
+        // URLパラメータからプロジェクトIDを取得
+        function getProjectIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        // プロジェクトデータを読み込み
+        function loadProjectData() {
+            const projectId = getProjectIdFromUrl();
+            if (!projectId) {
+                alert('プロジェクトIDが指定されていません。');
+                window.location.href = 'projects.html';
+                return;
+            }
+
+            // デモ用のプロジェクトデータ
+            const project = {
+                id: projectId,
+                name: '夏のレシートキャンペーン',
+                client: 'クライアントA',
+                status: 'published',
+                createdDate: '2024-01-15',
+                campaignTitle: '夏のレシートキャンペーン',
+                campaignDescription: '夏の商品を購入してレシートをアップロードすると、抽選で豪華商品が当たるキャンペーンです。',
+                startDate: '2024-06-01',
+                endDate: '2024-08-31',
+                totalSubmissions: 156,
+                todaySubmissions: 12,
+                pendingSubmissions: 8
+            };
+
+            // フォームにデータを設定
+            document.getElementById('project-id').value = project.id;
+            document.getElementById('project-name').value = project.name;
+            document.getElementById('client-name').value = project.client;
+            document.getElementById('project-status').value = project.status;
+            document.getElementById('created-date').value = project.createdDate;
+            document.getElementById('campaign-title').value = project.campaignTitle;
+            document.getElementById('campaign-description').value = project.campaignDescription;
+            document.getElementById('start-date').value = project.startDate;
+            document.getElementById('end-date').value = project.endDate;
+            document.getElementById('total-submissions').textContent = project.totalSubmissions;
+            document.getElementById('today-submissions').textContent = project.todaySubmissions;
+            document.getElementById('pending-submissions').textContent = project.pendingSubmissions;
+        }
+
+        // プロジェクト保存
+        function saveProject() {
+            const formData = new FormData(document.getElementById('project-detail-form'));
+            const projectData = Object.fromEntries(formData);
+            
+            // ここでプロジェクト保存処理を実装
+            alert('プロジェクトが保存されました。');
+        }
+
+        // プロジェクト削除
+        function deleteProject() {
+            if (confirm('このプロジェクトを削除しますか？この操作は取り消せません。')) {
+                // ここでプロジェクト削除処理を実装
+                alert('プロジェクトが削除されました。');
+                window.location.href = 'projects.html';
+            }
+        }
+
+        // フォーム送信処理
+        document.getElementById('project-detail-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveProject();
+        });
+
+        // ページ読み込み時の処理
+        checkAuth();
+        loadProjectData();
+    </script>
+</body>
+</html> 

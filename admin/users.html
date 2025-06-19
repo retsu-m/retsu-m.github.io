@@ -37,89 +37,120 @@
         </div>
     </nav>
 
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <!-- ページヘッダー -->
-        <div class="px-4 py-6 sm:px-0">
-            <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-gray-900">ユーザー管理</h2>
-                <button onclick="createNewUser()" 
-                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    新規ユーザー作成
-                </button>
+    <div class="flex">
+        <!-- サイドメニュー -->
+        <div class="w-64 bg-white shadow-sm min-h-screen">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">管理者メニュー</h2>
+                <nav class="space-y-2">
+                    <a href="dashboard.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
+                        </svg>
+                        ダッシュボード
+                    </a>
+                    <a href="projects.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        プロジェクト管理
+                    </a>
+                    <a href="users.html" class="flex items-center px-3 py-2 text-sm font-medium text-white bg-primary rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                        ユーザー管理
+                    </a>
+                </nav>
             </div>
         </div>
 
-        <!-- 検索・フィルター -->
-        <div class="bg-white shadow rounded-lg mb-6">
-            <div class="px-4 py-5 sm:p-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                        <label for="search" class="block text-sm font-medium text-gray-700">ユーザー名検索</label>
-                        <input type="text" id="search" placeholder="ユーザー名を入力..."
-                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                    </div>
-                    <div>
-                        <label for="role-filter" class="block text-sm font-medium text-gray-700">権限</label>
-                        <select id="role-filter" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                            <option value="">すべて</option>
-                            <option value="admin">管理者</option>
-                            <option value="client">クライアント</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="status-filter" class="block text-sm font-medium text-gray-700">ステータス</label>
-                        <select id="status-filter" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                            <option value="">すべて</option>
-                            <option value="active">有効</option>
-                            <option value="inactive">無効</option>
-                        </select>
+        <!-- メインコンテンツ -->
+        <div class="flex-1 p-8">
+            <!-- ページヘッダー -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold text-gray-900">ユーザー管理</h2>
+                    <button onclick="createNewUser()" 
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        新規ユーザー作成
+                    </button>
+                </div>
+            </div>
+
+            <!-- 検索・フィルター -->
+            <div class="bg-white shadow rounded-lg mb-6">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label for="user-search" class="block text-sm font-medium text-gray-700">ユーザー名検索</label>
+                            <input type="text" id="user-search" placeholder="ユーザー名を入力..."
+                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="project-sort" class="block text-sm font-medium text-gray-700">プロジェクトソート</label>
+                            <select id="project-sort" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                <option value="">すべて</option>
+                                <option value="project1">夏のレシートキャンペーン</option>
+                                <option value="project2">春のレシートキャンペーン</option>
+                                <option value="project3">冬のレシートキャンペーン</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="date-sort" class="block text-sm font-medium text-gray-700">日付ソート</label>
+                            <select id="date-sort" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                <option value="newest">新しい順</option>
+                                <option value="oldest">古い順</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- ユーザー一覧 -->
-        <div class="bg-white shadow overflow-hidden sm:rounded-md">
-            <ul class="divide-y divide-gray-200" id="users-list">
-                <!-- ユーザーアイテムはJavaScriptで動的に生成 -->
-            </ul>
-        </div>
-
-        <!-- ページネーション -->
-        <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-            <div class="flex-1 flex justify-between sm:hidden">
-                <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                    前へ
-                </button>
-                <button class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                    次へ
-                </button>
+            <!-- ユーザー一覧 -->
+            <div class="bg-white shadow overflow-hidden sm:rounded-md">
+                <ul class="divide-y divide-gray-200" id="users-list">
+                    <!-- ユーザーアイテムはJavaScriptで動的に生成 -->
+                </ul>
             </div>
-            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                <div>
-                    <p class="text-sm text-gray-700">
-                        表示中: <span class="font-medium">1</span> から <span class="font-medium">10</span> まで / 全 <span class="font-medium">8</span> 件
-                    </p>
+
+            <!-- ページネーション -->
+            <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 mt-6">
+                <div class="flex-1 flex justify-between sm:hidden">
+                    <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        前へ
+                    </button>
+                    <button class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        次へ
+                    </button>
                 </div>
-                <div>
-                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-                        <button class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                            <span class="sr-only">前へ</span>
-                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                        <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">1</button>
-                        <button class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                            <span class="sr-only">次へ</span>
-                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                    </nav>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-sm text-gray-700">
+                            表示中: <span class="font-medium">1</span> から <span class="font-medium">10</span> まで / 全 <span class="font-medium">8</span> 件
+                        </p>
+                    </div>
+                    <div>
+                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                            <button class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">前へ</span>
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                            <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">1</button>
+                            <button class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">次へ</span>
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,15 +171,6 @@
                         <label for="user-email" class="block text-sm font-medium text-gray-700">メールアドレス</label>
                         <input type="email" id="user-email" name="email" required
                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                    </div>
-                    <div>
-                        <label for="user-role" class="block text-sm font-medium text-gray-700">権限</label>
-                        <select id="user-role" name="role" required
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                            <option value="">選択してください</option>
-                            <option value="admin">管理者</option>
-                            <option value="client">クライアント</option>
-                        </select>
                     </div>
                     <div>
                         <label for="user-password" class="block text-sm font-medium text-gray-700">パスワード</label>
@@ -234,7 +256,7 @@
                 status: 'active',
                 createdAt: '2024-01-10',
                 lastLogin: '2024-01-20',
-                projects: 3
+                projects: ['夏のレシートキャンペーン', '春のレシートキャンペーン', '冬のレシートキャンペーン']
             },
             {
                 id: 'user002',
@@ -244,7 +266,7 @@
                 status: 'active',
                 createdAt: '2024-01-05',
                 lastLogin: '2024-01-18',
-                projects: 2
+                projects: ['夏のレシートキャンペーン', '春のレシートキャンペーン']
             },
             {
                 id: 'user003',
@@ -254,7 +276,7 @@
                 status: 'active',
                 createdAt: '2024-01-01',
                 lastLogin: '2024-01-21',
-                projects: 0
+                projects: []
             },
             {
                 id: 'user004',
@@ -264,7 +286,7 @@
                 status: 'inactive',
                 createdAt: '2024-01-15',
                 lastLogin: '2024-01-10',
-                projects: 1
+                projects: ['夏のレシートキャンペーン']
             }
         ];
 
@@ -295,8 +317,10 @@
             usersList.innerHTML = '';
 
             userList.forEach(user => {
-                const roleBadge = getRoleBadge(user.role);
                 const statusBadge = getStatusBadge(user.status);
+                const roleBadge = getRoleBadge(user.role);
+                const projectsText = user.projects.length > 0 ? user.projects.join(', ') : 'なし';
+                
                 const listItem = document.createElement('li');
                 listItem.innerHTML = `
                     <div class="px-4 py-4 sm:px-6">
@@ -310,18 +334,14 @@
                                 <div class="ml-4">
                                     <div class="flex items-center">
                                         <p class="text-sm font-medium text-gray-900">${user.name}</p>
-                                        ${roleBadge}
                                         ${statusBadge}
+                                        ${roleBadge}
                                     </div>
                                     <p class="text-sm text-gray-500">${user.email}</p>
-                                    <p class="text-sm text-gray-500">プロジェクト数: ${user.projects}件</p>
+                                    <p class="text-sm text-gray-500">プロジェクト: ${projectsText}</p>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-2">
-                                <button onclick="viewUser('${user.id}')" 
-                                        class="text-primary hover:text-blue-700 text-sm font-medium">
-                                    表示
-                                </button>
                                 <button onclick="editUser('${user.id}')" 
                                         class="text-gray-600 hover:text-gray-900 text-sm font-medium">
                                     編集
@@ -354,30 +374,22 @@
             });
         }
 
-        // 権限バッジを取得
-        function getRoleBadge(role) {
-            const badges = {
-                admin: '<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">管理者</span>',
-                client: '<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">クライアント</span>'
-            };
-            return badges[role] || badges.client;
-        }
-
         // ステータスバッジを取得
         function getStatusBadge(status) {
             const badges = {
                 active: '<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">有効</span>',
-                inactive: '<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">無効</span>'
+                inactive: '<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">無効</span>'
             };
-            return badges[status] || badges.active;
+            return badges[status] || badges.inactive;
         }
 
-        // ユーザー表示
-        function viewUser(userId) {
-            const user = users.find(u => u.id === userId);
-            if (user) {
-                alert(`ユーザー「${user.name}」の詳細を表示します。`);
-            }
+        // 権限バッジを取得
+        function getRoleBadge(role) {
+            const badges = {
+                admin: '<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">管理者</span>',
+                client: '<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">クライアント</span>'
+            };
+            return badges[role] || badges.client;
         }
 
         // ユーザー編集
@@ -389,7 +401,6 @@
                 document.getElementById('edit-user-email').value = user.email;
                 document.getElementById('edit-user-role').value = user.role;
                 document.getElementById('edit-user-status').value = user.status;
-                document.getElementById('edit-user-password').value = '';
                 document.getElementById('edit-user-modal').classList.remove('hidden');
             }
         }
@@ -422,7 +433,7 @@
         }
 
         // 検索機能
-        document.getElementById('search').addEventListener('input', function(e) {
+        document.getElementById('user-search').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const filteredUsers = users.filter(user => 
                 user.name.toLowerCase().includes(searchTerm) ||
@@ -431,18 +442,27 @@
             renderUsers(filteredUsers);
         });
 
-        // 権限フィルター
-        document.getElementById('role-filter').addEventListener('change', function(e) {
-            const role = e.target.value;
-            const filteredUsers = role ? users.filter(user => user.role === role) : users;
+        // プロジェクトソート
+        document.getElementById('project-sort').addEventListener('change', function(e) {
+            const project = e.target.value;
+            const filteredUsers = project ? users.filter(user => user.projects.includes(project)) : users;
             renderUsers(filteredUsers);
         });
 
-        // ステータスフィルター
-        document.getElementById('status-filter').addEventListener('change', function(e) {
-            const status = e.target.value;
-            const filteredUsers = status ? users.filter(user => user.status === status) : users;
-            renderUsers(filteredUsers);
+        // 日付ソート
+        document.getElementById('date-sort').addEventListener('change', function(e) {
+            const sort = e.target.value;
+            const sortedUsers = [...users].sort((a, b) => {
+                const dateA = new Date(a.createdAt).getTime();
+                const dateB = new Date(b.createdAt).getTime();
+                if (sort === 'newest') {
+                    return dateB - dateA;
+                } else if (sort === 'oldest') {
+                    return dateA - dateB;
+                }
+                return 0;
+            });
+            renderUsers(sortedUsers);
         });
 
         // フォーム送信処理
@@ -453,11 +473,11 @@
                 id: 'user' + Date.now(),
                 name: formData.get('userName'),
                 email: formData.get('email'),
-                role: formData.get('role'),
+                role: 'client', // デフォルトでクライアント
                 status: 'active',
                 createdAt: new Date().toISOString().split('T')[0],
                 lastLogin: '-',
-                projects: 0
+                projects: []
             };
             users.push(newUser);
             renderUsers();
@@ -476,6 +496,9 @@
                 user.email = formData.get('email');
                 user.role = formData.get('role');
                 user.status = formData.get('status');
+                if (formData.get('password')) {
+                    // パスワード更新処理
+                }
                 renderUsers();
                 closeEditUserModal();
                 alert('ユーザーを更新しました。');
