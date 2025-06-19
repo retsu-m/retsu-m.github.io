@@ -86,67 +86,9 @@
                     キャンペーンへのご応募ありがとうございました。<br>
                     応募内容を確認の上、当選発表までお待ちください。
                 </p>
-
-                <!-- 応募番号 -->
-                <div class="bg-gray-50 rounded-lg p-6 mb-8">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">応募番号</h3>
-                    <p class="text-2xl font-bold text-primary" id="application-number">
-                        <!-- 応募番号はJavaScriptで生成 -->
-                    </p>
-                    <p class="text-sm text-gray-600 mt-2">
-                        この番号は当選発表時に必要になりますので、お控えください。
-                    </p>
-                </div>
-
-                <!-- 今後の流れ -->
-                <div class="bg-blue-50 rounded-lg p-6 mb-8">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">今後の流れ</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="text-center">
-                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                                <span class="text-blue-600 font-bold">1</span>
-                            </div>
-                            <h4 class="font-medium text-gray-900 mb-2">応募受付</h4>
-                            <p class="text-sm text-gray-600">応募内容を確認いたします</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                                <span class="text-blue-600 font-bold">2</span>
-                            </div>
-                            <h4 class="font-medium text-gray-900 mb-2">抽選</h4>
-                            <p class="text-sm text-gray-600">厳正な抽選を実施いたします</p>
-                        </div>
-                        <div class="text-center">
-                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                                <span class="text-blue-600 font-bold">3</span>
-                            </div>
-                            <h4 class="font-medium text-gray-900 mb-2">当選発表</h4>
-                            <p class="text-sm text-gray-600">メールでご連絡いたします</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 注意事項 -->
-                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-8">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                            </svg>
-                        </div>
-                        <div class="ml-3">
-                            <h3 class="text-sm font-medium text-yellow-800">ご注意</h3>
-                            <div class="mt-2 text-sm text-yellow-700">
-                                <ul class="list-disc list-inside space-y-1">
-                                    <li>当選発表は2024年10月15日までにメールでご連絡いたします</li>
-                                    <li>迷惑メールフォルダに振り分けられる可能性があります</li>
-                                    <li>応募番号は大切に保管してください</li>
-                                    <li>当選発表後の賞品発送は1週間以内を予定しています</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <p class="text-base text-gray-600 mb-8">
+                    当選は発送をもって返させていただきます。
+                </p>
 
                 <!-- ボタン -->
                 <div class="space-y-4">
@@ -188,21 +130,8 @@
     <script>
         // ページ読み込み時の初期化
         document.addEventListener('DOMContentLoaded', function() {
-            generateApplicationNumber();
             sendCompletionEmail();
         });
-
-        // 応募番号を生成
-        function generateApplicationNumber() {
-            const timestamp = Date.now();
-            const random = Math.floor(Math.random() * 1000);
-            const applicationNumber = `APP${timestamp}${random.toString().padStart(3, '0')}`;
-            
-            document.getElementById('application-number').textContent = applicationNumber;
-            
-            // ローカルストレージに保存
-            localStorage.setItem('applicationNumber', applicationNumber);
-        }
 
         // 完了メール送信（シミュレーション）
         function sendCompletionEmail() {

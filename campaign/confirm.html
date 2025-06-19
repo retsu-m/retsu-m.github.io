@@ -204,7 +204,7 @@
                     const div = document.createElement('div');
                     div.className = 'bg-gray-50 rounded-lg p-4';
                     div.innerHTML = `
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between mb-4">
                             <div class="flex items-center">
                                 <svg class="w-8 h-8 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -215,6 +215,9 @@
                                 </div>
                             </div>
                         </div>
+                        ${receipt.data ? `<div class="mt-4">
+                            <img src="${receipt.data}" alt="レシート画像" class="max-w-xs mx-auto rounded-lg shadow-sm border border-gray-200">
+                        </div>` : ''}
                     `;
                     receiptConfirm.appendChild(div);
                 });

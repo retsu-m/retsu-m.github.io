@@ -272,6 +272,9 @@
                     const image = document.getElementById(`receipt-image-${index}`);
                     image.src = e.target.result;
                     preview.classList.remove('hidden');
+                    
+                    // ファイルデータを保存（確認画面で使用）
+                    input.dataset.imageData = e.target.result;
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -303,9 +306,57 @@
                 }
             });
 
+            // レシートアップロードのバリデーション
+            let hasReceipt = false;
+            for (let i = 0; i < receiptCount; i++) {
+                const fileInput = document.getElementById(`receipt-file-${i}`);
+                if (fileInput && fileInput.files[0]) {
+                    hasReceipt = true;
+                    break;
+                }
+            }
+
+            if (!hasReceipt) {
+                // エラーメッセージを表示
+                const errorDiv = document.createElement('div');
+                errorDiv.id = 'receipt-error';
+                errorDiv.className = 'mt-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md p-3';
+                errorDiv.innerHTML = `
+                    <div class="flex">
+                        <svg class="h-5 w-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                        <span>レシートをアップロードしてください</span>
+                    </div>
+                `;
+                
+                // 既存のエラーメッセージがあれば削除
+                const existingError = document.getElementById('receipt-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+                
+                // レシートアップロードエリアの後にエラーメッセージを挿入
+                const uploadArea = document.getElementById('receipt-upload-area');
+                uploadArea.parentNode.insertBefore(errorDiv, uploadArea.nextSibling);
+                
+                isValid = false;
+            } else {
+                // エラーメッセージを削除
+                const existingError = document.getElementById('receipt-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+            }
+
             if (!isValid) {
-                alert('必須項目を入力してください。');
-                return;
+                if (!hasReceipt) {
+                    // レシートエラーの場合はアラートを表示しない（エラーメッセージで十分）
+                    return;
+                } else {
+                    alert('必須項目を入力してください。');
+                    return;
+                }
             }
 
             // フォームデータを収集
@@ -329,7 +380,8 @@
                 if (fileInput && fileInput.files[0]) {
                     applicationData.receipts.push({
                         name: fileInput.files[0].name,
-                        size: fileInput.files[0].size
+                        size: fileInput.files[0].size,
+                        data: fileInput.dataset.imageData || null // Base64データを保存
                     });
                 }
             }
