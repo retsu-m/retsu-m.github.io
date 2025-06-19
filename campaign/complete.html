@@ -131,6 +131,11 @@
         // ページ読み込み時の初期化
         document.addEventListener('DOMContentLoaded', function() {
             sendCompletionEmail();
+            var year = localStorage.getItem('projectYear') || new Date().getFullYear();
+            var footer = document.querySelector('footer .text-gray-400');
+            if (footer) {
+                footer.textContent = `© ${year} [キャンペーン名] All rights reserved.`;
+            }
         });
 
         // 完了メール送信（シミュレーション）

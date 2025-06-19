@@ -150,6 +150,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadApplicationData();
             renderConfirmation();
+            var year = localStorage.getItem('projectYear') || new Date().getFullYear();
+            var footer = document.querySelector('footer .text-gray-400');
+            if (footer) {
+                footer.textContent = `© ${year} [キャンペーン名] All rights reserved.`;
+            }
         });
 
         // アプリケーションデータを読み込み

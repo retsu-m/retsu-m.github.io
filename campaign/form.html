@@ -176,6 +176,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             renderQuestions();
             addReceiptUpload(); // 最初のレシートアップロードエリアを追加
+            var year = localStorage.getItem('projectYear') || new Date().getFullYear();
+            var footer = document.querySelector('footer .text-gray-400');
+            if (footer) {
+                footer.textContent = `© ${year} [キャンペーン名] All rights reserved.`;
+            }
         });
 
         // 質問フィールドを表示
