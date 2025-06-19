@@ -243,10 +243,7 @@
                                             応募日時 <span class="text-gray-400">▼</span>
                                         </th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            レシート番号
-                                        </th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            ステータス
+                                            レシートURL
                                         </th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             操作
@@ -406,11 +403,6 @@
             document.getElementById('submission-detail-modal').classList.add('hidden');
         }
 
-        // レシート却下
-        function rejectReceipt(submissionId, receiptIndex) {
-            alert(`応募者 ${submissionId} のレシート ${receiptIndex + 1} を却下しました。`);
-        }
-
         // 応募者削除
         function deleteSubmission(submissionId) {
             if (confirm('この応募者を削除しますか？')) {
@@ -457,15 +449,10 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${submission.name}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${submission.email}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${submission.date}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${submission.receiptNumber}枚目</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                            submission.status === '承認済み' ? 'bg-green-100 text-green-800' :
-                            submission.status === '却下' ? 'bg-red-100 text-red-800' :
-                            'bg-yellow-100 text-yellow-800'
-                        }">
-                            ${submission.status}
-                        </span>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <a href="/receipts/${submission.receiptId}.jpg" target="_blank" class="text-primary hover:text-blue-700 underline">
+                            レシート${submission.receiptNumber}を表示
+                        </a>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                         <button onclick="viewSubmissionDetail(${submission.id})" class="text-primary hover:text-blue-700">詳細</button>
@@ -510,10 +497,7 @@
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-gray-600">receipt1.jpg</span>
-                                <div class="space-x-2">
-                                    <button onclick="approveReceipt(1, 0)" class="text-green-600 hover:text-green-800 text-sm">承認</button>
-                                    <button onclick="rejectReceipt(1, 0)" class="text-red-600 hover:text-red-800 text-sm">却下</button>
-                                </div>
+                                <a href="/receipts/1-1.jpg" target="_blank" class="text-primary hover:text-blue-700 text-sm underline">画像を表示</a>
                             </div>
                         </div>
                         <div class="border border-gray-200 rounded-lg p-4">
@@ -522,10 +506,7 @@
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-gray-600">receipt2.jpg</span>
-                                <div class="space-x-2">
-                                    <button onclick="approveReceipt(1, 1)" class="text-green-600 hover:text-green-800 text-sm">承認</button>
-                                    <button onclick="rejectReceipt(1, 1)" class="text-red-600 hover:text-red-800 text-sm">却下</button>
-                                </div>
+                                <a href="/receipts/1-2.jpg" target="_blank" class="text-primary hover:text-blue-700 text-sm underline">画像を表示</a>
                             </div>
                         </div>
                     </div>
@@ -533,10 +514,6 @@
             `;
             
             modal.classList.remove('hidden');
-        }
-
-        function approveReceipt(submissionId, receiptIndex) {
-            alert(`応募者 ${submissionId} のレシート ${receiptIndex + 1} を承認しました。`);
         }
 
         // ページ読み込み時の初期化
