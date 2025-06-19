@@ -75,6 +75,14 @@
                 <h2 class="text-2xl font-bold text-gray-900 mb-6">応募内容の確認</h2>
                 
                 <div class="space-y-8">
+                    <!-- 個人情報 -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">個人情報</h3>
+                        <div id="personal-info-confirm" class="space-y-4">
+                            <!-- 個人情報はJavaScriptで動的に生成 -->
+                        </div>
+                    </div>
+
                     <!-- アンケート回答 -->
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">アンケート回答</h3>
@@ -170,8 +178,42 @@
 
         // 確認内容を表示
         function renderConfirmation() {
+            renderPersonalInfoConfirm();
             renderQuestionConfirm();
             renderReceiptConfirm();
+        }
+
+        // 個人情報を表示
+        function renderPersonalInfoConfirm() {
+            const personalInfoConfirm = document.getElementById('personal-info-confirm');
+            personalInfoConfirm.innerHTML = '';
+
+            const personalInfoLabels = {
+                name: '名前',
+                email: 'メールアドレス',
+                email_confirm: 'メールアドレス確認用',
+                postal_code: '郵便番号',
+                address: '住所',
+                phone: '電話番号'
+            };
+
+            Object.keys(applicationData.personalInfo).forEach(key => {
+                const value = applicationData.personalInfo[key];
+                const label = personalInfoLabels[key] || key;
+                const div = document.createElement('div');
+                div.className = 'bg-gray-50 rounded-lg p-4';
+                div.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-1">
+                            <span class="text-sm font-medium text-gray-900">${label}</span>
+                        </div>
+                        <div class="md:col-span-2">
+                            <span class="text-sm text-gray-600">${value || '未入力'}</span>
+                        </div>
+                    </div>
+                `;
+                personalInfoConfirm.appendChild(div);
+            });
         }
 
         // 質問回答を表示
@@ -231,6 +273,29 @@
                     </div>
                 `
             }
+        }
+
+        // ファイルサイズをフォーマット
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // 戻るボタン
+        function goBack() {
+            window.location.href = 'form.html';
+        }
+
+        // 応募確定
+        function submitApplication() {
+            // 実際の実装ではサーバーにデータを送信
+            alert('応募が完了しました。ご応募ありがとうございます。');
+            
+            // 完了画面へ遷移
+            window.location.href = 'complete.html';
         }
     </script>
 </body>

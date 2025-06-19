@@ -73,6 +73,65 @@
                 <h2 class="text-2xl font-bold text-gray-900 mb-6">応募フォーム</h2>
                 
                 <form id="application-form" class="space-y-8">
+                    <!-- 個人情報セクション -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">個人情報</h3>
+                        <div class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">
+                                        名前 <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" name="name" required
+                                           placeholder="例: 田中太郎"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">
+                                        メールアドレス <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="email" name="email" required
+                                           placeholder="例: tanaka@example.com"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">
+                                    メールアドレス確認用 <span class="text-red-500">*</span>
+                                </label>
+                                <input type="email" name="email_confirm" required
+                                       placeholder="例: tanaka@example.com"
+                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">
+                                        郵便番号 <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" name="postal_code" required
+                                           placeholder="例: 123-4567"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">
+                                        電話番号 <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="tel" name="phone" required
+                                           placeholder="例: 090-1234-5678"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">
+                                    住所 <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" name="address" required
+                                       placeholder="例: 東京都渋谷区渋谷1-1-1"
+                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- アンケートセクション -->
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">アンケート</h3>
@@ -141,31 +200,24 @@
         const questions = [
             {
                 id: 1,
-                type: 'text',
-                question: 'お名前',
-                required: true,
-                placeholder: '例: 田中太郎'
-            },
-            {
-                id: 2,
-                type: 'email',
-                question: 'メールアドレス',
-                required: true,
-                placeholder: '例: tanaka@example.com'
-            },
-            {
-                id: 3,
-                type: 'tel',
-                question: '電話番号',
-                required: false,
-                placeholder: '例: 090-1234-5678'
-            },
-            {
-                id: 4,
                 type: 'textarea',
                 question: 'ご意見・ご感想',
                 required: false,
                 placeholder: 'キャンペーンについてのご意見やご感想をお聞かせください'
+            },
+            {
+                id: 2,
+                type: 'radio',
+                question: 'このキャンペーンをどこでお知りになりましたか？',
+                required: false,
+                options: ['テレビCM', 'インターネット広告', 'SNS', '友人・知人', 'その他']
+            },
+            {
+                id: 3,
+                type: 'checkbox',
+                question: '今後もこのようなキャンペーンに参加したいですか？',
+                required: false,
+                options: ['はい', 'いいえ', 'どちらともいえない']
             }
         ];
 
@@ -200,6 +252,30 @@
                                       placeholder="${question.placeholder}"
                                       rows="4"
                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                        `;
+                        break;
+                    case 'radio':
+                        inputHtml = `
+                            <div class="space-y-2">
+                                ${question.options.map(option => `
+                                    <label class="flex items-center">
+                                        <input type="radio" name="question_${question.id}" value="${option}" class="form-radio h-4 w-4 text-primary">
+                                        <span class="ml-2">${option}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        `;
+                        break;
+                    case 'checkbox':
+                        inputHtml = `
+                            <div class="space-y-2">
+                                ${question.options.map(option => `
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="question_${question.id}" value="${option}" class="form-checkbox h-4 w-4 text-primary">
+                                        <span class="ml-2">${option}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
                         `;
                         break;
                     default:
@@ -298,10 +374,12 @@
         document.getElementById('application-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // バリデーション
-            const requiredFields = document.querySelectorAll('[required]');
+            // 個人情報のバリデーション
             let isValid = true;
-            
+            const errorMessages = [];
+
+            // 必須フィールドのチェック
+            const requiredFields = document.querySelectorAll('[required]');
             requiredFields.forEach(field => {
                 if (!field.value.trim()) {
                     isValid = false;
@@ -310,6 +388,46 @@
                     field.classList.remove('border-red-500');
                 }
             });
+
+            // メールアドレス確認のチェック
+            const emailField = document.querySelector('input[name="email"]');
+            const emailConfirmField = document.querySelector('input[name="email_confirm"]');
+            
+            if (emailField && emailConfirmField) {
+                if (emailField.value !== emailConfirmField.value) {
+                    isValid = false;
+                    emailConfirmField.classList.add('border-red-500');
+                    errorMessages.push('メールアドレスが一致しません');
+                } else {
+                    emailConfirmField.classList.remove('border-red-500');
+                }
+            }
+
+            // 郵便番号の形式チェック
+            const postalField = document.querySelector('input[name="postal_code"]');
+            if (postalField && postalField.value) {
+                const postalPattern = /^\d{3}-?\d{4}$/;
+                if (!postalPattern.test(postalField.value)) {
+                    isValid = false;
+                    postalField.classList.add('border-red-500');
+                    errorMessages.push('郵便番号の形式が正しくありません（例: 123-4567）');
+                } else {
+                    postalField.classList.remove('border-red-500');
+                }
+            }
+
+            // 電話番号の形式チェック
+            const phoneField = document.querySelector('input[name="phone"]');
+            if (phoneField && phoneField.value) {
+                const phonePattern = /^0\d{1,4}-?\d{1,4}-?\d{4}$/;
+                if (!phonePattern.test(phoneField.value)) {
+                    isValid = false;
+                    phoneField.classList.add('border-red-500');
+                    errorMessages.push('電話番号の形式が正しくありません（例: 090-1234-5678）');
+                } else {
+                    phoneField.classList.remove('border-red-500');
+                }
+            }
 
             // レシートアップロードのバリデーション
             let hasReceipt = false;
@@ -355,18 +473,28 @@
             }
 
             if (!isValid) {
-                if (!hasReceipt) {
+                if (errorMessages.length > 0) {
+                    alert('以下のエラーがあります：\n' + errorMessages.join('\n'));
+                } else if (!hasReceipt) {
                     // レシートエラーの場合はアラートを表示しない（エラーメッセージで十分）
                     return;
                 } else {
                     alert('必須項目を入力してください。');
-                    return;
                 }
+                return;
             }
 
             // フォームデータを収集
             const formData = new FormData(this);
             const applicationData = {
+                personalInfo: {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    email_confirm: formData.get('email_confirm'),
+                    postal_code: formData.get('postal_code'),
+                    address: formData.get('address'),
+                    phone: formData.get('phone')
+                },
                 questions: {},
                 receipts: []
             };
@@ -396,6 +524,24 @@
             
             // 確認画面へ遷移
             window.location.href = 'confirm.html';
+        });
+
+        // メールアドレス確認のリアルタイムバリデーション
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailField = document.querySelector('input[name="email"]');
+            const emailConfirmField = document.querySelector('input[name="email_confirm"]');
+            
+            if (emailConfirmField) {
+                emailConfirmField.addEventListener('input', function() {
+                    if (emailField && emailField.value && this.value) {
+                        if (emailField.value !== this.value) {
+                            this.classList.add('border-red-500');
+                        } else {
+                            this.classList.remove('border-red-500');
+                        }
+                    }
+                });
+            }
         });
 
         // ドラッグ&ドロップ機能
