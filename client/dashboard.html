@@ -18,8 +18,514 @@
     </script>
 </head>
 <body class="bg-gray-50">
+    <div class="flex">
+        <!-- サイドメニュー -->
+        <div class="w-64 bg-white shadow-sm min-h-screen">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">プロジェクトメニュー</h2>
+                <nav class="space-y-2">
+                    <a href="#" onclick="showDashboard()" id="menu-dashboard" 
+                       class="flex items-center px-3 py-2 text-sm font-medium text-white bg-primary rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
+                        </svg>
+                        ダッシュボード
+                    </a>
+                    <a href="#" onclick="showUserManagement()" id="menu-users"
+                       class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                        ユーザー作成
+                    </a>
+                    <a href="#" onclick="showSubmissions()" id="menu-submissions"
+                       class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        応募者管理
+                    </a>
+                    <a href="#" onclick="showProjectSetup()" id="menu-setup"
+                       class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        プロジェクトセットアップ
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- メインコンテンツ -->
+        <div class="flex-1 p-8">
+            <!-- ダッシュボードコンテンツ -->
+            <div id="dashboard-content">
+                <!-- ページヘッダー -->
+                <div class="px-4 py-6 sm:px-0">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold text-gray-900">プロジェクトダッシュボード</h2>
+                        <div class="flex space-x-3">
+                            <button onclick="previewProject()" 
+                                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                プレビュー
+                            </button>
+                            <button onclick="publishProject()" 
+                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                公開する
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- プロジェクト情報 -->
+                <div class="bg-white shadow rounded-lg mb-6">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">プロジェクト情報</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">プロジェクト名</label>
+                                <p class="mt-1 text-sm text-gray-900" id="display-project-name">-</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">クライアント名</label>
+                                <p class="mt-1 text-sm text-gray-900" id="display-client-name">-</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">プロジェクトID</label>
+                                <p class="mt-1 text-sm text-gray-900" id="display-project-id">-</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">作成日</label>
+                                <p class="mt-1 text-sm text-gray-900" id="display-created-date">-</p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700">説明</label>
+                            <p class="mt-1 text-sm text-gray-900" id="display-description">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 統計情報 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <dl>
+                                        <dt class="text-sm font-medium text-gray-500 truncate">総応募数</dt>
+                                        <dd class="text-lg font-medium text-gray-900" id="total-submissions">0</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <dl>
+                                        <dt class="text-sm font-medium text-gray-500 truncate">今日の応募数</dt>
+                                        <dd class="text-lg font-medium text-gray-900" id="today-submissions">0</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17v4a2 2 0 002 2h4M15 7l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <dl>
+                                        <dt class="text-sm font-medium text-gray-500 truncate">ステータス</dt>
+                                        <dd class="text-lg font-medium text-gray-900" id="project-status">-</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 最近の応募 -->
+                <div class="bg-white shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">最近の応募</h3>
+                        <div class="overflow-hidden">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">応募日時</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">応募者名</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メールアドレス</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">レシート枚数</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200" id="recent-submissions">
+                                    <tr>
+                                        <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">
+                                            まだ応募がありません
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ユーザー管理コンテンツ -->
+            <div id="user-content" class="hidden">
+                <div class="px-4 py-6 sm:px-0">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900">ユーザー作成</h2>
+                        <button onclick="showNewUserModal()" 
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            新規ユーザー作成
+                        </button>
+                    </div>
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">ユーザー一覧</h3>
+                            <div class="overflow-hidden">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ユーザー名</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メールアドレス</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">作成日</th>
+                                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200" id="users-table">
+                                        <tr>
+                                            <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">
+                                                まだユーザーが作成されていません
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 応募者管理コンテンツ -->
+            <div id="submissions-content" class="hidden">
+                <div class="px-4 py-6 sm:px-0">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">応募者管理</h2>
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">応募者一覧</h3>
+                            <div class="overflow-hidden">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">応募日時</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">応募者名</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メールアドレス</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">レシート枚数</th>
+                                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200" id="submissions-table">
+                                        <tr>
+                                            <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">
+                                                まだ応募がありません
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- プロジェクトセットアップコンテンツ -->
+            <div id="setup-content" class="hidden">
+                <div class="px-4 py-6 sm:px-0">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900">プロジェクトセットアップ</h2>
+                        <div class="flex space-x-3">
+                            <button onclick="previewSetup()" 
+                                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                プレビュー
+                            </button>
+                            <button onclick="testSetup()" 
+                                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                テスト
+                            </button>
+                            <button onclick="publishSetup()" 
+                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                公開
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- セットアップタブ -->
+                    <div class="bg-white shadow rounded-lg mb-6">
+                        <div class="border-b border-gray-200">
+                            <nav class="-mb-px flex space-x-8 px-6">
+                                <button id="tab-campaign" onclick="switchSetupTab('campaign')" 
+                                        class="border-primary text-primary whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                                    キャンペーン設定
+                                </button>
+                                <button id="tab-form" onclick="switchSetupTab('form')" 
+                                        class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                                    フォーム設定
+                                </button>
+                                <button id="tab-images" onclick="switchSetupTab('images')" 
+                                        class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                                    画像設定
+                                </button>
+                            </nav>
+                        </div>
+
+                        <!-- キャンペーン設定タブ -->
+                        <div id="campaign-tab" class="p-6">
+                            <form id="campaign-form" class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="campaign-title" class="block text-sm font-medium text-gray-700">キャンペーンタイトル</label>
+                                        <input type="text" id="campaign-title" name="title" required
+                                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                               placeholder="例: 夏のレシートキャンペーン">
+                                    </div>
+                                    <div>
+                                        <label for="target-products" class="block text-sm font-medium text-gray-700">対象商品</label>
+                                        <input type="text" id="target-products" name="products"
+                                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                               placeholder="例: 食品、飲料">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="target-stores" class="block text-sm font-medium text-gray-700">対象店舗</label>
+                                    <input type="text" id="target-stores" name="stores"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           placeholder="例: 全国のコンビニエンスストア">
+                                </div>
+
+                                <div>
+                                    <label for="application-method" class="block text-sm font-medium text-gray-700">応募方法</label>
+                                    <textarea id="application-method" name="method" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              placeholder="応募方法を詳しく記載してください"></textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="prizes" class="block text-sm font-medium text-gray-700">賞品・当選者数</label>
+                                        <textarea id="prizes" name="prizes" rows="3"
+                                                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                  placeholder="賞品と当選者数を記載してください"></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="campaign-period" class="block text-sm font-medium text-gray-700">キャンペーン期間（対象となるレシートの期間）</label>
+                                        <input type="text" id="campaign-period" name="period"
+                                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                               placeholder="例: 2024年7月1日〜8月31日">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="application-period" class="block text-sm font-medium text-gray-700">応募受付期間</label>
+                                        <input type="text" id="application-period" name="applicationPeriod"
+                                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                               placeholder="例: 2024年7月1日〜9月30日">
+                                    </div>
+                                    <div>
+                                        <label for="eligibility" class="block text-sm font-medium text-gray-700">応募資格</label>
+                                        <input type="text" id="eligibility" name="eligibility"
+                                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                               placeholder="例: 日本国内在住の方">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="announcement" class="block text-sm font-medium text-gray-700">当選発表・賞品発送</label>
+                                    <textarea id="announcement" name="announcement" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              placeholder="当選発表方法と賞品発送について記載してください"></textarea>
+                                </div>
+
+                                <div>
+                                    <label for="notes" class="block text-sm font-medium text-gray-700">ご注意</label>
+                                    <textarea id="notes" name="notes" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              placeholder="注意事項を記載してください"></textarea>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="environment" class="block text-sm font-medium text-gray-700">推奨環境</label>
+                                        <textarea id="environment" name="environment" rows="3"
+                                                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                  placeholder="推奨ブラウザやデバイスについて記載してください"></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="privacy" class="block text-sm font-medium text-gray-700">個人情報の取り扱いについて</label>
+                                        <textarea id="privacy" name="privacy" rows="3"
+                                                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                  placeholder="個人情報の取り扱いについて記載してください"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="law" class="block text-sm font-medium text-gray-700">準拠法及び管轄裁判所</label>
+                                        <textarea id="law" name="law" rows="3"
+                                                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                  placeholder="準拠法と管轄裁判所について記載してください"></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="contact" class="block text-sm font-medium text-gray-700">お問い合わせ先</label>
+                                        <textarea id="contact" name="contact" rows="3"
+                                                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                  placeholder="お問い合わせ先を記載してください"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- フォーム設定タブ -->
+                        <div id="form-tab" class="p-6 hidden">
+                            <div class="space-y-6">
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-900 mb-4">アンケート項目設定</h3>
+                                    <div id="question-list" class="space-y-4">
+                                        <!-- 質問項目はJavaScriptで動的に生成 -->
+                                    </div>
+                                    <button type="button" onclick="addQuestion()" 
+                                            class="mt-4 inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                        </svg>
+                                        質問を追加
+                                    </button>
+                                </div>
+
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-900 mb-4">レシートアップロード設定</h3>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label for="max-receipts" class="block text-sm font-medium text-gray-700">最大アップロード枚数</label>
+                                            <input type="number" id="max-receipts" name="maxReceipts" min="1" max="20" value="20"
+                                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                            <p class="mt-1 text-sm text-gray-500">1〜20枚の間で設定してください</p>
+                                        </div>
+                                        <div>
+                                            <label for="receipt-instructions" class="block text-sm font-medium text-gray-700">アップロード説明</label>
+                                            <textarea id="receipt-instructions" name="receiptInstructions" rows="3"
+                                                      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                                      placeholder="レシートアップロードについての説明を記載してください"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 画像設定タブ -->
+                        <div id="images-tab" class="p-6 hidden">
+                            <div class="space-y-6">
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-900 mb-4">メインビジュアル</h3>
+                                    <div class="space-y-4">
+                                        <div class="flex items-center space-x-4">
+                                            <div class="w-32 h-32 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center" id="main-visual-preview">
+                                                <div class="text-center">
+                                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                    <p class="mt-1 text-sm text-gray-600">画像をアップロード</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex-1">
+                                                <input type="file" id="main-visual" name="mainVisual" accept="image/*" class="hidden" onchange="previewMainVisual(this)">
+                                                <button type="button" onclick="document.getElementById('main-visual').click()" 
+                                                        class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                                    画像を選択
+                                                </button>
+                                                <p class="mt-2 text-sm text-gray-500">推奨サイズ: 1200x600px、最大5MB</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 class="text-lg font-medium text-gray-900 mb-4">その他の画像</h3>
+                                    <div class="space-y-4">
+                                        <div class="flex items-center space-x-4">
+                                            <div class="w-32 h-32 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center" id="other-image-preview">
+                                                <div class="text-center">
+                                                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                    <p class="mt-1 text-sm text-gray-600">画像をアップロード</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex-1">
+                                                <input type="file" id="other-image" name="otherImage" accept="image/*" class="hidden" onchange="previewOtherImage(this)">
+                                                <button type="button" onclick="document.getElementById('other-image').click()" 
+                                                        class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                                    画像を選択
+                                                </button>
+                                                <p class="mt-2 text-sm text-gray-500">追加の画像があればアップロードしてください</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ナビゲーションバー -->
-    <nav class="bg-white shadow-sm border-b border-gray-200">
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
@@ -35,145 +541,68 @@
         </div>
     </nav>
 
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <!-- ページヘッダー -->
-        <div class="px-4 py-6 sm:px-0">
-            <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-bold text-gray-900">プロジェクトダッシュボード</h2>
-                <div class="flex space-x-3">
-                    <button onclick="previewProject()" 
-                            class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                        </svg>
-                        プレビュー
-                    </button>
-                    <button onclick="publishProject()" 
-                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        公開する
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- プロジェクト情報 -->
-        <div class="bg-white shadow rounded-lg mb-6">
-            <div class="px-4 py-5 sm:p-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">プロジェクト情報</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- 新規ユーザー作成モーダル -->
+    <div id="new-user-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">新規ユーザー作成</h3>
+                <form id="new-user-form" class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">プロジェクト名</label>
-                        <p class="mt-1 text-sm text-gray-900" id="display-project-name">-</p>
+                        <label for="user-name" class="block text-sm font-medium text-gray-700">ユーザー名</label>
+                        <input type="text" id="user-name" name="userName" required
+                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">クライアント名</label>
-                        <p class="mt-1 text-sm text-gray-900" id="display-client-name">-</p>
+                        <label for="user-email" class="block text-sm font-medium text-gray-700">メールアドレス</label>
+                        <input type="email" id="user-email" name="userEmail" required
+                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">プロジェクトID</label>
-                        <p class="mt-1 text-sm text-gray-900" id="display-project-id">-</p>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" onclick="closeNewUserModal()"
+                                class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                            キャンセル
+                        </button>
+                        <button type="submit"
+                                class="px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            作成
+                        </button>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">作成日</label>
-                        <p class="mt-1 text-sm text-gray-900" id="display-created-date">-</p>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <label class="block text-sm font-medium text-gray-700">説明</label>
-                    <p class="mt-1 text-sm text-gray-900" id="display-description">-</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 統計情報 -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <div class="bg-white overflow-hidden shadow rounded-lg">
-                <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">総応募数</dt>
-                                <dd class="text-lg font-medium text-gray-900" id="total-submissions">0</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white overflow-hidden shadow rounded-lg">
-                <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">今日の応募数</dt>
-                                <dd class="text-lg font-medium text-gray-900" id="today-submissions">0</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white overflow-hidden shadow rounded-lg">
-                <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17v4a2 2 0 002 2h4M15 7l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path>
-                            </svg>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">ステータス</dt>
-                                <dd class="text-lg font-medium text-gray-900" id="project-status">-</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 最近の応募 -->
-        <div class="bg-white shadow rounded-lg">
-            <div class="px-4 py-5 sm:p-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">最近の応募</h3>
-                <div class="overflow-hidden">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">応募日時</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">応募者名</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メールアドレス</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">レシート枚数</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200" id="recent-submissions">
-                            <tr>
-                                <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">
-                                    まだ応募がありません
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 
     <script>
+        // サンプル質問データ
+        let questions = [
+            {
+                id: 1,
+                type: 'text',
+                question: 'お名前',
+                required: true
+            },
+            {
+                id: 2,
+                type: 'email',
+                question: 'メールアドレス',
+                required: true
+            },
+            {
+                id: 3,
+                type: 'tel',
+                question: '電話番号',
+                required: false
+            },
+            {
+                id: 4,
+                type: 'textarea',
+                question: 'ご意見・ご感想',
+                required: false
+            }
+        ];
+
+        let questionId = 5;
+
         // 認証チェック
         function checkAuth() {
             const currentProject = localStorage.getItem('currentProject');
@@ -209,7 +638,282 @@
             window.location.href = 'setup.html';
         }
 
-        // プレビュー
+        // メニュー切り替え機能
+        function showDashboard() {
+            hideAllContent();
+            document.getElementById('dashboard-content').classList.remove('hidden');
+            updateMenuActive('dashboard');
+        }
+
+        function showUserManagement() {
+            hideAllContent();
+            document.getElementById('user-content').classList.remove('hidden');
+            updateMenuActive('users');
+            loadUsers();
+        }
+
+        function showSubmissions() {
+            hideAllContent();
+            document.getElementById('submissions-content').classList.remove('hidden');
+            updateMenuActive('submissions');
+            loadSubmissions();
+        }
+
+        function showProjectSetup() {
+            hideAllContent();
+            document.getElementById('setup-content').classList.remove('hidden');
+            updateMenuActive('setup');
+            renderQuestions();
+        }
+
+        function hideAllContent() {
+            document.getElementById('dashboard-content').classList.add('hidden');
+            document.getElementById('user-content').classList.add('hidden');
+            document.getElementById('submissions-content').classList.add('hidden');
+            document.getElementById('setup-content').classList.add('hidden');
+        }
+
+        function updateMenuActive(activeMenu) {
+            // すべてのメニューを非アクティブに
+            document.getElementById('menu-dashboard').className = 'flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md';
+            document.getElementById('menu-users').className = 'flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md';
+            document.getElementById('menu-submissions').className = 'flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md';
+            document.getElementById('menu-setup').className = 'flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md';
+
+            // アクティブなメニューを設定
+            document.getElementById('menu-' + activeMenu).className = 'flex items-center px-3 py-2 text-sm font-medium text-white bg-primary rounded-md';
+        }
+
+        // ユーザー管理機能
+        function showNewUserModal() {
+            document.getElementById('new-user-modal').classList.remove('hidden');
+        }
+
+        function closeNewUserModal() {
+            document.getElementById('new-user-modal').classList.add('hidden');
+            document.getElementById('new-user-form').reset();
+        }
+
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const tbody = document.getElementById('users-table');
+            tbody.innerHTML = '';
+
+            if (users.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">
+                            まだユーザーが作成されていません
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${user.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.email}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatDate(user.createdAt)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button onclick="deleteUser('${user.id}')" class="text-red-600 hover:text-red-900">削除</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function deleteUser(userId) {
+            if (confirm('このユーザーを削除しますか？')) {
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const updatedUsers = users.filter(u => u.id !== userId);
+                localStorage.setItem('users', JSON.stringify(updatedUsers));
+                loadUsers();
+            }
+        }
+
+        // 新規ユーザー作成
+        document.getElementById('new-user-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const userData = {
+                id: 'user' + Date.now(),
+                name: formData.get('userName'),
+                email: formData.get('userEmail'),
+                createdAt: new Date().toISOString()
+            };
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push(userData);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            this.reset();
+            closeNewUserModal();
+            loadUsers();
+        });
+
+        // 応募者管理機能
+        function loadSubmissions() {
+            const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+            const tbody = document.getElementById('submissions-table');
+            tbody.innerHTML = '';
+
+            if (submissions.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">
+                            まだ応募がありません
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            submissions.forEach(submission => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatDate(submission.submittedAt)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${submission.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${submission.email}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${submission.receiptCount}枚</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button onclick="viewSubmission('${submission.id}')" class="text-primary hover:text-blue-700 mr-3">詳細</button>
+                        <button onclick="deleteSubmission('${submission.id}')" class="text-red-600 hover:text-red-900">削除</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function viewSubmission(submissionId) {
+            alert('応募詳細機能は実装予定です。');
+        }
+
+        function deleteSubmission(submissionId) {
+            if (confirm('この応募を削除しますか？')) {
+                const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+                const updatedSubmissions = submissions.filter(s => s.id !== submissionId);
+                localStorage.setItem('submissions', JSON.stringify(updatedSubmissions));
+                loadSubmissions();
+            }
+        }
+
+        // プロジェクトセットアップ機能
+        function switchSetupTab(tabName) {
+            // すべてのタブを非表示
+            document.getElementById('campaign-tab').classList.add('hidden');
+            document.getElementById('form-tab').classList.add('hidden');
+            document.getElementById('images-tab').classList.add('hidden');
+
+            // すべてのタブボタンのスタイルをリセット
+            document.getElementById('tab-campaign').className = 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm';
+            document.getElementById('tab-form').className = 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm';
+            document.getElementById('tab-images').className = 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm';
+
+            // 選択されたタブを表示
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+            document.getElementById('tab-' + tabName).className = 'border-primary text-primary whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm';
+        }
+
+        // 質問を追加
+        function addQuestion() {
+            const question = {
+                id: questionId++,
+                type: 'text',
+                question: '',
+                required: false
+            };
+            questions.push(question);
+            renderQuestions();
+        }
+
+        // 質問を削除
+        function removeQuestion(id) {
+            questions = questions.filter(q => q.id !== id);
+            renderQuestions();
+        }
+
+        // 質問一覧を表示
+        function renderQuestions() {
+            const questionList = document.getElementById('question-list');
+            questionList.innerHTML = '';
+
+            questions.forEach(question => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'border border-gray-200 rounded-lg p-4';
+                questionDiv.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700">質問内容</label>
+                            <input type="text" value="${question.question}" onchange="updateQuestion(${question.id}, 'question', this.value)"
+                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">入力タイプ</label>
+                            <select onchange="updateQuestion(${question.id}, 'type', this.value)"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                <option value="text" ${question.type === 'text' ? 'selected' : ''}>テキスト</option>
+                                <option value="email" ${question.type === 'email' ? 'selected' : ''}>メール</option>
+                                <option value="tel" ${question.type === 'tel' ? 'selected' : ''}>電話番号</option>
+                                <option value="textarea" ${question.type === 'textarea' ? 'selected' : ''}>テキストエリア</option>
+                                <option value="select" ${question.type === 'select' ? 'selected' : ''}>選択肢</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <label class="flex items-center">
+                                <input type="checkbox" ${question.required ? 'checked' : ''} onchange="updateQuestion(${question.id}, 'required', this.checked)"
+                                       class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                                <span class="ml-2 text-sm text-gray-700">必須</span>
+                            </label>
+                            <button onclick="removeQuestion(${question.id})" class="ml-4 text-red-600 hover:text-red-800">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                questionList.appendChild(questionDiv);
+            });
+        }
+
+        // 質問を更新
+        function updateQuestion(id, field, value) {
+            const question = questions.find(q => q.id === id);
+            if (question) {
+                question[field] = value;
+            }
+        }
+
+        // メインビジュアルプレビュー
+        function previewMainVisual(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('main-visual-preview');
+                    preview.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-lg">`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // その他画像プレビュー
+        function previewOtherImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('other-image-preview');
+                    preview.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-lg">`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // プレビュー機能
         function previewProject() {
             const currentProject = JSON.parse(localStorage.getItem('currentProject'));
             if (currentProject) {
@@ -217,10 +921,24 @@
             }
         }
 
-        // 公開
+        function previewSetup() {
+            alert('セットアッププレビュー機能は実装予定です。');
+        }
+
+        function testSetup() {
+            alert('セットアップテスト機能は実装予定です。');
+        }
+
+        // 公開機能
         function publishProject() {
             if (confirm('プロジェクトを公開しますか？')) {
                 alert('プロジェクトが公開されました！');
+            }
+        }
+
+        function publishSetup() {
+            if (confirm('セットアップを公開しますか？')) {
+                alert('セットアップが公開されました！');
             }
         }
 
