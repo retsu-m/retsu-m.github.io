@@ -24,30 +24,26 @@
             <div class="p-4">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">プロジェクトメニュー</h2>
                 <nav class="space-y-2">
-                    <a href="#" onclick="showDashboard()" id="menu-dashboard" 
-                       class="flex items-center px-3 py-2 text-sm font-medium text-white bg-primary rounded-md">
+                    <a href="dashboard.html" class="flex items-center px-3 py-2 text-sm font-medium text-white bg-primary rounded-md">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
                         </svg>
                         ダッシュボード
                     </a>
-                    <a href="#" onclick="showUserManagement()" id="menu-users"
-                       class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                    <a href="users.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                         </svg>
                         ユーザー作成
                     </a>
-                    <a href="#" onclick="showSubmissions()" id="menu-submissions"
-                       class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                    <a href="submissions.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                         応募者管理
                     </a>
-                    <a href="#" onclick="showProjectSetup()" id="menu-setup"
-                       class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                    <a href="setup.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -60,6 +56,28 @@
 
         <!-- メインコンテンツ -->
         <div class="flex-1 p-8">
+            <!-- ヘッダー -->
+            <header class="bg-white shadow-sm">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center h-16">
+                        <div class="flex items-center">
+                            <h1 class="text-xl font-semibold text-gray-900">[プロジェクト名]レシートキャンペーン</h1>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-2">
+                                <div class="h-8 w-8 bg-primary rounded-full flex items-center justify-center">
+                                    <span class="text-white font-medium text-sm">田</span>
+                                </div>
+                                <span class="text-sm text-gray-700">田中太郎</span>
+                            </div>
+                            <button onclick="logout()" class="text-sm text-gray-600 hover:text-gray-900">
+                                ログアウト
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
             <!-- ダッシュボードコンテンツ -->
             <div id="dashboard-content">
                 <!-- 初期段階の表示 -->
@@ -73,14 +91,14 @@
                         </div>
                         <h3 class="text-lg font-medium text-gray-900 mb-2">プロジェクトのセットアップが必要です</h3>
                         <p class="text-gray-500 mb-8">キャンペーンを開始するには、まずプロジェクトのセットアップを完了してください。</p>
-                        <button onclick="showProjectSetup()" 
+                        <a href="setup.html" 
                                 class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>
                             プロジェクトをセットアップする
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -1153,8 +1171,10 @@
 
         // ログアウト
         function logout() {
-            localStorage.removeItem('currentProject');
-            window.location.href = 'setup.html';
+            if (confirm('ログアウトしますか？')) {
+                localStorage.removeItem('currentProject');
+                window.location.href = '../index.html';
+            }
         }
 
         // メニュー切り替え機能
@@ -1450,8 +1470,10 @@
         }
 
         // ページ読み込み時の初期化
-        checkAuth();
-        checkProjectSetup();
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatistics();
+            loadSubmissions();
+        });
 
         // プロジェクトセットアップ状況の確認
         function checkProjectSetup() {
