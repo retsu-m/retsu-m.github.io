@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>応募完了 - 夏のレシートキャンペーン</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- ヘッダー -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="top.html" class="text-xl font-semibold text-gray-900">夏のレシートキャンペーン</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600">ステップ 3/3</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <!-- プログレスバー -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                        <span class="text-gray-500 text-sm font-medium">1</span>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-500">応募フォーム</span>
+                </div>
+                <div class="flex-1 mx-4">
+                    <div class="h-1 bg-gray-200 rounded-full">
+                        <div class="h-1 bg-primary rounded-full" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                        <span class="text-gray-500 text-sm font-medium">2</span>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-500">確認</span>
+                </div>
+                <div class="flex-1 mx-4">
+                    <div class="h-1 bg-gray-200 rounded-full">
+                        <div class="h-1 bg-primary rounded-full" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <span class="ml-2 text-sm font-medium text-gray-900">完了</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 完了メッセージ -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-6 py-12 text-center">
+                <!-- 成功アイコン -->
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
+                    <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">応募完了</h2>
+                <p class="text-lg text-gray-600 mb-8">
+                    キャンペーンへのご応募ありがとうございました。<br>
+                    応募内容を確認の上、当選発表までお待ちください。
+                </p>
+
+                <!-- 応募番号 -->
+                <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">応募番号</h3>
+                    <p class="text-2xl font-bold text-primary" id="application-number">
+                        <!-- 応募番号はJavaScriptで生成 -->
+                    </p>
+                    <p class="text-sm text-gray-600 mt-2">
+                        この番号は当選発表時に必要になりますので、お控えください。
+                    </p>
+                </div>
+
+                <!-- 今後の流れ -->
+                <div class="bg-blue-50 rounded-lg p-6 mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">今後の流れ</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="text-blue-600 font-bold">1</span>
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-2">応募受付</h4>
+                            <p class="text-sm text-gray-600">応募内容を確認いたします</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="text-blue-600 font-bold">2</span>
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-2">抽選</h4>
+                            <p class="text-sm text-gray-600">厳正な抽選を実施いたします</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <span class="text-blue-600 font-bold">3</span>
+                            </div>
+                            <h4 class="font-medium text-gray-900 mb-2">当選発表</h4>
+                            <p class="text-sm text-gray-600">メールでご連絡いたします</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 注意事項 -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-8">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-yellow-800">ご注意</h3>
+                            <div class="mt-2 text-sm text-yellow-700">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>当選発表は2024年10月15日までにメールでご連絡いたします</li>
+                                    <li>迷惑メールフォルダに振り分けられる可能性があります</li>
+                                    <li>応募番号は大切に保管してください</li>
+                                    <li>当選発表後の賞品発送は1週間以内を予定しています</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ボタン -->
+                <div class="space-y-4">
+                    <a href="top.html" 
+                       class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        トップページに戻る
+                    </a>
+                    <div class="text-center">
+                        <button onclick="printPage()" 
+                                class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                            </svg>
+                            このページを印刷
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 mt-12">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-lg font-semibold text-white mb-4">お問い合わせ先</h3>
+                <p class="text-gray-300">
+                    キャンペーンに関するお問い合わせは以下までお願いいたします。<br>
+                    メール: campaign@example.com<br>
+                    電話: 03-1234-5678（平日9:00〜18:00）
+                </p>
+                <p class="mt-8 text-sm text-gray-400">
+                    © 2024 レシートキャンペーン. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            generateApplicationNumber();
+            sendCompletionEmail();
+        });
+
+        // 応募番号を生成
+        function generateApplicationNumber() {
+            const timestamp = Date.now();
+            const random = Math.floor(Math.random() * 1000);
+            const applicationNumber = `APP${timestamp}${random.toString().padStart(3, '0')}`;
+            
+            document.getElementById('application-number').textContent = applicationNumber;
+            
+            // ローカルストレージに保存
+            localStorage.setItem('applicationNumber', applicationNumber);
+        }
+
+        // 完了メール送信（シミュレーション）
+        function sendCompletionEmail() {
+            const applicationData = localStorage.getItem('applicationData');
+            if (applicationData) {
+                const data = JSON.parse(applicationData);
+                const email = data.questions['メールアドレス'];
+                
+                if (email) {
+                    console.log(`完了メールを ${email} に送信しました`);
+                    // 実際の実装ではサーバーサイドでメール送信処理を実行
+                }
+            }
+        }
+
+        // ページ印刷
+        function printPage() {
+            window.print();
+        }
+
+        // ページ離脱時の確認
+        window.addEventListener('beforeunload', function(e) {
+            // 応募完了後は離脱確認を表示しない
+            return;
+        });
+    </script>
+</body>
+</html> 
