@@ -101,11 +101,13 @@
                             </select>
                         </div>
                         <div>
-                            <label for="date-sort" class="block text-sm font-medium text-gray-700">日付ソート</label>
-                            <select id="date-sort" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                                <option value="newest">新しい順</option>
-                                <option value="oldest">古い順</option>
-                            </select>
+                            <label for="date-sort" class="block text-sm font-medium text-gray-700">作成日期間</label>
+                            <div class="mt-1 grid grid-cols-2 gap-2">
+                                <input type="date" id="date-from" 
+                                       class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                <input type="date" id="date-to" 
+                                       class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -177,6 +179,16 @@
                         <input type="password" id="user-password" name="password" required
                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                     </div>
+                    <div>
+                        <label for="user-project" class="block text-sm font-medium text-gray-700">プロジェクト <span class="text-red-500">*</span></label>
+                        <select id="user-project" name="project" required
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                            <option value="">プロジェクトを選択してください</option>
+                            <option value="夏のレシートキャンペーン">夏のレシートキャンペーン</option>
+                            <option value="春のレシートキャンペーン">春のレシートキャンペーン</option>
+                            <option value="冬のレシートキャンペーン">冬のレシートキャンペーン</option>
+                        </select>
+                    </div>
                     <div class="flex justify-end space-x-3">
                         <button type="button" onclick="closeNewUserModal()"
                                 class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
@@ -215,14 +227,6 @@
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                             <option value="admin">管理者</option>
                             <option value="client">クライアント</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="edit-user-status" class="block text-sm font-medium text-gray-700">ステータス</label>
-                        <select id="edit-user-status" name="status"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                            <option value="active">有効</option>
-                            <option value="inactive">無効</option>
                         </select>
                     </div>
                     <div>
@@ -317,8 +321,6 @@
             usersList.innerHTML = '';
 
             userList.forEach(user => {
-                const statusBadge = getStatusBadge(user.status);
-                const roleBadge = getRoleBadge(user.role);
                 const projectsText = user.projects.length > 0 ? user.projects.join(', ') : 'なし';
                 
                 const listItem = document.createElement('li');
@@ -326,16 +328,9 @@
                     <div class="px-4 py-4 sm:px-6">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <div class="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
-                                        <span class="text-sm font-medium text-white">${user.name.charAt(0)}</span>
-                                    </div>
-                                </div>
                                 <div class="ml-4">
                                     <div class="flex items-center">
                                         <p class="text-sm font-medium text-gray-900">${user.name}</p>
-                                        ${statusBadge}
-                                        ${roleBadge}
                                     </div>
                                     <p class="text-sm text-gray-500">${user.email}</p>
                                     <p class="text-sm text-gray-500">プロジェクト: ${projectsText}</p>
@@ -374,24 +369,6 @@
             });
         }
 
-        // ステータスバッジを取得
-        function getStatusBadge(status) {
-            const badges = {
-                active: '<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">有効</span>',
-                inactive: '<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">無効</span>'
-            };
-            return badges[status] || badges.inactive;
-        }
-
-        // 権限バッジを取得
-        function getRoleBadge(role) {
-            const badges = {
-                admin: '<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">管理者</span>',
-                client: '<span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">クライアント</span>'
-            };
-            return badges[role] || badges.client;
-        }
-
         // ユーザー編集
         function editUser(userId) {
             const user = users.find(u => u.id === userId);
@@ -400,7 +377,6 @@
                 document.getElementById('edit-user-name').value = user.name;
                 document.getElementById('edit-user-email').value = user.email;
                 document.getElementById('edit-user-role').value = user.role;
-                document.getElementById('edit-user-status').value = user.status;
                 document.getElementById('edit-user-modal').classList.remove('hidden');
             }
         }
@@ -432,43 +408,60 @@
             document.getElementById('edit-user-form').reset();
         }
 
-        // 検索機能
-        document.getElementById('user-search').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredUsers = users.filter(user => 
-                user.name.toLowerCase().includes(searchTerm) ||
-                user.email.toLowerCase().includes(searchTerm)
-            );
-            renderUsers(filteredUsers);
-        });
+        // 統合フィルタリング機能
+        document.getElementById('date-from').addEventListener('change', filterUsers);
+        document.getElementById('date-to').addEventListener('change', filterUsers);
 
-        // プロジェクトソート
-        document.getElementById('project-sort').addEventListener('change', function(e) {
-            const project = e.target.value;
-            const filteredUsers = project ? users.filter(user => user.projects.includes(project)) : users;
-            renderUsers(filteredUsers);
-        });
+        function filterUsers() {
+            const userSearch = document.getElementById('user-search').value.toLowerCase();
+            const projectSort = document.getElementById('project-sort').value;
+            const dateFrom = document.getElementById('date-from').value;
+            const dateTo = document.getElementById('date-to').value;
 
-        // 日付ソート
-        document.getElementById('date-sort').addEventListener('change', function(e) {
-            const sort = e.target.value;
-            const sortedUsers = [...users].sort((a, b) => {
-                const dateA = new Date(a.createdAt).getTime();
-                const dateB = new Date(b.createdAt).getTime();
-                if (sort === 'newest') {
-                    return dateB - dateA;
-                } else if (sort === 'oldest') {
-                    return dateA - dateB;
+            const filteredUsers = users.filter(user => {
+                // ユーザー名検索
+                const matchesUser = user.name.toLowerCase().includes(userSearch) ||
+                                   user.email.toLowerCase().includes(userSearch);
+                
+                // プロジェクトソート
+                const matchesProject = !projectSort || user.projects.includes(projectSort);
+                
+                // 日付期間フィルタリング
+                let matchesDate = true;
+                if (dateFrom || dateTo) {
+                    const userDate = new Date(user.createdAt);
+                    if (dateFrom) {
+                        const fromDate = new Date(dateFrom);
+                        matchesDate = matchesDate && userDate >= fromDate;
+                    }
+                    if (dateTo) {
+                        const toDate = new Date(dateTo);
+                        toDate.setHours(23, 59, 59); // 終了日はその日の終わりまで
+                        matchesDate = matchesDate && userDate <= toDate;
+                    }
                 }
-                return 0;
+                
+                return matchesUser && matchesProject && matchesDate;
             });
-            renderUsers(sortedUsers);
-        });
+            
+            renderUsers(filteredUsers);
+        }
+
+        // 検索機能
+        document.getElementById('user-search').addEventListener('input', filterUsers);
+        document.getElementById('project-sort').addEventListener('change', filterUsers);
 
         // フォーム送信処理
         document.getElementById('new-user-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(e.target);
+            const selectedProject = formData.get('project');
+            
+            if (!selectedProject) {
+                alert('プロジェクトを選択してください。');
+                return;
+            }
+            
             const newUser = {
                 id: 'user' + Date.now(),
                 name: formData.get('userName'),
@@ -477,7 +470,7 @@
                 status: 'active',
                 createdAt: new Date().toISOString().split('T')[0],
                 lastLogin: '-',
-                projects: []
+                projects: [selectedProject]
             };
             users.push(newUser);
             renderUsers();
@@ -495,7 +488,6 @@
                 user.name = formData.get('userName');
                 user.email = formData.get('email');
                 user.role = formData.get('role');
-                user.status = formData.get('status');
                 if (formData.get('password')) {
                     // パスワード更新処理
                 }
