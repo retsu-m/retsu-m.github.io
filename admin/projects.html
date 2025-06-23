@@ -116,6 +116,7 @@
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">プロジェクト名</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">クライアント名</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">フォルダ名</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">プロジェクトID</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">作成日</th>
                             <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
@@ -181,6 +182,18 @@
                         <label for="client-name" class="block text-sm font-medium text-gray-700">クライアント名</label>
                         <input type="text" id="client-name" name="clientName" required
                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="folder-name" class="block text-sm font-medium text-gray-700">フォルダ名</label>
+                        <div class="mt-1 flex rounded-md shadow-sm">
+                            <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                https://example.com/
+                            </span>
+                            <input type="text" id="folder-name" name="folderName" required
+                                   placeholder="campaign-folder-name"
+                                   class="flex-1 min-w-0 block w-full border border-gray-300 rounded-none rounded-r-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                        </div>
+                        <p class="mt-1 text-xs text-gray-500">英数字、ハイフン、アンダースコアのみ使用可能です。このフォルダにレシートキャンペーンのTOPページが配置されます。</p>
                     </div>
                     <div>
                         <label for="project-description" class="block text-sm font-medium text-gray-700">説明</label>
@@ -384,6 +397,7 @@
                     id: 'summer001',
                     name: '夏のレシートキャンペーン',
                     clientName: '株式会社サマーコーポレーション',
+                    folderName: 'summer-campaign-2024',
                     description: '夏の商品を購入してレシートをアップロードすると、抽選で豪華商品が当たるキャンペーンです。',
                     createdAt: '2024-06-01T10:00:00.000Z',
                     status: 'active',
@@ -393,6 +407,7 @@
                     id: 'spring002',
                     name: '春のレシートキャンペーン',
                     clientName: '株式会社スプリングプロデュース',
+                    folderName: 'spring-campaign-2024',
                     description: '春の新商品キャンペーン。レシートをアップロードしてポイントを貯めよう！',
                     createdAt: '2024-03-15T14:30:00.000Z',
                     status: 'active',
@@ -402,6 +417,7 @@
                     id: 'winter003',
                     name: '冬のレシートキャンペーン',
                     clientName: '株式会社ウィンターエンタープライズ',
+                    folderName: 'winter-campaign-2024',
                     description: '冬の特別キャンペーン。暖かい商品のレシートをアップロードしてプレゼントをゲット！',
                     createdAt: '2024-12-01T09:15:00.000Z',
                     status: 'active',
@@ -411,6 +427,7 @@
                     id: 'autumn004',
                     name: '秋のレシートキャンペーン',
                     clientName: '株式会社オータムプロダクション',
+                    folderName: 'autumn-campaign-2024',
                     description: '秋の味覚キャンペーン。秋の食材を使ったレシートをアップロードして特典を獲得！',
                     createdAt: '2024-09-10T16:45:00.000Z',
                     status: 'active',
@@ -420,6 +437,7 @@
                     id: 'newyear005',
                     name: '新年レシートキャンペーン',
                     clientName: '株式会社ニューイヤーコーポレーション',
+                    folderName: 'newyear-campaign-2024',
                     description: '新年特別キャンペーン。新年の買い物レシートをアップロードして福袋をゲット！',
                     createdAt: '2024-01-01T00:00:00.000Z',
                     status: 'active',
@@ -445,6 +463,12 @@
                         </a>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${project.clientName}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        ${project.folderName ? 
+                            `<a href="https://example.com/${project.folderName}/" target="_blank" class="text-primary hover:text-blue-700">${project.folderName}</a>` : 
+                            '<span class="text-gray-400">未設定</span>'
+                        }
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${project.id}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatDate(project.createdAt)}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -533,10 +557,25 @@
             const projectData = {
                 name: formData.get('projectName'),
                 clientName: formData.get('clientName'),
+                folderName: formData.get('folderName'),
                 description: formData.get('description'),
                 createdAt: new Date().toISOString(),
                 status: 'active'
             };
+
+            // フォルダ名のバリデーション
+            if (!validateFolderName(projectData.folderName)) {
+                alert('フォルダ名は英数字、ハイフン、アンダースコアのみ使用可能です。');
+                return;
+            }
+
+            // フォルダ名の重複チェック
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const existingProject = projects.find(p => p.folderName === projectData.folderName);
+            if (existingProject) {
+                alert('このフォルダ名は既に使用されています。別のフォルダ名を入力してください。');
+                return;
+            }
 
             // プロジェクトIDを生成（クライアント名の英数字部分 + ランダムな数字）
             const clientId = projectData.clientName.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
@@ -551,7 +590,6 @@
             projectData.password = password;
 
             // ローカルストレージに保存
-            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
             projects.push(projectData);
             localStorage.setItem('projects', JSON.stringify(projects));
 
@@ -560,11 +598,29 @@
             closeNewProjectModal();
 
             // ログイン情報を表示
-            showLoginInfo(projectId, password);
+            showLoginInfo(projectId, password, projectData.folderName);
 
             // プロジェクト一覧を更新
             loadProjects();
         });
+
+        // フォルダ名のバリデーション関数
+        function validateFolderName(folderName) {
+            // 英数字、ハイフン、アンダースコアのみ許可
+            const validFolderNameRegex = /^[a-zA-Z0-9_-]+$/;
+            return validFolderNameRegex.test(folderName);
+        }
+
+        // フォルダ名の入力制限
+        function setupFolderNameValidation() {
+            const folderNameInput = document.getElementById('folder-name');
+            if (folderNameInput) {
+                folderNameInput.addEventListener('input', function(e) {
+                    // 英数字、ハイフン、アンダースコア以外の文字を削除
+                    this.value = this.value.replace(/[^a-zA-Z0-9_-]/g, '');
+                });
+            }
+        }
 
         // パスワード生成関数
         function generatePassword(length) {
@@ -577,7 +633,7 @@
         }
 
         // ログイン情報表示
-        function showLoginInfo(projectId, password) {
+        function showLoginInfo(projectId, password, folderName) {
             // プロジェクト情報を取得
             const projects = JSON.parse(localStorage.getItem('projects') || '[]');
             const project = projects.find(p => p.id === projectId);
@@ -607,6 +663,10 @@
 2. 上記のログインIDとパスワードを入力してください。
 
 3. ログイン後、プロジェクトの設定や管理が可能になります。
+
+【キャンペーンTOPページ】
+キャンペーンのTOPページは以下のURLで公開されます：
+https://example.com/${folderName}/
 
 ご不明な点がございましたら、お気軽にお問い合わせください。
 
@@ -657,6 +717,9 @@ Tel: 03-1234-5678
             document.getElementById('client-search').addEventListener('input', searchProjects);
             document.getElementById('date-from').addEventListener('change', searchProjects);
             document.getElementById('date-to').addEventListener('change', searchProjects);
+            
+            // フォルダ名のバリデーション機能を設定
+            setupFolderNameValidation();
         });
 
         // ページ読み込み時の初期化

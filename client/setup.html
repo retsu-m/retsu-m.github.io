@@ -128,6 +128,10 @@
                                 class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
                             メインビジュアル設定
                         </button>
+                        <button onclick="showTab('email')" id="tab-email" 
+                                class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+                            メール設定
+                        </button>
                     </nav>
                 </div>
 
@@ -481,6 +485,74 @@
                         </button>
                     </div>
                 </div>
+
+                <!-- メール設定タブ -->
+                <div id="email-tab" class="hidden space-y-6">
+                    <!-- メール設定 -->
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">メール設定</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="email-from" class="block text-sm font-medium text-gray-700">送信元メールアドレス</label>
+                                    <input type="email" id="email-from" name="emailFrom" required
+                                           placeholder="noreply@example.com"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
+                                    <p class="mt-1 text-xs text-gray-500">応募者に送信されるメールの送信元アドレスを設定します</p>
+                                </div>
+                                <div>
+                                    <label for="email-subject" class="block text-sm font-medium text-gray-700">メールタイトル</label>
+                                    <input type="text" id="email-subject" name="emailSubject" required
+                                           placeholder="【キャンペーン名】応募完了のお知らせ"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
+                                    <p class="mt-1 text-xs text-gray-500">応募完了時に送信されるメールのタイトルを設定します</p>
+                                </div>
+                                <div>
+                                    <label for="email-body" class="block text-sm font-medium text-gray-700">メール本文</label>
+                                    <textarea id="email-body" name="emailBody" rows="12" required
+                                              placeholder="お客様
+
+この度は、キャンペーンにご応募いただき、ありがとうございます。
+
+応募内容を確認いたしました。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【応募内容】
+お名前: {name}
+メールアドレス: {email}
+応募日時: {submission_date}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+抽選結果は後日、メールにてお知らせいたします。
+
+ご不明な点がございましたら、お気軽にお問い合わせください。
+
+よろしくお願いいたします。"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
+                                    <p class="mt-1 text-xs text-gray-500">
+                                        メール本文では以下の変数が使用できます：<br>
+                                        {name}: 応募者名, {email}: メールアドレス, {submission_date}: 応募日時
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- メール設定タブの更新ボタン -->
+                    <div id="email-update-section" class="mt-6 flex justify-end">
+                        <button id="email-update-button" onclick="updateProject()" 
+                                class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            更新
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -496,6 +568,7 @@
             document.getElementById('campaign-tab').classList.add('hidden');
             document.getElementById('form-tab').classList.add('hidden');
             document.getElementById('visual-tab').classList.add('hidden');
+            document.getElementById('email-tab').classList.add('hidden');
             
             // すべてのタブボタンのスタイルをリセット
             document.getElementById('tab-campaign').classList.remove('border-primary', 'text-primary');
@@ -504,6 +577,8 @@
             document.getElementById('tab-form').classList.add('border-transparent', 'text-gray-500');
             document.getElementById('tab-visual').classList.remove('border-primary', 'text-primary');
             document.getElementById('tab-visual').classList.add('border-transparent', 'text-gray-500');
+            document.getElementById('tab-email').classList.remove('border-primary', 'text-primary');
+            document.getElementById('tab-email').classList.add('border-transparent', 'text-gray-500');
             
             // 選択されたタブを表示
             document.getElementById(tabName + '-tab').classList.remove('hidden');
@@ -714,6 +789,7 @@
             const campaignTab = document.getElementById('campaign-tab');
             const formTab = document.getElementById('form-tab');
             const visualTab = document.getElementById('visual-tab');
+            const emailTab = document.getElementById('email-tab');
             
             if (!campaignTab.classList.contains('hidden')) {
                 const campaignUpdateButton = document.getElementById('campaign-update-button');
@@ -735,6 +811,13 @@
                     visualUpdateButton.classList.remove('hidden');
                 }
             }
+            
+            if (!emailTab.classList.contains('hidden')) {
+                const emailUpdateButton = document.getElementById('email-update-button');
+                if (emailUpdateButton) {
+                    emailUpdateButton.classList.remove('hidden');
+                }
+            }
         }
 
         // 更新処理
@@ -749,7 +832,8 @@
                     'update-button',
                     'campaign-update-button',
                     'form-update-button',
-                    'visual-update-button'
+                    'visual-update-button',
+                    'email-update-button'
                 ];
                 
                 updateButtons.forEach(buttonId => {

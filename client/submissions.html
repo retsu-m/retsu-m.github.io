@@ -86,7 +86,7 @@
                 </div>
 
                 <!-- 統計情報 -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div class="bg-white overflow-hidden shadow rounded-lg">
                         <div class="p-5">
                             <div class="flex items-center">
@@ -117,42 +117,6 @@
                                     <dl>
                                         <dt class="text-sm font-medium text-gray-500 truncate">今日の応募数</dt>
                                         <dd class="text-lg font-medium text-gray-900" id="today-submissions">0</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white overflow-hidden shadow rounded-lg">
-                        <div class="p-5">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <div class="ml-5 w-0 flex-1">
-                                    <dl>
-                                        <dt class="text-sm font-medium text-gray-500 truncate">承認済み</dt>
-                                        <dd class="text-lg font-medium text-gray-900" id="approved-submissions">0</dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white overflow-hidden shadow rounded-lg">
-                        <div class="p-5">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0">
-                                    <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <div class="ml-5 w-0 flex-1">
-                                    <dl>
-                                        <dt class="text-sm font-medium text-gray-500 truncate">却下済み</dt>
-                                        <dd class="text-lg font-medium text-gray-900" id="rejected-submissions">0</dd>
                                     </dl>
                                 </div>
                             </div>
@@ -415,8 +379,6 @@
             // サンプルデータ（実際の実装ではデータベースから取得）
             document.getElementById('total-submissions').textContent = '25';
             document.getElementById('today-submissions').textContent = '3';
-            document.getElementById('approved-submissions').textContent = '20';
-            document.getElementById('rejected-submissions').textContent = '2';
         }
 
         // 応募者一覧の読み込み
