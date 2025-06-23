@@ -19,7 +19,7 @@
         }
     </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-100">
     <!-- ナビゲーションバー -->
     <nav class="bg-white shadow-sm border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,11 +107,13 @@
                                 <div>
                                     <label for="project-name" class="block text-sm font-medium text-gray-700">プロジェクト名</label>
                                     <input type="text" id="project-name" name="projectName" required
+                                           placeholder="案件名など"
                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                                 </div>
                                 <div>
                                     <label for="client-name" class="block text-sm font-medium text-gray-700">クライアント名</label>
                                     <input type="text" id="client-name" name="clientName" required
+                                           placeholder="株式会社NONAME Produce"
                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                                 </div>
                                 <div>
@@ -129,11 +131,13 @@
                                 <div>
                                     <label for="campaign-title" class="block text-sm font-medium text-gray-700">キャンペーンタイトル</label>
                                     <input type="text" id="campaign-title" name="campaignTitle"
+                                           placeholder="案件名など"
                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                                 </div>
                                 <div>
                                     <label for="campaign-description" class="block text-sm font-medium text-gray-700">キャンペーン説明</label>
                                     <textarea id="campaign-description" name="campaignDescription" rows="4"
+                                              placeholder="担当者名など"
                                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -228,48 +232,81 @@
                 return;
             }
 
-            // デモ用のプロジェクトデータ
-            const project = {
-                id: projectId,
-                name: '夏のレシートキャンペーン',
-                client: 'クライアントA',
-                status: 'published',
-                createdDate: '2024-01-15',
-                campaignTitle: '夏のレシートキャンペーン',
-                campaignDescription: '夏の商品を購入してレシートをアップロードすると、抽選で豪華商品が当たるキャンペーンです。',
-                startDate: '2024-06-01',
-                endDate: '2024-08-31',
-                totalSubmissions: 156,
-                todaySubmissions: 12,
-                pendingSubmissions: 8
-            };
+            // ローカルストレージからプロジェクトデータを取得
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const project = projects.find(p => p.id === projectId);
+            
+            if (!project) {
+                alert('指定されたプロジェクトが見つかりません。');
+                window.location.href = 'projects.html';
+                return;
+            }
 
             // フォームにデータを設定
             document.getElementById('project-id').value = project.id;
             document.getElementById('project-name').value = project.name;
-            document.getElementById('client-name').value = project.client;
-            document.getElementById('created-date').value = project.createdDate;
-            document.getElementById('campaign-title').value = project.campaignTitle;
-            document.getElementById('campaign-description').value = project.campaignDescription;
-            document.getElementById('start-date').value = project.startDate;
-            document.getElementById('end-date').value = project.endDate;
-            document.getElementById('total-submissions').textContent = project.totalSubmissions;
-            document.getElementById('today-submissions').textContent = project.todaySubmissions;
+            document.getElementById('client-name').value = project.clientName;
+            
+            // 作成日をフォーマット
+            const createdDate = new Date(project.createdAt);
+            const formattedDate = createdDate.toLocaleDateString('ja-JP');
+            document.getElementById('created-date').value = formattedDate;
+            
+            // キャンペーン情報（デフォルト値）
+            document.getElementById('campaign-title').value = project.campaignTitle || project.name;
+            document.getElementById('campaign-description').value = project.campaignDescription || project.description || '';
+            document.getElementById('start-date').value = project.startDate || '';
+            document.getElementById('end-date').value = project.endDate || '';
+            
+            // 応募データ（デフォルト値）
+            document.getElementById('total-submissions').textContent = project.totalSubmissions || 0;
+            document.getElementById('today-submissions').textContent = project.todaySubmissions || 0;
         }
 
         // プロジェクト保存
         function saveProject() {
+            const projectId = getProjectIdFromUrl();
             const formData = new FormData(document.getElementById('project-detail-form'));
-            const projectData = Object.fromEntries(formData);
             
-            // ここでプロジェクト保存処理を実装
+            // ローカルストレージからプロジェクトデータを取得
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const projectIndex = projects.findIndex(p => p.id === projectId);
+            
+            if (projectIndex === -1) {
+                alert('プロジェクトが見つかりません。');
+                return;
+            }
+            
+            // プロジェクトデータを更新
+            projects[projectIndex] = {
+                ...projects[projectIndex],
+                name: formData.get('projectName'),
+                clientName: formData.get('clientName'),
+                campaignTitle: formData.get('campaignTitle'),
+                campaignDescription: formData.get('campaignDescription'),
+                startDate: formData.get('startDate'),
+                endDate: formData.get('endDate'),
+                updatedAt: new Date().toISOString()
+            };
+            
+            // ローカルストレージに保存
+            localStorage.setItem('projects', JSON.stringify(projects));
+            
             alert('プロジェクトが保存されました。');
         }
 
         // プロジェクト削除
         function deleteProject() {
             if (confirm('このプロジェクトを削除しますか？この操作は取り消せません。')) {
-                // ここでプロジェクト削除処理を実装
+                const projectId = getProjectIdFromUrl();
+                
+                // ローカルストレージからプロジェクトデータを取得
+                const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+                const filteredProjects = projects.filter(p => p.id !== projectId);
+                
+                // ローカルストレージに保存
+                localStorage.setItem('projects', JSON.stringify(filteredProjects));
+                
                 alert('プロジェクトが削除されました。');
                 window.location.href = 'projects.html';
             }

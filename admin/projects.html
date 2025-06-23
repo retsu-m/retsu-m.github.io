@@ -19,7 +19,7 @@
         }
     </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-100">
     <!-- ナビゲーションバー -->
     <nav class="bg-white shadow-sm border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -368,7 +368,66 @@
         // プロジェクト一覧を読み込み
         function loadProjects() {
             const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            
+            // サンプルプロジェクトが存在しない場合は追加
+            if (projects.length === 0) {
+                addSampleProjects();
+            }
+            
             renderProjects(projects);
+        }
+
+        // サンプルプロジェクトを追加
+        function addSampleProjects() {
+            const sampleProjects = [
+                {
+                    id: 'summer001',
+                    name: '夏のレシートキャンペーン',
+                    clientName: '株式会社サマーコーポレーション',
+                    description: '夏の商品を購入してレシートをアップロードすると、抽選で豪華商品が当たるキャンペーンです。',
+                    createdAt: '2024-06-01T10:00:00.000Z',
+                    status: 'active',
+                    password: 'summer123'
+                },
+                {
+                    id: 'spring002',
+                    name: '春のレシートキャンペーン',
+                    clientName: '株式会社スプリングプロデュース',
+                    description: '春の新商品キャンペーン。レシートをアップロードしてポイントを貯めよう！',
+                    createdAt: '2024-03-15T14:30:00.000Z',
+                    status: 'active',
+                    password: 'spring456'
+                },
+                {
+                    id: 'winter003',
+                    name: '冬のレシートキャンペーン',
+                    clientName: '株式会社ウィンターエンタープライズ',
+                    description: '冬の特別キャンペーン。暖かい商品のレシートをアップロードしてプレゼントをゲット！',
+                    createdAt: '2024-12-01T09:15:00.000Z',
+                    status: 'active',
+                    password: 'winter789'
+                },
+                {
+                    id: 'autumn004',
+                    name: '秋のレシートキャンペーン',
+                    clientName: '株式会社オータムプロダクション',
+                    description: '秋の味覚キャンペーン。秋の食材を使ったレシートをアップロードして特典を獲得！',
+                    createdAt: '2024-09-10T16:45:00.000Z',
+                    status: 'active',
+                    password: 'autumn012'
+                },
+                {
+                    id: 'newyear005',
+                    name: '新年レシートキャンペーン',
+                    clientName: '株式会社ニューイヤーコーポレーション',
+                    description: '新年特別キャンペーン。新年の買い物レシートをアップロードして福袋をゲット！',
+                    createdAt: '2024-01-01T00:00:00.000Z',
+                    status: 'active',
+                    password: 'newyear345'
+                }
+            ];
+            
+            localStorage.setItem('projects', JSON.stringify(sampleProjects));
         }
 
         // プロジェクト一覧を表示

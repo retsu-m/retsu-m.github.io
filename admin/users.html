@@ -19,7 +19,7 @@
         }
     </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-100">
     <!-- ナビゲーションバー -->
     <nav class="bg-white shadow-sm border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -85,19 +85,24 @@
             <!-- 検索・フィルター -->
             <div class="bg-white shadow rounded-lg mb-6">
                 <div class="px-4 py-5 sm:p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div>
                             <label for="user-search" class="block text-sm font-medium text-gray-700">ユーザー名検索</label>
                             <input type="text" id="user-search" placeholder="ユーザー名を入力..."
                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                         </div>
                         <div>
+                            <label for="client-search" class="block text-sm font-medium text-gray-700">クライアント名検索</label>
+                            <input type="text" id="client-search" placeholder="クライアント名を入力..."
+                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                        </div>
+                        <div>
                             <label for="project-sort" class="block text-sm font-medium text-gray-700">プロジェクトソート</label>
                             <select id="project-sort" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                                 <option value="">すべて</option>
-                                <option value="project1">夏のレシートキャンペーン</option>
-                                <option value="project2">春のレシートキャンペーン</option>
-                                <option value="project3">冬のレシートキャンペーン</option>
+                                <option value="夏のレシートキャンペーン">夏のレシートキャンペーン</option>
+                                <option value="春のレシートキャンペーン">春のレシートキャンペーン</option>
+                                <option value="冬のレシートキャンペーン">冬のレシートキャンペーン</option>
                             </select>
                         </div>
                         <div>
@@ -115,9 +120,21 @@
 
             <!-- ユーザー一覧 -->
             <div class="bg-white shadow overflow-hidden sm:rounded-md">
-                <ul class="divide-y divide-gray-200" id="users-list">
-                    <!-- ユーザーアイテムはJavaScriptで動的に生成 -->
-                </ul>
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ユーザー名</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メールアドレス</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">プロジェクト</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">作成日</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最終ログイン</th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="users-table">
+                        <!-- ユーザーアイテムはJavaScriptで動的に生成 -->
+                    </tbody>
+                </table>
             </div>
 
             <!-- ページネーション -->
@@ -187,6 +204,8 @@
                             <option value="夏のレシートキャンペーン">夏のレシートキャンペーン</option>
                             <option value="春のレシートキャンペーン">春のレシートキャンペーン</option>
                             <option value="冬のレシートキャンペーン">冬のレシートキャンペーン</option>
+                            <option value="秋のレシートキャンペーン">秋のレシートキャンペーン</option>
+                            <option value="新年レシートキャンペーン">新年レシートキャンペーン</option>
                         </select>
                     </div>
                     <div class="flex justify-end space-x-3">
@@ -222,11 +241,15 @@
                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                     </div>
                     <div>
-                        <label for="edit-user-role" class="block text-sm font-medium text-gray-700">権限</label>
-                        <select id="edit-user-role" name="role" required
+                        <label for="edit-user-project" class="block text-sm font-medium text-gray-700">プロジェクト</label>
+                        <select id="edit-user-project" name="project" required
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                            <option value="admin">管理者</option>
-                            <option value="client">クライアント</option>
+                            <option value="">プロジェクトを選択してください</option>
+                            <option value="夏のレシートキャンペーン">夏のレシートキャンペーン</option>
+                            <option value="春のレシートキャンペーン">春のレシートキャンペーン</option>
+                            <option value="冬のレシートキャンペーン">冬のレシートキャンペーン</option>
+                            <option value="秋のレシートキャンペーン">秋のレシートキャンペーン</option>
+                            <option value="新年レシートキャンペーン">新年レシートキャンペーン</option>
                         </select>
                     </div>
                     <div>
@@ -260,7 +283,7 @@
                 status: 'active',
                 createdAt: '2024-01-10',
                 lastLogin: '2024-01-20',
-                projects: ['夏のレシートキャンペーン', '春のレシートキャンペーン', '冬のレシートキャンペーン']
+                projects: ['夏のレシートキャンペーン']
             },
             {
                 id: 'user002',
@@ -270,7 +293,7 @@
                 status: 'active',
                 createdAt: '2024-01-05',
                 lastLogin: '2024-01-18',
-                projects: ['夏のレシートキャンペーン', '春のレシートキャンペーン']
+                projects: ['春のレシートキャンペーン']
             },
             {
                 id: 'user003',
@@ -290,7 +313,7 @@
                 status: 'inactive',
                 createdAt: '2024-01-15',
                 lastLogin: '2024-01-10',
-                projects: ['夏のレシートキャンペーン']
+                projects: ['冬のレシートキャンペーン']
             }
         ];
 
@@ -315,57 +338,62 @@
             window.location.href = '../index.html';
         }
 
+        // プロジェクト一覧を動的に更新
+        function updateProjectOptions() {
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const projectSelects = [
+                document.getElementById('user-project'),
+                document.getElementById('edit-user-project'),
+                document.getElementById('project-sort')
+            ];
+            
+            projectSelects.forEach(select => {
+                if (select) {
+                    // 既存のオプションを保持（最初の「選択してください」オプション）
+                    const firstOption = select.querySelector('option[value=""]');
+                    select.innerHTML = '';
+                    if (firstOption) {
+                        select.appendChild(firstOption);
+                    }
+                    
+                    // プロジェクトオプションを追加
+                    projects.forEach(project => {
+                        const option = document.createElement('option');
+                        option.value = project.name;
+                        option.textContent = project.name;
+                        select.appendChild(option);
+                    });
+                }
+            });
+        }
+
         // ユーザー一覧を表示
         function renderUsers(userList = users) {
-            const usersList = document.getElementById('users-list');
-            usersList.innerHTML = '';
+            const usersTable = document.getElementById('users-table');
+            usersTable.innerHTML = '';
 
             userList.forEach(user => {
-                const projectsText = user.projects.length > 0 ? user.projects.join(', ') : 'なし';
+                const projectsText = user.projects.length > 0 ? user.projects[0] : 'なし';
                 
-                const listItem = document.createElement('li');
+                const listItem = document.createElement('tr');
                 listItem.innerHTML = `
-                    <div class="px-4 py-4 sm:px-6">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="ml-4">
-                                    <div class="flex items-center">
-                                        <p class="text-sm font-medium text-gray-900">${user.name}</p>
-                                    </div>
-                                    <p class="text-sm text-gray-500">${user.email}</p>
-                                    <p class="text-sm text-gray-500">プロジェクト: ${projectsText}</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <button onclick="editUser('${user.id}')" 
-                                        class="text-gray-600 hover:text-gray-900 text-sm font-medium">
-                                    編集
-                                </button>
-                                <button onclick="deleteUser('${user.id}')" 
-                                        class="text-red-600 hover:text-red-900 text-sm font-medium">
-                                    削除
-                                </button>
-                            </div>
-                        </div>
-                        <div class="mt-2 sm:flex sm:justify-between">
-                            <div class="sm:flex">
-                                <p class="flex items-center text-sm text-gray-500">
-                                    <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                    </svg>
-                                    作成日: ${user.createdAt}
-                                </p>
-                            </div>
-                            <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
-                                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                最終ログイン: ${user.lastLogin}
-                            </div>
-                        </div>
-                    </div>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${user.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.email}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${projectsText}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.createdAt}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.lastLogin}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button onclick="editUser('${user.id}')" 
+                                class="text-gray-600 hover:text-gray-900 text-sm font-medium mr-3">
+                            編集
+                        </button>
+                        <button onclick="deleteUser('${user.id}')" 
+                                class="text-red-600 hover:text-red-900 text-sm font-medium">
+                            削除
+                        </button>
+                    </td>
                 `;
-                usersList.appendChild(listItem);
+                usersTable.appendChild(listItem);
             });
         }
 
@@ -376,7 +404,7 @@
                 document.getElementById('edit-user-id').value = user.id;
                 document.getElementById('edit-user-name').value = user.name;
                 document.getElementById('edit-user-email').value = user.email;
-                document.getElementById('edit-user-role').value = user.role;
+                document.getElementById('edit-user-project').value = user.projects[0] || '';
                 document.getElementById('edit-user-modal').classList.remove('hidden');
             }
         }
@@ -409,11 +437,9 @@
         }
 
         // 統合フィルタリング機能
-        document.getElementById('date-from').addEventListener('change', filterUsers);
-        document.getElementById('date-to').addEventListener('change', filterUsers);
-
         function filterUsers() {
             const userSearch = document.getElementById('user-search').value.toLowerCase();
+            const clientSearch = document.getElementById('client-search').value.toLowerCase();
             const projectSort = document.getElementById('project-sort').value;
             const dateFrom = document.getElementById('date-from').value;
             const dateTo = document.getElementById('date-to').value;
@@ -422,6 +448,10 @@
                 // ユーザー名検索
                 const matchesUser = user.name.toLowerCase().includes(userSearch) ||
                                    user.email.toLowerCase().includes(userSearch);
+                
+                // クライアント名検索
+                const matchesClient = user.name.toLowerCase().includes(clientSearch) ||
+                                     user.email.toLowerCase().includes(clientSearch);
                 
                 // プロジェクトソート
                 const matchesProject = !projectSort || user.projects.includes(projectSort);
@@ -441,15 +471,20 @@
                     }
                 }
                 
-                return matchesUser && matchesProject && matchesDate;
+                return matchesUser && matchesClient && matchesProject && matchesDate;
             });
             
             renderUsers(filteredUsers);
         }
 
-        // 検索機能
-        document.getElementById('user-search').addEventListener('input', filterUsers);
-        document.getElementById('project-sort').addEventListener('change', filterUsers);
+        // 検索機能のイベントリスナー
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('user-search').addEventListener('input', filterUsers);
+            document.getElementById('client-search').addEventListener('input', filterUsers);
+            document.getElementById('project-sort').addEventListener('change', filterUsers);
+            document.getElementById('date-from').addEventListener('change', filterUsers);
+            document.getElementById('date-to').addEventListener('change', filterUsers);
+        });
 
         // フォーム送信処理
         document.getElementById('new-user-form').addEventListener('submit', function(e) {
@@ -487,7 +522,7 @@
             if (user) {
                 user.name = formData.get('userName');
                 user.email = formData.get('email');
-                user.role = formData.get('role');
+                user.projects = [formData.get('project')];
                 if (formData.get('password')) {
                     // パスワード更新処理
                 }
@@ -499,6 +534,7 @@
 
         // ページ読み込み時の初期化
         checkAuth();
+        updateProjectOptions();
         renderUsers();
     </script>
 </body>

@@ -87,6 +87,13 @@
                             <p class="mt-2 text-sm text-gray-600">キャンペーンの詳細設定を行います。</p>
                         </div>
                         <div class="flex space-x-3">
+                            <button id="update-button" onclick="updateProject()" 
+                                    class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                                更新
+                            </button>
                             <button onclick="previewProject()" 
                                     class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -134,17 +141,20 @@
                                 <div>
                                     <label for="campaign-title" class="block text-sm font-medium text-gray-700">キャンペーンタイトル</label>
                                     <input type="text" id="campaign-title" name="campaignTitle" required
-                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
                                 </div>
                                 <div>
                                     <label for="campaign-start" class="block text-sm font-medium text-gray-700">キャンペーン開始日</label>
-                                    <input type="date" id="campaign-start" name="campaignStart" required
-                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                    <input type="datetime-local" id="campaign-start" name="campaignStart" required
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
                                 </div>
                                 <div>
                                     <label for="campaign-end" class="block text-sm font-medium text-gray-700">キャンペーン終了日</label>
-                                    <input type="date" id="campaign-end" name="campaignEnd" required
-                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                    <input type="datetime-local" id="campaign-end" name="campaignEnd" required
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
                                 </div>
                             </div>
                         </div>
@@ -158,71 +168,113 @@
                                 <div>
                                     <label for="target-products" class="block text-sm font-medium text-gray-700">対象商品</label>
                                     <textarea id="target-products" name="targetProducts" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                                 <div>
                                     <label for="target-stores" class="block text-sm font-medium text-gray-700">対象店舗</label>
                                     <textarea id="target-stores" name="targetStores" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                                 <div>
                                     <label for="application-method" class="block text-sm font-medium text-gray-700">応募方法</label>
                                     <textarea id="application-method" name="applicationMethod" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                                 <div>
                                     <label for="prizes" class="block text-sm font-medium text-gray-700">賞品・当選者数</label>
                                     <textarea id="prizes" name="prizes" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                                 <div>
                                     <label for="receipt-period" class="block text-sm font-medium text-gray-700">キャンペーン期間（対象となるレシートの期間）</label>
-                                    <textarea id="receipt-period" name="receiptPeriod" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-1">
+                                        <div>
+                                            <label for="receipt-start" class="block text-xs font-medium text-gray-600">開始日時</label>
+                                            <input type="datetime-local" id="receipt-start" name="receiptStart" required
+                                                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+                                        <div>
+                                            <label for="receipt-end" class="block text-xs font-medium text-gray-600">終了日時</label>
+                                            <input type="datetime-local" id="receipt-end" name="receiptEnd" required
+                                                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div>
                                     <label for="application-period" class="block text-sm font-medium text-gray-700">応募受付期間</label>
-                                    <textarea id="application-period" name="applicationPeriod" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-1">
+                                        <div>
+                                            <label for="application-start" class="block text-xs font-medium text-gray-600">開始日時</label>
+                                            <input type="datetime-local" id="application-start" name="applicationStart" required
+                                                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+                                        <div>
+                                            <label for="application-end" class="block text-xs font-medium text-gray-600">終了日時</label>
+                                            <input type="datetime-local" id="application-end" name="applicationEnd" required
+                                                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div>
                                     <label for="eligibility" class="block text-sm font-medium text-gray-700">応募資格</label>
                                     <textarea id="eligibility" name="eligibility" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                                 <div>
                                     <label for="announcement" class="block text-sm font-medium text-gray-700">当選発表・賞品発送</label>
                                     <textarea id="announcement" name="announcement" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                                 <div>
                                     <label for="notes" class="block text-sm font-medium text-gray-700">ご注意</label>
                                     <textarea id="notes" name="notes" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                                 <div>
                                     <label for="environment" class="block text-sm font-medium text-gray-700">推奨環境</label>
                                     <textarea id="environment" name="environment" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                                 <div>
                                     <label for="privacy" class="block text-sm font-medium text-gray-700">個人情報の取り扱いについて</label>
                                     <textarea id="privacy" name="privacy" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                                 <div>
                                     <label for="law" class="block text-sm font-medium text-gray-700">準拠法及び管轄裁判所</label>
                                     <textarea id="law" name="law" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                                 <div>
                                     <label for="contact" class="block text-sm font-medium text-gray-700">お問い合わせ先</label>
                                     <textarea id="contact" name="contact" rows="3"
-                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- キャンペーン設定タブの更新ボタン -->
+                <div id="campaign-update-section" class="mt-6 flex justify-end">
+                    <button id="campaign-update-button" onclick="updateProject()" 
+                            class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        更新
+                    </button>
                 </div>
 
                 <!-- フォーム設定タブ -->
@@ -320,18 +372,31 @@
                                 <div>
                                     <label for="max-uploads" class="block text-sm font-medium text-gray-700">最大アップロード枚数</label>
                                     <input type="number" id="max-uploads" name="maxUploads" min="1" max="20" value="5"
-                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
                                     <p class="mt-1 text-sm text-gray-500">1〜20枚の間で設定してください</p>
                                 </div>
                                 <div>
                                     <label for="upload-description" class="block text-sm font-medium text-gray-700">アップロード説明</label>
                                     <textarea id="upload-description" name="uploadDescription" rows="3"
                                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
-                                              placeholder="レシートアップロードについての説明を入力してください"></textarea>
+                                              placeholder="レシートアップロードについての説明を入力してください"
+                                              onchange="markAsChanged()"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- フォーム設定タブの更新ボタン -->
+                <div id="form-update-section" class="mt-6 flex justify-end">
+                    <button id="form-update-button" onclick="updateProject()" 
+                            class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        更新
+                    </button>
                 </div>
 
                 <!-- メインビジュアル設定タブ -->
@@ -355,7 +420,7 @@
                                                 </label>
                                                 <p class="pl-1">またはドラッグ&ドロップ</p>
                                             </div>
-                                            <p class="text-xs text-gray-500">推奨サイズ: 1440×縦成り行き、最大10MB</p>
+                                            <p class="text-xs text-gray-500">一枚まで、推奨サイズ: 1440×縦成り行き、最大10MB</p>
                                         </div>
                                     </div>
                                 </div>
@@ -365,6 +430,56 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- ビジュアル設計 -->
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">ビジュアル設計</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="background-color" class="block text-sm font-medium text-gray-700">背景色</label>
+                                    <input type="color" id="background-color" name="backgroundColor" value="#ffffff"
+                                           class="mt-1 block w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                           onchange="markAsChanged()">
+                                </div>
+                                <div>
+                                    <label for="text-color" class="block text-sm font-medium text-gray-700">文字色</label>
+                                    <input type="color" id="text-color" name="textColor" value="#000000"
+                                           class="mt-1 block w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                           onchange="markAsChanged()">
+                                </div>
+                                <div>
+                                    <label for="link-color" class="block text-sm font-medium text-gray-700">リンク色</label>
+                                    <input type="color" id="link-color" name="linkColor" value="#3B82F6"
+                                           class="mt-1 block w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                           onchange="markAsChanged()">
+                                </div>
+                                <div>
+                                    <label for="button-color" class="block text-sm font-medium text-gray-700">ボタン色</label>
+                                    <input type="color" id="button-color" name="buttonColor" value="#3B82F6"
+                                           class="mt-1 block w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                           onchange="markAsChanged()">
+                                </div>
+                                <div>
+                                    <label for="button-text-color" class="block text-sm font-medium text-gray-700">ボタン内文字色</label>
+                                    <input type="color" id="button-text-color" name="buttonTextColor" value="#ffffff"
+                                           class="mt-1 block w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                           onchange="markAsChanged()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- メインビジュアル設定タブの更新ボタン -->
+                    <div id="visual-update-section" class="mt-6 flex justify-end">
+                        <button id="visual-update-button" onclick="updateProject()" 
+                                class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            更新
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -372,6 +487,8 @@
 
     <script>
         let questionCount = 0;
+        let hasChanges = false;
+        const MAX_QUESTIONS = 5;
 
         // タブ切り替え
         function showTab(tabName) {
@@ -398,14 +515,21 @@
 
         // 質問追加
         function addQuestion() {
+            const currentQuestions = document.querySelectorAll('#questions-container > div').length;
+            if (currentQuestions >= MAX_QUESTIONS) {
+                alert(`質問は最大${MAX_QUESTIONS}個まで追加できます。`);
+                return;
+            }
+
             questionCount++;
             const container = document.getElementById('questions-container');
             const questionDiv = document.createElement('div');
             questionDiv.className = 'border border-gray-200 rounded-lg p-4';
+            questionDiv.id = `question-${questionCount}`;
             questionDiv.innerHTML = `
                 <div class="flex justify-between items-start mb-4">
                     <h4 class="text-md font-medium text-gray-900">質問 ${questionCount}</h4>
-                    <button onclick="removeQuestion(this)" class="text-red-600 hover:text-red-800">
+                    <button onclick="removeQuestion(${questionCount})" class="text-red-600 hover:text-red-800">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                         </svg>
@@ -415,49 +539,329 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">質問内容</label>
                         <input type="text" name="question_${questionCount}" required
-                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                               onchange="markAsChanged()">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">回答形式</label>
-                        <select name="question_type_${questionCount}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                            <option value="text">テキスト</option>
+                        <select name="question_type_${questionCount}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                onchange="handleQuestionTypeChange(${questionCount}); markAsChanged()">
+                            <option value="text">一行テキスト</option>
                             <option value="textarea">長文テキスト</option>
-                            <option value="radio">選択肢（単一）</option>
-                            <option value="checkbox">選択肢（複数）</option>
+                            <option value="radio">ラジオボタン（単一選択）</option>
+                            <option value="checkbox">チェックボックス（複数選択）</option>
+                            <option value="select">プルダウン（単一選択）</option>
                         </select>
                     </div>
-                    <div id="options_${questionCount}" class="hidden">
-                        <label class="block text-sm font-medium text-gray-700">選択肢</label>
-                        <div class="space-y-2">
-                            <input type="text" name="option_${questionCount}_1" placeholder="選択肢1"
-                                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                            <input type="text" name="option_${questionCount}_2" placeholder="選択肢2"
-                                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                            <button type="button" onclick="addOption(${questionCount})" class="text-sm text-primary hover:text-blue-700">
-                                + 選択肢を追加
-                            </button>
-                        </div>
+                    <div id="answer-form-${questionCount}" class="hidden">
+                        <!-- 回答形式に応じたフォームがここに動的に表示されます -->
+                    </div>
+                    <div>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="required_${questionCount}" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                                   onchange="markAsChanged()">
+                            <span class="ml-2 block text-sm text-gray-900">必須項目</span>
+                        </label>
                     </div>
                 </div>
             `;
             container.appendChild(questionDiv);
+            markAsChanged();
         }
 
         // 質問削除
-        function removeQuestion(button) {
-            button.closest('div').remove();
+        function removeQuestion(questionId) {
+            const questionElement = document.getElementById(`question-${questionId}`);
+            if (questionElement) {
+                questionElement.remove();
+                renumberQuestions();
+                markAsChanged();
+            }
         }
 
-        // 選択肢追加
+        // 質問のナンバリングを再設定
+        function renumberQuestions() {
+            const questions = document.querySelectorAll('#questions-container > div');
+            questions.forEach((question, index) => {
+                const questionNumber = index + 1;
+                const titleElement = question.querySelector('h4');
+                if (titleElement) {
+                    titleElement.textContent = `質問 ${questionNumber}`;
+                }
+                
+                // 新しいIDを設定
+                const oldId = question.id;
+                const newId = `question-${questionNumber}`;
+                question.id = newId;
+                
+                // 内部の要素のIDも更新
+                const answerForm = question.querySelector('[id^="answer-form-"]');
+                if (answerForm) {
+                    answerForm.id = `answer-form-${questionNumber}`;
+                }
+                
+                // 削除ボタンのonclickを更新
+                const deleteButton = question.querySelector('button[onclick^="removeQuestion"]');
+                if (deleteButton) {
+                    deleteButton.onclick = () => removeQuestion(questionNumber);
+                }
+                
+                // 回答形式のselectのonchangeを更新
+                const typeSelect = question.querySelector('select[name^="question_type_"]');
+                if (typeSelect) {
+                    typeSelect.onchange = () => {
+                        handleQuestionTypeChange(questionNumber);
+                        markAsChanged();
+                    };
+                }
+            });
+        }
+
+        // 質問タイプ変更時の処理
+        function handleQuestionTypeChange(questionId) {
+            const questionType = document.querySelector(`select[name="question_type_${questionId}"]`).value;
+            const answerFormDiv = document.getElementById(`answer-form-${questionId}`);
+            
+            // 既存のフォームをクリア
+            answerFormDiv.innerHTML = '';
+            answerFormDiv.classList.remove('hidden');
+            
+            switch (questionType) {
+                case 'text':
+                    // 一行テキスト - 何も表示しない（デフォルトのinputが使用される）
+                    answerFormDiv.classList.add('hidden');
+                    break;
+                    
+                case 'textarea':
+                    // 長文テキスト - プレースホルダーを表示
+                    answerFormDiv.innerHTML = `
+                        <div class="bg-blue-50 border border-blue-200 rounded-md p-3">
+                            <p class="text-sm text-blue-700">長文テキストエリアが表示されます</p>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'radio':
+                case 'checkbox':
+                    // ラジオボタン/チェックボックス - 選択肢編集フォーム
+                    answerFormDiv.innerHTML = `
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">選択肢</label>
+                            <div class="space-y-2">
+                                <input type="text" name="option_${questionId}_1" placeholder="選択肢1"
+                                       class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                       onchange="markAsChanged()">
+                                <input type="text" name="option_${questionId}_2" placeholder="選択肢2"
+                                       class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                       onchange="markAsChanged()">
+                                <button type="button" onclick="addOption(${questionId})" class="text-sm text-primary hover:text-blue-700">
+                                    + 選択肢を追加
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'select':
+                    // プルダウン - 改行区切りのテキストエリア
+                    answerFormDiv.innerHTML = `
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">選択肢（改行で区切って入力）</label>
+                            <textarea name="select_options_${questionId}" rows="4" placeholder="選択肢1&#10;選択肢2&#10;選択肢3"
+                                      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                      onchange="markAsChanged()"></textarea>
+                            <p class="mt-1 text-xs text-gray-500">各選択肢を改行で区切って入力してください</p>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        // 選択肢追加（ラジオボタン/チェックボックス用）
         function addOption(questionId) {
-            const optionsDiv = document.getElementById(`options_${questionId}`);
-            const optionCount = optionsDiv.querySelectorAll('input[type="text"]').length + 1;
+            const answerFormDiv = document.getElementById(`answer-form-${questionId}`);
+            const optionInputs = answerFormDiv.querySelectorAll('input[type="text"]');
+            const optionCount = optionInputs.length + 1;
+            
             const newOption = document.createElement('input');
             newOption.type = 'text';
             newOption.name = `option_${questionId}_${optionCount}`;
             newOption.placeholder = `選択肢${optionCount}`;
             newOption.className = 'block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm';
-            optionsDiv.insertBefore(newOption, optionsDiv.lastElementChild);
+            newOption.onchange = markAsChanged;
+            
+            // 追加ボタンの前に挿入
+            const addButton = answerFormDiv.querySelector('button');
+            answerFormDiv.insertBefore(newOption, addButton);
+            markAsChanged();
+        }
+
+        // 変更をマーク
+        function markAsChanged() {
+            hasChanges = true;
+            showUpdateButton();
+        }
+
+        // 更新ボタンを表示
+        function showUpdateButton() {
+            // ヘッダーの更新ボタン
+            const updateButton = document.getElementById('update-button');
+            if (updateButton) {
+                updateButton.classList.remove('hidden');
+            }
+            
+            // 現在表示されているタブの更新ボタン
+            const campaignTab = document.getElementById('campaign-tab');
+            const formTab = document.getElementById('form-tab');
+            const visualTab = document.getElementById('visual-tab');
+            
+            if (!campaignTab.classList.contains('hidden')) {
+                const campaignUpdateButton = document.getElementById('campaign-update-button');
+                if (campaignUpdateButton) {
+                    campaignUpdateButton.classList.remove('hidden');
+                }
+            }
+            
+            if (!formTab.classList.contains('hidden')) {
+                const formUpdateButton = document.getElementById('form-update-button');
+                if (formUpdateButton) {
+                    formUpdateButton.classList.remove('hidden');
+                }
+            }
+            
+            if (!visualTab.classList.contains('hidden')) {
+                const visualUpdateButton = document.getElementById('visual-update-button');
+                if (visualUpdateButton) {
+                    visualUpdateButton.classList.remove('hidden');
+                }
+            }
+        }
+
+        // 更新処理
+        function updateProject() {
+            if (confirm('変更を保存しますか？')) {
+                // ここで実際の更新処理を行う
+                alert('変更が保存されました。');
+                hasChanges = false;
+                
+                // すべての更新ボタンを非表示にする
+                const updateButtons = [
+                    'update-button',
+                    'campaign-update-button',
+                    'form-update-button',
+                    'visual-update-button'
+                ];
+                
+                updateButtons.forEach(buttonId => {
+                    const button = document.getElementById(buttonId);
+                    if (button) {
+                        button.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        // デフォルトのアンケート項目を追加
+        function addDefaultQuestions() {
+            const defaultQuestions = [
+                {
+                    question: 'この商品を購入した理由を教えてください',
+                    type: 'textarea',
+                    required: true
+                },
+                {
+                    question: 'この商品の満足度を教えてください',
+                    type: 'radio',
+                    options: ['非常に満足', '満足', '普通', '不満', '非常に不満'],
+                    required: true
+                },
+                {
+                    question: '今後もこの商品を購入したいですか？',
+                    type: 'select',
+                    options: ['はい', 'いいえ', 'わからない'],
+                    required: false
+                }
+            ];
+
+            defaultQuestions.forEach((q, index) => {
+                questionCount++;
+                const container = document.getElementById('questions-container');
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'border border-gray-200 rounded-lg p-4';
+                questionDiv.id = `question-${questionCount}`;
+                
+                let answerFormHtml = '';
+                if (q.type === 'textarea') {
+                    answerFormHtml = `
+                        <div id="answer-form-${questionCount}" class="bg-blue-50 border border-blue-200 rounded-md p-3">
+                            <p class="text-sm text-blue-700">長文テキストエリアが表示されます</p>
+                        </div>
+                    `;
+                } else if (q.type === 'radio') {
+                    answerFormHtml = `
+                        <div id="answer-form-${questionCount}" class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">選択肢</label>
+                            ${q.options.map((option, optIndex) => `
+                                <input type="text" name="option_${questionCount}_${optIndex + 1}" value="${option}"
+                                       class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                       onchange="markAsChanged()">
+                            `).join('')}
+                            <button type="button" onclick="addOption(${questionCount})" class="text-sm text-primary hover:text-blue-700">
+                                + 選択肢を追加
+                            </button>
+                        </div>
+                    `;
+                } else if (q.type === 'select') {
+                    answerFormHtml = `
+                        <div id="answer-form-${questionCount}">
+                            <label class="block text-sm font-medium text-gray-700">選択肢（改行で区切って入力）</label>
+                            <textarea name="select_options_${questionCount}" rows="4"
+                                      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                      onchange="markAsChanged()">${q.options.join('\n')}</textarea>
+                            <p class="mt-1 text-xs text-gray-500">各選択肢を改行で区切って入力してください</p>
+                        </div>
+                    `;
+                }
+
+                questionDiv.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-md font-medium text-gray-900">質問 ${questionCount}</h4>
+                        <button onclick="removeQuestion(${questionCount})" class="text-red-600 hover:text-red-800">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">質問内容</label>
+                            <input type="text" name="question_${questionCount}" value="${q.question}" required
+                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                   onchange="markAsChanged()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">回答形式</label>
+                            <select name="question_type_${questionCount}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                    onchange="handleQuestionTypeChange(${questionCount}); markAsChanged()">
+                                <option value="text" ${q.type === 'text' ? 'selected' : ''}>一行テキスト</option>
+                                <option value="textarea" ${q.type === 'textarea' ? 'selected' : ''}>長文テキスト</option>
+                                <option value="radio" ${q.type === 'radio' ? 'selected' : ''}>ラジオボタン（単一選択）</option>
+                                <option value="checkbox" ${q.type === 'checkbox' ? 'selected' : ''}>チェックボックス（複数選択）</option>
+                                <option value="select" ${q.type === 'select' ? 'selected' : ''}>プルダウン（単一選択）</option>
+                            </select>
+                        </div>
+                        ${answerFormHtml}
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="required_${questionCount}" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                                       ${q.required ? 'checked' : ''} onchange="markAsChanged()">
+                                <span class="ml-2 block text-sm text-gray-900">必須項目</span>
+                            </label>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(questionDiv);
+            });
         }
 
         // 画像プレビュー
@@ -497,6 +901,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             // デフォルトでキャンペーン設定タブを表示
             showTab('campaign');
+            
+            // デフォルトのアンケート項目を追加
+            addDefaultQuestions();
         });
     </script>
 </body>

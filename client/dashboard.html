@@ -117,7 +117,7 @@
                                     </svg>
                                     プレビュー
                                 </button>
-                                <button onclick="publishProject()" 
+                                <button id="publish-button" onclick="togglePublish()" 
                                         class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -142,12 +142,12 @@
                                     <p class="mt-1 text-sm text-gray-900" id="display-client-name">-</p>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700">プロジェクトID</label>
-                                    <p class="mt-1 text-sm text-gray-900" id="display-project-id">-</p>
-                                </div>
-                                <div>
                                     <label class="block text-sm font-medium text-gray-700">作成日</label>
                                     <p class="mt-1 text-sm text-gray-900" id="display-created-date">-</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">公開状態</label>
+                                    <p class="mt-1 text-sm text-gray-900" id="display-publish-status">非公開</p>
                                 </div>
                             </div>
                             <div class="mt-4">
@@ -254,6 +254,7 @@
                 // プロジェクトが存在する場合、通常のダッシュボードを表示
                 document.getElementById('initial-setup').classList.add('hidden');
                 document.getElementById('normal-dashboard').classList.remove('hidden');
+                loadProjectInfo();
                 updateStatistics();
                 loadSubmissions();
             } else {
@@ -263,12 +264,88 @@
             }
         }
 
+        // プロジェクト情報の読み込み
+        function loadProjectInfo() {
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const currentProjectId = localStorage.getItem('currentProject');
+            
+            // 現在のプロジェクトを取得
+            let project = null;
+            if (currentProjectId) {
+                project = projects.find(p => p.id === currentProjectId);
+            } else if (projects.length > 0) {
+                project = projects[0]; // 最初のプロジェクトを使用
+            }
+            
+            if (project) {
+                document.getElementById('display-project-name').textContent = project.name || '未設定';
+                document.getElementById('display-client-name').textContent = project.clientName || '未設定';
+                document.getElementById('display-description').textContent = project.description || '説明がありません';
+                
+                // 作成日のフォーマット
+                const createdDate = project.createdAt ? new Date(project.createdAt).toLocaleDateString('ja-JP') : '未設定';
+                document.getElementById('display-created-date').textContent = createdDate;
+                
+                // 公開状態の設定
+                const isPublished = project.isPublished || false;
+                updatePublishStatus(isPublished);
+            }
+        }
+
+        // 公開状態の更新
+        function updatePublishStatus(isPublished) {
+            const publishButton = document.getElementById('publish-button');
+            const publishStatus = document.getElementById('display-publish-status');
+            
+            if (isPublished) {
+                // 公開中の場合
+                publishButton.innerHTML = `
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    非公開にする
+                `;
+                publishButton.className = 'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500';
+                publishStatus.textContent = '公開中';
+                publishStatus.className = 'mt-1 text-sm text-green-600 font-medium';
+            } else {
+                // 非公開の場合
+                publishButton.innerHTML = `
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    公開する
+                `;
+                publishButton.className = 'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500';
+                publishStatus.textContent = '非公開';
+                publishStatus.className = 'mt-1 text-sm text-gray-600';
+            }
+        }
+
         // 統計情報の更新
         function updateStatistics() {
             // サンプルデータ（実際の実装ではデータベースから取得）
             document.getElementById('total-submissions').textContent = '25';
             document.getElementById('today-submissions').textContent = '3';
-            document.getElementById('project-status').textContent = '公開中';
+            
+            // プロジェクトの公開状態に基づいてステータスを表示
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const currentProjectId = localStorage.getItem('currentProject');
+            let project = null;
+            
+            if (currentProjectId) {
+                project = projects.find(p => p.id === currentProjectId);
+            } else if (projects.length > 0) {
+                project = projects[0];
+            }
+            
+            if (project && project.isPublished) {
+                document.getElementById('project-status').textContent = '公開中';
+                document.getElementById('project-status').className = 'text-lg font-medium text-green-600';
+            } else {
+                document.getElementById('project-status').textContent = '非公開';
+                document.getElementById('project-status').className = 'text-lg font-medium text-gray-600';
+            }
         }
 
         // 応募者一覧の読み込み
@@ -307,10 +384,43 @@
             alert('プレビュー機能は実装予定です。');
         }
 
-        // 公開機能
-        function publishProject() {
-            if (confirm('プロジェクトを公開しますか？')) {
-                alert('プロジェクトが公開されました。');
+        // 公開/非公開の切り替え機能
+        function togglePublish() {
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const currentProjectId = localStorage.getItem('currentProject');
+            let project = null;
+            let projectIndex = -1;
+            
+            if (currentProjectId) {
+                projectIndex = projects.findIndex(p => p.id === currentProjectId);
+                project = projects[projectIndex];
+            } else if (projects.length > 0) {
+                projectIndex = 0;
+                project = projects[0];
+            }
+            
+            if (project) {
+                const currentStatus = project.isPublished || false;
+                const newStatus = !currentStatus;
+                
+                const actionText = newStatus ? '公開' : '非公開';
+                const confirmMessage = `プロジェクトを${actionText}にしますか？`;
+                
+                if (confirm(confirmMessage)) {
+                    // プロジェクトの公開状態を更新
+                    project.isPublished = newStatus;
+                    projects[projectIndex] = project;
+                    localStorage.setItem('projects', JSON.stringify(projects));
+                    
+                    // UIを更新
+                    updatePublishStatus(newStatus);
+                    updateStatistics();
+                    
+                    const successMessage = `プロジェクトが${actionText}されました。`;
+                    alert(successMessage);
+                }
+            } else {
+                alert('プロジェクトが見つかりません。');
             }
         }
 
