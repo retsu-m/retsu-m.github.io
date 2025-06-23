@@ -63,12 +63,12 @@
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="border border-gray-200 rounded-lg p-4">
-                        <h3 class="font-medium text-gray-900 mb-2"><a href="../index.html" class="underline hover:text-primary">ログイン画面</a></h3>
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../index.html" class="underline hover:text-primary">ログイン選択画面</a></h3>
                         <p class="text-sm text-gray-600 mb-2"><a href="../index.html" class="underline hover:text-primary">index.html</a></p>
-                        <p class="text-xs text-gray-500">管理者・クライアント共通のログイン画面</p>
+                        <p class="text-xs text-gray-500">管理者・クライアントのログイン方法選択</p>
                         <div class="mt-2">
                             <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                10KB
+                                8KB
                             </span>
                         </div>
                     </div>
@@ -82,6 +82,16 @@
                     管理者機能 (/admin/)
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../admin/login.html" class="underline hover:text-primary">管理者ログイン</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../admin/login.html" class="underline hover:text-primary">admin/login.html</a></p>
+                        <p class="text-xs text-gray-500">管理者専用ログイン画面</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-admin text-white">
+                                6KB
+                            </span>
+                        </div>
+                    </div>
                     <div class="border border-gray-200 rounded-lg p-4">
                         <h3 class="font-medium text-gray-900 mb-2"><a href="../admin/dashboard.html" class="underline hover:text-primary">管理者ダッシュボード</a></h3>
                         <p class="text-sm text-gray-600 mb-2"><a href="../admin/dashboard.html" class="underline hover:text-primary">admin/dashboard.html</a></p>
@@ -132,6 +142,16 @@
                     クライアント機能 (/client/)
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../client/login.html" class="underline hover:text-primary">クライアントログイン</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../client/login.html" class="underline hover:text-primary">client/login.html</a></p>
+                        <p class="text-xs text-gray-500">クライアント専用ログイン画面</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-client text-white">
+                                6KB
+                            </span>
+                        </div>
+                    </div>
                     <div class="border border-gray-200 rounded-lg p-4">
                         <h3 class="font-medium text-gray-900 mb-2"><a href="../client/dashboard.html" class="underline hover:text-primary">クライアントダッシュボード</a></h3>
                         <p class="text-sm text-gray-600 mb-2"><a href="../client/dashboard.html" class="underline hover:text-primary">client/dashboard.html</a></p>
@@ -296,11 +316,11 @@
             <h2 class="text-xl font-semibold text-gray-900 mb-6">統計情報</h2>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div class="text-center">
-                    <div class="text-3xl font-bold text-gray-900">12</div>
+                    <div class="text-3xl font-bold text-gray-900">14</div>
                     <div class="text-sm text-gray-600">総ページ数</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-3xl font-bold text-gray-900">~300KB</div>
+                    <div class="text-3xl font-bold text-gray-900">~320KB</div>
                     <div class="text-sm text-gray-600">総ファイルサイズ</div>
                 </div>
                 <div class="text-center">
@@ -319,6 +339,14 @@
             <h2 class="text-xl font-semibold text-gray-900 mb-4">✨ 新機能ハイライト</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="bg-white rounded-lg p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">分離されたログイン機能</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• 管理者専用ログイン画面 (admin/login.html)</li>
+                        <li>• クライアント専用ログイン画面 (client/login.html)</li>
+                        <li>• ログイン方法選択画面 (index.html)</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg p-4">
                     <h3 class="font-medium text-gray-900 mb-2">個人情報フォーム設定</h3>
                     <ul class="text-sm text-gray-600 space-y-1">
                         <li>• 名前、メール、郵便番号、住所、電話番号の必須設定</li>
@@ -332,6 +360,14 @@
                         <li>• 郵便番号形式チェック</li>
                         <li>• 電話番号形式チェック</li>
                         <li>• メールアドレス一致確認</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">改善されたユーザーエクスペリエンス</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• 直感的なログイン画面選択</li>
+                        <li>• 専用デザインによる明確な区別</li>
+                        <li>• スムーズなナビゲーション</li>
                     </ul>
                 </div>
             </div>

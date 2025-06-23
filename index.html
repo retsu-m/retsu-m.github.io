@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>レシートキャンペーンCMS - ログイン</title>
+    <title>レシートキャンペーンCMS - ログイン選択</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -21,161 +21,122 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
     <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <div>
-                <div class="mx-auto h-12 w-12 bg-primary rounded-lg flex items-center justify-center">
-                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="max-w-4xl w-full space-y-8">
+            <div class="text-center">
+                <div class="mx-auto h-16 w-16 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                    <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
                 </div>
-                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                <h1 class="mt-6 text-center text-4xl font-extrabold text-gray-900">
                     レシートキャンペーンCMS
-                </h2>
-                <p class="mt-2 text-center text-sm text-gray-600">
-                    ログインしてキャンペーンを管理しましょう
+                </h1>
+                <p class="mt-2 text-center text-lg text-gray-600">
+                    ログイン方法を選択してください
                 </p>
             </div>
             
-            <div class="bg-white py-8 px-6 shadow rounded-lg">
-                <div class="space-y-6">
-                    <!-- ログインタイプ選択 -->
-                    <div class="flex space-x-4">
-                        <button id="admin-tab" class="flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                            管理者ログイン
-                        </button>
-                        <button id="client-tab" class="flex-1 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                            クライアントログイン
-                        </button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 管理者ログインカード -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="bg-primary p-6">
+                        <div class="flex items-center justify-center h-12 w-12 bg-white bg-opacity-20 rounded-lg">
+                            <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="mt-4 text-xl font-semibold text-white">管理者ログイン</h2>
+                        <p class="mt-2 text-blue-100">システム管理者用のログイン画面です</p>
                     </div>
+                    <div class="p-6">
+                        <ul class="text-sm text-gray-600 space-y-2 mb-6">
+                            <li class="flex items-center">
+                                <svg class="h-4 w-4 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                プロジェクトの作成・管理
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="h-4 w-4 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                ユーザー管理
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="h-4 w-4 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                システム設定
+                            </li>
+                        </ul>
+                        <a href="admin/login.html" 
+                           class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-200">
+                            管理者としてログイン
+                        </a>
+                    </div>
+                </div>
 
-                    <!-- 管理者ログインフォーム -->
-                    <form id="admin-form" class="space-y-6">
-                        <div>
-                            <label for="admin-username" class="block text-sm font-medium text-gray-700">
-                                ユーザーID
-                            </label>
-                            <input id="admin-username" name="username" type="text" required 
-                                   class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                                   placeholder="管理者IDを入力">
+                <!-- クライアントログインカード -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="bg-secondary p-6">
+                        <div class="flex items-center justify-center h-12 w-12 bg-white bg-opacity-20 rounded-lg">
+                            <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
                         </div>
-                        <div>
-                            <label for="admin-password" class="block text-sm font-medium text-gray-700">
-                                パスワード
-                            </label>
-                            <input id="admin-password" name="password" type="password" required 
-                                   class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                                   placeholder="パスワードを入力">
-                        </div>
-                        <div>
-                            <button type="submit" 
-                                    class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                                管理者としてログイン
-                            </button>
-                        </div>
-                    </form>
-
-                    <!-- クライアントログインフォーム -->
-                    <form id="client-form" class="space-y-6 hidden">
-                        <div>
-                            <label for="project-id" class="block text-sm font-medium text-gray-700">
-                                プロジェクトID
-                            </label>
-                            <input id="project-id" name="projectId" type="text" required 
-                                   class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                                   placeholder="プロジェクトIDを入力">
-                        </div>
-                        <div>
-                            <label for="client-password" class="block text-sm font-medium text-gray-700">
-                                パスワード
-                            </label>
-                            <input id="client-password" name="password" type="password" required 
-                                   class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                                   placeholder="パスワードを入力">
-                        </div>
-                        <div>
-                            <button type="submit" 
-                                    class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
-                                クライアントとしてログイン
-                            </button>
-                        </div>
-                    </form>
-
-                    <!-- エラーメッセージ -->
-                    <div id="error-message" class="hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                        <h2 class="mt-4 text-xl font-semibold text-white">クライアントログイン</h2>
+                        <p class="mt-2 text-green-100">プロジェクト管理者用のログイン画面です</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="text-sm text-gray-600 space-y-2 mb-6">
+                            <li class="flex items-center">
+                                <svg class="h-4 w-4 text-secondary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                キャンペーン設定
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="h-4 w-4 text-secondary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                応募データ確認
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="h-4 w-4 text-secondary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                レポート確認
+                            </li>
+                        </ul>
+                        <a href="client/login.html" 
+                           class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-colors duration-200">
+                            クライアントとしてログイン
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- デモ情報 -->
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h3 class="text-sm font-medium text-blue-800 mb-2">デモ用ログイン情報</h3>
-                <div class="text-xs text-blue-700 space-y-1">
-                    <p><strong>管理者:</strong> admin / admin123</p>
-                    <p><strong>クライアント:</strong> project001 / client123</p>
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <h3 class="text-lg font-medium text-gray-900 mb-4 text-center">デモ用ログイン情報</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h4 class="text-sm font-medium text-blue-800 mb-2">管理者</h4>
+                        <div class="text-xs text-blue-700 space-y-1">
+                            <p><strong>ユーザーID:</strong> admin</p>
+                            <p><strong>パスワード:</strong> admin123</p>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h4 class="text-sm font-medium text-green-800 mb-2">クライアント</h4>
+                        <div class="text-xs text-green-700 space-y-1">
+                            <p><strong>プロジェクトID:</strong> project001</p>
+                            <p><strong>パスワード:</strong> client123</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        // タブ切り替え機能
-        const adminTab = document.getElementById('admin-tab');
-        const clientTab = document.getElementById('client-tab');
-        const adminForm = document.getElementById('admin-form');
-        const clientForm = document.getElementById('client-form');
-
-        adminTab.addEventListener('click', () => {
-            adminTab.className = 'flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary';
-            clientTab.className = 'flex-1 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary';
-            adminForm.classList.remove('hidden');
-            clientForm.classList.add('hidden');
-        });
-
-        clientTab.addEventListener('click', () => {
-            clientTab.className = 'flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary';
-            adminTab.className = 'flex-1 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary';
-            clientForm.classList.remove('hidden');
-            adminForm.classList.add('hidden');
-        });
-
-        // 管理者ログイン処理
-        adminForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = document.getElementById('admin-username').value;
-            const password = document.getElementById('admin-password').value;
-
-            if (username === 'admin' && password === 'admin123') {
-                localStorage.setItem('userType', 'admin');
-                localStorage.setItem('username', username);
-                window.location.href = 'admin/dashboard.html';
-            } else {
-                showError('ユーザーIDまたはパスワードが正しくありません。');
-            }
-        });
-
-        // クライアントログイン処理
-        clientForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const projectId = document.getElementById('project-id').value;
-            const password = document.getElementById('client-password').value;
-
-            if (projectId === 'project001' && password === 'client123') {
-                localStorage.setItem('userType', 'client');
-                localStorage.setItem('projectId', projectId);
-                window.location.href = 'client/setup.html';
-            } else {
-                showError('プロジェクトIDまたはパスワードが正しくありません。');
-            }
-        });
-
-        function showError(message) {
-            const errorDiv = document.getElementById('error-message');
-            errorDiv.textContent = message;
-            errorDiv.classList.remove('hidden');
-            setTimeout(() => {
-                errorDiv.classList.add('hidden');
-            }, 5000);
-        }
-    </script>
 </body>
 </html> 

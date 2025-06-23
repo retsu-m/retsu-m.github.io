@@ -225,7 +225,7 @@
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">応募日時</th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">応募者名</th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メールアドレス</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">レシート枚数</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">レシート</th>
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200" id="recent-submissions">
@@ -354,9 +354,9 @@
             
             // サンプルデータ（実際の実装ではデータベースから取得）
             const submissions = [
-                { id: 1, name: '田中太郎', email: 'tanaka@example.com', date: '2024-01-15 10:30', receipts: 2 },
-                { id: 2, name: '佐藤花子', email: 'sato@example.com', date: '2024-01-16 14:20', receipts: 1 },
-                { id: 3, name: '鈴木一郎', email: 'suzuki@example.com', date: '2024-01-17 09:15', receipts: 3 }
+                { id: 1, name: '田中太郎', email: 'tanaka@example.com', date: '2024-01-15 10:30', receiptUrl: 'https://example.com/receipts/tanaka-receipt1.jpg' },
+                { id: 2, name: '佐藤花子', email: 'sato@example.com', date: '2024-01-16 14:20', receiptUrl: 'https://example.com/receipts/sato-receipt1.jpg' },
+                { id: 3, name: '鈴木一郎', email: 'suzuki@example.com', date: '2024-01-17 09:15', receiptUrl: 'https://example.com/receipts/suzuki-receipt1.jpg' }
             ];
             
             if (submissions.length > 0) {
@@ -365,7 +365,11 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${submission.date}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${submission.name}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${submission.email}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${submission.receipts}枚</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <a href="${submission.receiptUrl}" target="_blank" class="text-primary hover:text-blue-700 underline">
+                                レシートを表示
+                            </a>
+                        </td>
                     </tr>
                 `).join('');
             } else {
@@ -427,6 +431,8 @@
         // ログアウト処理
         function logout() {
             if (confirm('ログアウトしますか？')) {
+                localStorage.removeItem('userType');
+                localStorage.removeItem('projectId');
                 localStorage.removeItem('currentProject');
                 window.location.href = '../index.html';
             }

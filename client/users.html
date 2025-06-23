@@ -266,6 +266,8 @@
         // ログアウト処理
         function logout() {
             if (confirm('ログアウトしますか？')) {
+                localStorage.removeItem('userType');
+                localStorage.removeItem('projectId');
                 localStorage.removeItem('currentProject');
                 window.location.href = '../index.html';
             }
