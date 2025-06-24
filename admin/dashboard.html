@@ -75,7 +75,7 @@
                     </div>
 
                     <!-- 最近のプロジェクト -->
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="grid grid-cols-1 gap-8">
                         ${Components.renderCard(
                             '最近のプロジェクト',
                             `
@@ -107,41 +107,6 @@
                             <div class="flex justify-between items-center">
                                 <a href="projects.html" class="text-sm text-primary hover:text-blue-700">すべてのプロジェクトを見る</a>
                                 <a href="projects.html" class="text-sm text-primary hover:text-blue-700">→</a>
-                            </div>
-                            `
-                        )}
-
-                        ${Components.renderCard(
-                            'システム通知',
-                            `
-                            <div class="space-y-4">
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                                    <div>
-                                        <p class="text-sm text-gray-900">新しいプロジェクト「タリーズコーヒーキャンペーン」が作成されました</p>
-                                        <p class="text-xs text-gray-500">2時間前</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                                    <div>
-                                        <p class="text-sm text-gray-900">「スターバックスキャンペーン」の応募数が1000件を突破しました</p>
-                                        <p class="text-xs text-gray-500">5時間前</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
-                                    <div>
-                                        <p class="text-sm text-gray-900">「マクドナルドキャンペーン」の終了日が近づいています</p>
-                                        <p class="text-xs text-gray-500">1日前</p>
-                                    </div>
-                                </div>
-                            </div>
-                            `,
-                            `
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">最新の通知</span>
-                                <button class="text-sm text-primary hover:text-blue-700">すべて見る</button>
                             </div>
                             `
                         )}

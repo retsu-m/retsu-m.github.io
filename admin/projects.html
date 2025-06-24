@@ -589,9 +589,6 @@ ${projectData.clientName} 様
                                 <button onclick="openProjectDetail('${project.id}')" class="text-primary hover:text-blue-700">
                                     詳細・編集
                                 </button>
-                                <button onclick="showLoginInfo(${JSON.stringify(project).replace(/"/g, '&quot;')})" class="text-accent hover:text-yellow-700">
-                                    ログイン情報
-                                </button>
                                 <button onclick="deleteProject('${project.id}')" class="text-red-600 hover:text-red-800">
                                     削除
                                 </button>
@@ -775,9 +772,6 @@ ${projectData.clientName} 様
                             <div class="flex space-x-2">
                                 <button onclick="openProjectDetail('${project.id}')" class="text-primary hover:text-blue-700">
                                     詳細・編集
-                                </button>
-                                <button onclick="showLoginInfo(${JSON.stringify(project).replace(/"/g, '&quot;')})" class="text-accent hover:text-yellow-700">
-                                    ログイン情報
                                 </button>
                                 <button onclick="deleteProject('${project.id}')" class="text-red-600 hover:text-red-800">
                                     削除
