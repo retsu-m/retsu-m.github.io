@@ -11,202 +11,59 @@
                 extend: {
                     colors: {
                         primary: '#3B82F6',
-                        secondary: '#10B981',
-                        accent: '#F59E0B'
+                        secondary: '#10B981'
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-gray-100">
-    <!-- ナビゲーションバー -->
-    <nav class="bg-white shadow-sm border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <a href="dashboard.html" class="text-xl font-semibold text-gray-900">レシートキャンペーンCMS</a>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <span class="text-sm text-gray-700">管理者: <span id="admin-name">admin</span></span>
-                    <button onclick="logout()" class="text-sm text-red-600 hover:text-red-800">ログアウト</button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <div class="flex">
-        <!-- サイドメニュー -->
-        <div class="w-64 bg-white shadow-sm min-h-screen">
-            <div class="p-4">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">管理者メニュー</h2>
-                <nav class="space-y-2">
-                    <a href="dashboard.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
-                        </svg>
-                        ダッシュボード
-                    </a>
-                    <a href="projects.html" class="flex items-center px-3 py-2 text-sm font-medium text-white bg-primary rounded-md">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                        </svg>
-                        プロジェクト管理
-                    </a>
-                    <a href="users.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                        </svg>
-                        ユーザー管理
-                    </a>
-                </nav>
-            </div>
-        </div>
-
-        <!-- メインコンテンツ -->
-        <div class="flex-1 p-8">
-            <!-- ページヘッダー -->
-            <div class="mb-8">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-2xl font-bold text-gray-900">プロジェクト管理</h2>
-                    <button onclick="createNewProject()" 
-                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
-                        新規プロジェクト作成
-                    </button>
-                </div>
-            </div>
-
-            <!-- 検索・フィルター -->
-            <div class="bg-white shadow rounded-lg mb-6">
-                <div class="px-4 py-5 sm:p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                            <label for="project-search" class="block text-sm font-medium text-gray-700">プロジェクト名検索</label>
-                            <input type="text" id="project-search" placeholder="プロジェクト名を入力..."
-                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                        </div>
-                        <div>
-                            <label for="client-search" class="block text-sm font-medium text-gray-700">クライアント名検索</label>
-                            <input type="text" id="client-search" placeholder="クライアント名を入力..."
-                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                        </div>
-                        <div>
-                            <label for="date-sort" class="block text-sm font-medium text-gray-700">作成日期間</label>
-                            <div class="mt-1 grid grid-cols-2 gap-2">
-                                <input type="date" id="date-from" 
-                                       class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                                <input type="date" id="date-to" 
-                                       class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- プロジェクト一覧 -->
-            <div class="bg-white shadow overflow-hidden sm:rounded-md">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">プロジェクト名</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">クライアント名</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">フォルダ名</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">プロジェクトID</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">作成日</th>
-                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200" id="projects-table">
-                        <!-- プロジェクトアイテムはJavaScriptで動的に生成 -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- ページネーション -->
-            <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 mt-6">
-                <div class="flex-1 flex justify-between sm:hidden">
-                    <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                        前へ
-                    </button>
-                    <button class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                        次へ
-                    </button>
-                </div>
-                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                    <div>
-                        <p class="text-sm text-gray-700">
-                            表示中: <span class="font-medium">1</span> から <span class="font-medium">10</span> まで / 全 <span class="font-medium">12</span> 件
-                        </p>
-                    </div>
-                    <div>
-                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-                            <button class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                <span class="sr-only">前へ</span>
-                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                            <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">1</button>
-                            <button class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">2</button>
-                            <button class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                <span class="sr-only">次へ</span>
-                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body class="bg-gray-50">
+    <div id="app">
+        <!-- コンポーネント化されたナビゲーション -->
     </div>
 
     <!-- 新規プロジェクト作成モーダル -->
-    <div id="new-project-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div id="create-project-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3">
                 <h3 class="text-lg font-medium text-gray-900 mb-4">新規プロジェクト作成</h3>
-                <form id="new-project-form" class="space-y-4">
+                <form id="create-project-form" class="space-y-4">
                     <div>
                         <label for="project-name" class="block text-sm font-medium text-gray-700">プロジェクト名</label>
                         <input type="text" id="project-name" name="projectName" required
-                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                     </div>
                     <div>
                         <label for="client-name" class="block text-sm font-medium text-gray-700">クライアント名</label>
                         <input type="text" id="client-name" name="clientName" required
-                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="client-email" class="block text-sm font-medium text-gray-700">クライアントメールアドレス</label>
+                        <input type="email" id="client-email" name="clientEmail" required
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                     </div>
                     <div>
                         <label for="folder-name" class="block text-sm font-medium text-gray-700">フォルダ名</label>
-                        <div class="mt-1 flex rounded-md shadow-sm">
-                            <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
-                                https://example.com/
-                            </span>
-                            <input type="text" id="folder-name" name="folderName" required
-                                   placeholder="campaign-folder-name"
-                                   class="flex-1 min-w-0 block w-full border border-gray-300 rounded-none rounded-r-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                        </div>
-                        <p class="mt-1 text-xs text-gray-500">英数字、ハイフン、アンダースコアのみ使用可能です。このフォルダにレシートキャンペーンのTOPページが配置されます。</p>
+                        <input type="text" id="folder-name" name="folderName" required
+                               pattern="[a-zA-Z0-9-_]+"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                               placeholder="英数字、ハイフン、アンダースコアのみ">
+                        <p class="mt-1 text-xs text-gray-500">英数字、ハイフン、アンダースコアのみ使用可能です</p>
                     </div>
                     <div>
-                        <label for="project-description" class="block text-sm font-medium text-gray-700">説明</label>
+                        <label for="project-description" class="block text-sm font-medium text-gray-700">説明（任意）</label>
                         <textarea id="project-description" name="description" rows="3"
-                                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"></textarea>
                     </div>
                     <div class="flex justify-end space-x-3">
-                        <button type="button" onclick="closeNewProjectModal()"
-                                class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        <button type="button" onclick="closeCreateModal()"
+                                class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200">
                             キャンセル
                         </button>
                         <button type="submit"
-                                class="px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                class="px-4 py-2 text-sm font-medium text-white bg-secondary border border-transparent rounded-md hover:bg-green-700">
                             作成
                         </button>
                     </div>
@@ -219,101 +76,124 @@
     <div id="login-info-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3">
-                <h3 class="text-lg font-medium text-gray-900 mb-4">ログイン情報</h3>
-                <div class="space-y-4">
-                    <div class="bg-green-50 border border-green-200 rounded-md p-4">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium text-green-800">プロジェクトが正常に作成されました</p>
-                                <p class="text-sm text-green-700 mt-1">以下のメールテキストをクライアントにお送りください。</p>
-                            </div>
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                    <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-4">プロジェクトが正常に作成されました</h3>
+                <p class="text-sm text-gray-600 mb-4">以下のログイン情報をクライアントにお送りください。</p>
+                
+                <div class="bg-gray-50 p-4 rounded-md mb-4">
+                    <h4 class="text-sm font-medium text-gray-900 mb-2">クライアントログイン情報</h4>
+                    <div class="space-y-2 text-sm">
+                        <div>
+                            <span class="font-medium">プロジェクトID:</span>
+                            <span id="display-project-id" class="ml-2 font-mono bg-white px-2 py-1 rounded border"></span>
+                        </div>
+                        <div>
+                            <span class="font-medium">パスワード:</span>
+                            <span id="display-password" class="ml-2 font-mono bg-white px-2 py-1 rounded border"></span>
+                        </div>
+                        <div>
+                            <span class="font-medium">フォルダ名:</span>
+                            <span id="display-folder-name" class="ml-2 font-mono bg-white px-2 py-1 rounded border"></span>
                         </div>
                     </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">お客様向けメールテキスト</label>
-                        <div class="relative">
-                            <textarea id="email-text" readonly rows="12"
-                                      class="block w-full border-gray-300 rounded-md shadow-sm bg-gray-50 sm:text-sm resize-none"
-                                      style="font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;"></textarea>
-                            <button type="button" onclick="copyEmailText()"
-                                    class="absolute top-2 right-2 inline-flex items-center px-3 py-1 border border-gray-300 rounded-md bg-white text-gray-500 text-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                                </svg>
-                                コピー
-                            </button>
-                        </div>
-                    </div>
+                </div>
 
-                    <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L3.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium text-yellow-800">重要</p>
-                                <p class="text-sm text-yellow-700 mt-1">このパスワードは一度しか表示されません。必ずメールテキストをコピーしてクライアントにお送りください。</p>
-                            </div>
+                <div class="bg-blue-50 border border-blue-200 rounded-md p-4 mb-4">
+                    <h4 class="text-sm font-medium text-blue-800 mb-2">メール送信</h4>
+                    <div class="space-y-2">
+                        <div>
+                            <span class="text-sm text-blue-700">送信先:</span>
+                            <span id="display-email" class="ml-2 text-sm font-medium text-blue-900"></span>
                         </div>
-                    </div>
-                    
-                    <div class="flex justify-end">
-                        <button type="button" onclick="closeLoginInfoModal()"
-                                class="px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                            閉じる
+                        <button onclick="sendLoginEmail()" 
+                                class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            ログイン情報をメール送信
                         </button>
                     </div>
+                </div>
+
+                <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4 mb-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-yellow-800">重要</h3>
+                            <div class="mt-2 text-sm text-yellow-700">
+                                <p>このパスワードは一度しか表示されません。必ずログイン情報をメール送信するか、コピーしてクライアントにお送りください。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button onclick="closeLoginInfoModal()"
+                            class="px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:bg-blue-700">
+                        閉じる
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- プロジェクト編集モーダル -->
-    <div id="edit-project-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <!-- プロジェクト詳細・編集モーダル -->
+    <div id="project-detail-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <div class="mt-3">
-                <h3 class="text-lg font-medium text-gray-900 mb-4">プロジェクト編集</h3>
-                <form id="edit-project-form" class="space-y-4">
-                    <input type="hidden" id="edit-project-id">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">プロジェクト詳細・編集</h3>
+                <form id="project-detail-form" class="space-y-4">
+                    <input type="hidden" id="edit-project-id" name="projectId">
                     <div>
                         <label for="edit-project-name" class="block text-sm font-medium text-gray-700">プロジェクト名</label>
                         <input type="text" id="edit-project-name" name="projectName" required
-                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                     </div>
                     <div>
                         <label for="edit-client-name" class="block text-sm font-medium text-gray-700">クライアント名</label>
                         <input type="text" id="edit-client-name" name="clientName" required
-                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="edit-client-email" class="block text-sm font-medium text-gray-700">クライアントメールアドレス</label>
+                        <input type="email" id="edit-client-email" name="clientEmail" required
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="edit-folder-name" class="block text-sm font-medium text-gray-700">フォルダ名</label>
+                        <input type="text" id="edit-folder-name" name="folderName" required
+                               pattern="[a-zA-Z0-9-_]+"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                     </div>
                     <div>
                         <label for="edit-project-description" class="block text-sm font-medium text-gray-700">説明</label>
                         <textarea id="edit-project-description" name="description" rows="3"
-                                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"></textarea>
                     </div>
                     <div>
                         <label for="edit-project-status" class="block text-sm font-medium text-gray-700">ステータス</label>
                         <select id="edit-project-status" name="status"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                             <option value="draft">下書き</option>
-                            <option value="published">公開中</option>
-                            <option value="closed">終了</option>
+                            <option value="active">公開中</option>
+                            <option value="ended">終了</option>
                         </select>
                     </div>
                     <div class="flex justify-end space-x-3">
-                        <button type="button" onclick="closeEditProjectModal()"
-                                class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        <button type="button" onclick="closeProjectDetailModal()"
+                                class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200">
                             キャンセル
                         </button>
                         <button type="submit"
-                                class="px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                class="px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:bg-blue-700">
                             更新
                         </button>
                     </div>
@@ -322,306 +202,620 @@
         </div>
     </div>
 
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/pagination.js"></script>
     <script>
-        // サンプルデータ
-        const projects = [
-            {
-                id: 'project001',
-                name: '夏のレシートキャンペーン',
-                client: 'クライアントA',
-                status: 'published',
-                description: '夏の商品を対象としたレシートキャンペーン',
-                createdAt: '2024-01-15',
-                updatedAt: '2024-01-20',
-                submissions: 45
-            },
-            {
-                id: 'project002',
-                name: '春のレシートキャンペーン',
-                client: 'クライアントB',
-                status: 'closed',
-                description: '春の商品を対象としたレシートキャンペーン',
-                createdAt: '2024-01-10',
-                updatedAt: '2024-01-25',
-                submissions: 78
-            },
-            {
-                id: 'project003',
-                name: '冬のレシートキャンペーン',
-                client: 'クライアントC',
-                status: 'draft',
-                description: '冬の商品を対象としたレシートキャンペーン',
-                createdAt: '2024-01-05',
-                updatedAt: '2024-01-18',
-                submissions: 0
-            }
-        ];
-
-        // 認証チェック
-        function checkAuth() {
-            const userType = localStorage.getItem('userType');
-            const username = localStorage.getItem('username');
-            
-            if (userType !== 'admin' || !username) {
-                window.location.href = '../index.html';
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 認証チェック
+            if (!Components.checkAdminAuth()) {
                 return;
             }
-            
-            document.getElementById('admin-name').textContent = username;
-        }
 
-        // ログアウト
-        function logout() {
-            localStorage.removeItem('userType');
-            localStorage.removeItem('username');
-            window.location.href = '../index.html';
-        }
-
-        // プロジェクト一覧を読み込み
-        function loadProjects() {
-            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-            
-            // サンプルプロジェクトが存在しない場合は追加
-            if (projects.length === 0) {
-                addSampleProjects();
-            }
-            
-            renderProjects(projects);
-        }
-
-        // サンプルプロジェクトを追加
-        function addSampleProjects() {
-            const sampleProjects = [
-                {
-                    id: 'summer001',
-                    name: '夏のレシートキャンペーン',
-                    clientName: '株式会社サマーコーポレーション',
-                    folderName: 'summer-campaign-2024',
-                    description: '夏の商品を購入してレシートをアップロードすると、抽選で豪華商品が当たるキャンペーンです。',
-                    createdAt: '2024-06-01T10:00:00.000Z',
-                    status: 'active',
-                    password: 'summer123'
-                },
-                {
-                    id: 'spring002',
-                    name: '春のレシートキャンペーン',
-                    clientName: '株式会社スプリングプロデュース',
-                    folderName: 'spring-campaign-2024',
-                    description: '春の新商品キャンペーン。レシートをアップロードしてポイントを貯めよう！',
-                    createdAt: '2024-03-15T14:30:00.000Z',
-                    status: 'active',
-                    password: 'spring456'
-                },
-                {
-                    id: 'winter003',
-                    name: '冬のレシートキャンペーン',
-                    clientName: '株式会社ウィンターエンタープライズ',
-                    folderName: 'winter-campaign-2024',
-                    description: '冬の特別キャンペーン。暖かい商品のレシートをアップロードしてプレゼントをゲット！',
-                    createdAt: '2024-12-01T09:15:00.000Z',
-                    status: 'active',
-                    password: 'winter789'
-                },
-                {
-                    id: 'autumn004',
-                    name: '秋のレシートキャンペーン',
-                    clientName: '株式会社オータムプロダクション',
-                    folderName: 'autumn-campaign-2024',
-                    description: '秋の味覚キャンペーン。秋の食材を使ったレシートをアップロードして特典を獲得！',
-                    createdAt: '2024-09-10T16:45:00.000Z',
-                    status: 'active',
-                    password: 'autumn012'
-                },
-                {
-                    id: 'newyear005',
-                    name: '新年レシートキャンペーン',
-                    clientName: '株式会社ニューイヤーコーポレーション',
-                    folderName: 'newyear-campaign-2024',
-                    description: '新年特別キャンペーン。新年の買い物レシートをアップロードして福袋をゲット！',
-                    createdAt: '2024-01-01T00:00:00.000Z',
-                    status: 'active',
-                    password: 'newyear345'
-                }
-            ];
-            
-            localStorage.setItem('projects', JSON.stringify(sampleProjects));
-        }
-
-        // プロジェクト一覧を表示
-        function renderProjects(projects) {
-            const tbody = document.querySelector('#projects-table tbody');
-            tbody.innerHTML = '';
-
-            projects.forEach(project => {
-                const row = document.createElement('tr');
-                row.className = 'hover:bg-gray-50';
-                row.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        <a href="project-detail.html?id=${project.id}" class="text-primary hover:text-blue-700">
-                            ${project.name}
-                        </a>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${project.clientName}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        ${project.folderName ? 
-                            `<a href="https://example.com/${project.folderName}/" target="_blank" class="text-primary hover:text-blue-700">${project.folderName}</a>` : 
-                            '<span class="text-gray-400">未設定</span>'
-                        }
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${project.id}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatDate(project.createdAt)}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <button onclick="editProject('${project.id}')" class="text-primary hover:text-blue-700 mr-3">編集</button>
-                        <button onclick="deleteProject('${project.id}')" class="text-red-600 hover:text-red-900">削除</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // 日付フォーマット
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('ja-JP');
-        }
-
-        // プロジェクト検索
-        function searchProjects() {
-            const nameFilter = document.getElementById('project-search').value.toLowerCase();
-            const clientFilter = document.getElementById('client-search').value.toLowerCase();
-            const startDate = document.getElementById('date-from').value;
-            const endDate = document.getElementById('date-to').value;
-
-            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-            
-            const filteredProjects = projects.filter(project => {
-                const nameMatch = project.name.toLowerCase().includes(nameFilter);
-                const clientMatch = project.clientName.toLowerCase().includes(clientFilter);
+            // ナビゲーションのレンダリング
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                ${Components.renderAdminNavigation('projects')}
                 
-                let dateMatch = true;
-                if (startDate || endDate) {
-                    const projectDate = new Date(project.createdAt);
-                    if (startDate) {
-                        const start = new Date(startDate);
-                        dateMatch = dateMatch && projectDate >= start;
-                    }
-                    if (endDate) {
-                        const end = new Date(endDate);
-                        end.setHours(23, 59, 59); // 終了日の終わりまで含める
-                        dateMatch = dateMatch && projectDate <= end;
-                    }
-                }
-                
-                return nameMatch && clientMatch && dateMatch;
-            });
+                <!-- メインコンテンツ -->
+                <div class="flex-1 p-8">
+                    ${Components.renderPageTitle('プロジェクト管理', 'すべてのキャンペーンプロジェクトを管理できます')}
+                    
+                    <!-- 新規プロジェクト作成ボタン -->
+                    <div class="mb-6">
+                        ${Components.renderButton('新規プロジェクト作成', 'secondary', 'md', 'openCreateModal()', false, '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>')}
+                    </div>
 
-            renderProjects(filteredProjects);
+                    <!-- 検索・フィルター -->
+                    <div class="bg-white shadow rounded-lg mb-6">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">検索・フィルター</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                <div>
+                                    <label for="search-project-name" class="block text-sm font-medium text-gray-700">プロジェクト名</label>
+                                    <input type="text" id="search-project-name" placeholder="プロジェクト名で検索"
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                                </div>
+                                <div>
+                                    <label for="search-client-name" class="block text-sm font-medium text-gray-700">クライアント名</label>
+                                    <input type="text" id="search-client-name" placeholder="クライアント名で検索"
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                                </div>
+                                <div>
+                                    <label for="filter-date-from" class="block text-sm font-medium text-gray-700">作成日（開始）</label>
+                                    <input type="date" id="filter-date-from"
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                                </div>
+                                <div>
+                                    <label for="filter-date-to" class="block text-sm font-medium text-gray-700">作成日（終了）</label>
+                                    <input type="date" id="filter-date-to"
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                                </div>
+                            </div>
+                            <div class="mt-4 flex justify-end">
+                                <button onclick="applyFilters()"
+                                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                    検索
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- プロジェクト一覧 -->
+                    <div id="projects-container">
+                        <!-- プロジェクト一覧はJavaScriptで動的に生成 -->
+                    </div>
+
+                    <!-- ページネーション -->
+                    <div id="pagination-container" class="mt-6">
+                        <!-- ページネーションはJavaScriptで動的に生成 -->
+                    </div>
+                </div>
+            `;
+
+            // フォームイベントリスナーを設定
+            document.getElementById('create-project-form').addEventListener('submit', handleCreateProject);
+            document.getElementById('project-detail-form').addEventListener('submit', handleUpdateProject);
+
+            // 検索フィールドのイベントリスナーを設定
+            document.getElementById('search-project-name').addEventListener('input', applyFilters);
+            document.getElementById('search-client-name').addEventListener('input', applyFilters);
+            document.getElementById('filter-date-from').addEventListener('change', applyFilters);
+            document.getElementById('filter-date-to').addEventListener('change', applyFilters);
+
+            // プロジェクト一覧を読み込み
+            loadProjects();
+        });
+
+        // モーダル制御関数
+        function openCreateModal() {
+            document.getElementById('create-project-modal').classList.remove('hidden');
         }
 
-        // プロジェクト削除
-        function deleteProject(projectId) {
-            if (confirm('このプロジェクトを削除しますか？')) {
-                const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-                const updatedProjects = projects.filter(p => p.id !== projectId);
-                localStorage.setItem('projects', JSON.stringify(updatedProjects));
-                loadProjects();
-            }
+        function closeCreateModal() {
+            document.getElementById('create-project-modal').classList.add('hidden');
+            document.getElementById('create-project-form').reset();
         }
 
-        // プロジェクト編集（プロジェクト詳細ページに遷移）
-        function editProject(projectId) {
-            window.location.href = `project-detail.html?id=${projectId}`;
+        function closeLoginInfoModal() {
+            document.getElementById('login-info-modal').classList.add('hidden');
         }
 
-        // 新規プロジェクト作成
-        function createNewProject() {
-            document.getElementById('new-project-modal').classList.remove('hidden');
+        function closeProjectDetailModal() {
+            document.getElementById('project-detail-modal').classList.add('hidden');
         }
 
-        function closeNewProjectModal() {
-            document.getElementById('new-project-modal').classList.add('hidden');
-            document.getElementById('new-project-form').reset();
-        }
-
-        function closeEditProjectModal() {
-            document.getElementById('edit-project-modal').classList.add('hidden');
-            document.getElementById('edit-project-form').reset();
-        }
-
-        // フォーム送信処理
-        document.getElementById('new-project-form').addEventListener('submit', function(e) {
+        // プロジェクト作成処理
+        function handleCreateProject(e) {
             e.preventDefault();
             
-            const formData = new FormData(this);
-            const projectData = {
-                name: formData.get('projectName'),
-                clientName: formData.get('clientName'),
-                folderName: formData.get('folderName'),
-                description: formData.get('description'),
-                createdAt: new Date().toISOString(),
-                status: 'active'
-            };
+            const formData = new FormData(e.target);
+            const projectName = formData.get('projectName');
+            const clientName = formData.get('clientName');
+            const clientEmail = formData.get('clientEmail');
+            const folderName = formData.get('folderName');
+            const description = formData.get('description');
 
             // フォルダ名のバリデーション
-            if (!validateFolderName(projectData.folderName)) {
+            if (!/^[a-zA-Z0-9-_]+$/.test(folderName)) {
                 alert('フォルダ名は英数字、ハイフン、アンダースコアのみ使用可能です。');
                 return;
             }
 
-            // フォルダ名の重複チェック
-            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-            const existingProject = projects.find(p => p.folderName === projectData.folderName);
-            if (existingProject) {
-                alert('このフォルダ名は既に使用されています。別のフォルダ名を入力してください。');
-                return;
-            }
-
-            // プロジェクトIDを生成（クライアント名の英数字部分 + ランダムな数字）
-            const clientId = projectData.clientName.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-            const randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-            const projectId = `${clientId}${randomNum}`;
-            
-            // パスワードを生成（8文字のランダム文字列）
+            // プロジェクトデータを作成
+            const projectId = generateProjectId(clientName);
             const password = generatePassword(8);
             
-            // プロジェクトデータにIDとパスワードを追加
-            projectData.id = projectId;
-            projectData.password = password;
+            const projectData = {
+                id: projectId,
+                name: projectName,
+                clientName: clientName,
+                clientEmail: clientEmail,
+                folderName: folderName,
+                description: description || '',
+                createdAt: new Date().toISOString(),
+                status: 'active',
+                password: password,
+                clientUser: {
+                    username: clientName,
+                    email: clientEmail,
+                    role: 'client',
+                    projectId: projectId
+                }
+            };
 
-            // ローカルストレージに保存
+            // プロジェクトを保存
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
             projects.push(projectData);
             localStorage.setItem('projects', JSON.stringify(projects));
 
-            // フォームをリセット
-            this.reset();
-            closeNewProjectModal();
+            // クライアントユーザーを保存
+            const clientUsers = JSON.parse(localStorage.getItem('clientUsers') || '[]');
+            clientUsers.push(projectData.clientUser);
+            localStorage.setItem('clientUsers', JSON.stringify(clientUsers));
 
             // ログイン情報を表示
-            showLoginInfo(projectId, password, projectData.folderName);
+            showLoginInfo(projectData);
 
-            // プロジェクト一覧を更新
+            // モーダルを閉じる
+            closeCreateModal();
+
+            // 一覧を再読み込み
             loadProjects();
-        });
-
-        // フォルダ名のバリデーション関数
-        function validateFolderName(folderName) {
-            // 英数字、ハイフン、アンダースコアのみ許可
-            const validFolderNameRegex = /^[a-zA-Z0-9_-]+$/;
-            return validFolderNameRegex.test(folderName);
         }
 
-        // フォルダ名の入力制限
-        function setupFolderNameValidation() {
-            const folderNameInput = document.getElementById('folder-name');
-            if (folderNameInput) {
-                folderNameInput.addEventListener('input', function(e) {
-                    // 英数字、ハイフン、アンダースコア以外の文字を削除
-                    this.value = this.value.replace(/[^a-zA-Z0-9_-]/g, '');
+        // プロジェクト更新処理
+        function handleUpdateProject(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const projectId = formData.get('projectId');
+            const projectName = formData.get('projectName');
+            const clientName = formData.get('clientName');
+            const clientEmail = formData.get('clientEmail');
+            const folderName = formData.get('folderName');
+            const description = formData.get('description');
+            const status = formData.get('status');
+
+            // プロジェクトを更新
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const projectIndex = projects.findIndex(p => p.id === projectId);
+            
+            if (projectIndex !== -1) {
+                projects[projectIndex].name = projectName;
+                projects[projectIndex].clientName = clientName;
+                projects[projectIndex].clientEmail = clientEmail;
+                projects[projectIndex].folderName = folderName;
+                projects[projectIndex].description = description;
+                projects[projectIndex].status = status;
+
+                localStorage.setItem('projects', JSON.stringify(projects));
+                
+                // クライアントユーザーも更新
+                const clientUsers = JSON.parse(localStorage.getItem('clientUsers') || '[]');
+                const userIndex = clientUsers.findIndex(u => u.projectId === projectId);
+                if (userIndex !== -1) {
+                    clientUsers[userIndex].username = clientName;
+                    clientUsers[userIndex].email = clientEmail;
+                    localStorage.setItem('clientUsers', JSON.stringify(clientUsers));
+                }
+            }
+
+            closeProjectDetailModal();
+            loadProjects();
+        }
+
+        // ログイン情報表示
+        function showLoginInfo(projectData) {
+            const loginUrl = `${window.location.origin}/client/login.html`;
+            
+            document.getElementById('display-project-id').textContent = projectData.id;
+            document.getElementById('display-password').textContent = projectData.password;
+            document.getElementById('display-folder-name').textContent = projectData.folderName;
+            document.getElementById('display-email').textContent = projectData.clientEmail;
+            
+            // プロジェクトデータをモーダルに保存（メール送信用）
+            document.getElementById('login-info-modal').setAttribute('data-project', JSON.stringify(projectData));
+            
+            document.getElementById('login-info-modal').classList.remove('hidden');
+        }
+
+        // メール送信機能
+        function sendLoginEmail() {
+            const projectData = JSON.parse(document.getElementById('login-info-modal').getAttribute('data-project'));
+            
+            // メール送信のシミュレーション（実際の実装ではサーバーサイドで処理）
+            const emailContent = `
+件名: レシートキャンペーンCMS ログイン情報
+
+${projectData.clientName} 様
+
+レシートキャンペーンCMSのログイン情報をお送りします。
+
+【ログイン情報】
+プロジェクトID: ${projectData.id}
+パスワード: ${projectData.password}
+フォルダ名: ${projectData.folderName}
+
+【注意事項】
+・このパスワードは一度しか表示されません
+・ログイン後は必ずパスワードを変更してください
+・ログイン情報は第三者に共有しないでください
+
+ご不明な点がございましたら、お気軽にお問い合わせください。
+
+レシートキャンペーンCMS管理チーム
+            `;
+
+            // メール送信のシミュレーション
+            console.log('Sending email to:', projectData.clientEmail);
+            console.log('Email content:', emailContent);
+            
+            // 実際の実装では、ここでサーバーサイドAPIを呼び出してメール送信
+            alert(`ログイン情報を ${projectData.clientEmail} に送信しました。`);
+        }
+
+        // プロジェクト詳細・編集モーダルを開く
+        function openProjectDetail(projectId) {
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const project = projects.find(p => p.id === projectId);
+            
+            if (!project) return;
+
+            // フォームに値を設定
+            document.getElementById('edit-project-id').value = project.id;
+            document.getElementById('edit-project-name').value = project.name;
+            document.getElementById('edit-client-name').value = project.clientName;
+            document.getElementById('edit-client-email').value = project.clientEmail || '';
+            document.getElementById('edit-folder-name').value = project.folderName || '';
+            document.getElementById('edit-project-description').value = project.description || '';
+            document.getElementById('edit-project-status').value = project.status || 'active';
+
+            document.getElementById('project-detail-modal').classList.remove('hidden');
+        }
+
+        // フィルター適用
+        function applyFilters() {
+            const projectNameFilter = document.getElementById('search-project-name').value.toLowerCase();
+            const clientNameFilter = document.getElementById('search-client-name').value.toLowerCase();
+            const dateFromFilter = document.getElementById('filter-date-from').value;
+            const dateToFilter = document.getElementById('filter-date-to').value;
+            
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const filteredProjects = projects.filter(project => {
+                const matchesProjectName = project.name.toLowerCase().includes(projectNameFilter);
+                const matchesClientName = project.clientName.toLowerCase().includes(clientNameFilter);
+                
+                let matchesDate = true;
+                if (dateFromFilter || dateToFilter) {
+                    const projectDate = new Date(project.createdAt);
+                    const fromDate = dateFromFilter ? new Date(dateFromFilter) : null;
+                    const toDate = dateToFilter ? new Date(dateToFilter) : null;
+                    
+                    if (fromDate && toDate) {
+                        matchesDate = projectDate >= fromDate && projectDate <= toDate;
+                    } else if (fromDate) {
+                        matchesDate = projectDate >= fromDate;
+                    } else if (toDate) {
+                        matchesDate = projectDate <= toDate;
+                    }
+                }
+                
+                return matchesProjectName && matchesClientName && matchesDate;
+            });
+
+            // フィルター結果を表示
+            displayProjects(filteredProjects);
+        }
+
+        // プロジェクト表示（フィルター用）
+        function displayProjects(projects) {
+            const container = document.getElementById('projects-container');
+            
+            if (projects.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        <h3 class="mt-2 text-sm font-medium text-gray-900">該当するプロジェクトがありません</h3>
+                        <p class="mt-1 text-sm text-gray-500">検索条件を変更してください。</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let projectsHTML = `
+                <div class="bg-white shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">プロジェクト一覧 (${projects.length}件)</h3>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('name')">
+                                            プロジェクト名 <span id="sort-name" class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('client')">
+                                            クライアント名 <span id="sort-client" class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('folder')">
+                                            フォルダ名 <span id="sort-folder" class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('status')">
+                                            ステータス <span id="sort-status" class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('date')">
+                                            作成日 <span id="sort-date" class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            操作
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+            `;
+
+            projects.forEach(project => {
+                const statusClass = project.status === 'active' ? 'bg-green-100 text-green-800' : 
+                                  project.status === 'ended' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800';
+                const statusText = project.status === 'active' ? '公開中' : 
+                                 project.status === 'ended' ? '終了' : '下書き';
+                
+                projectsHTML += `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">${project.name}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">${project.clientName}</div>
+                            ${project.clientEmail ? `<div class="text-sm text-gray-500">${project.clientEmail}</div>` : ''}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-mono text-gray-900">${project.folderName || '-'}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusClass}">
+                                ${statusText}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${new Date(project.createdAt).toLocaleDateString('ja-JP')}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <div class="flex space-x-2">
+                                <button onclick="openProjectDetail('${project.id}')" class="text-primary hover:text-blue-700">
+                                    詳細・編集
+                                </button>
+                                <button onclick="showLoginInfo(${JSON.stringify(project).replace(/"/g, '&quot;')})" class="text-accent hover:text-yellow-700">
+                                    ログイン情報
+                                </button>
+                                <button onclick="deleteProject('${project.id}')" class="text-red-600 hover:text-red-800">
+                                    削除
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            projectsHTML += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = projectsHTML;
+        }
+
+        // ソート機能
+        let currentSortColumn = '';
+        let currentSortDirection = 'asc';
+
+        function sortTable(column) {
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            
+            // ソート方向を決定
+            if (currentSortColumn === column) {
+                currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSortColumn = column;
+                currentSortDirection = 'asc';
+            }
+
+            // ソートアイコンを更新
+            updateSortIcons(column);
+
+            // プロジェクトをソート
+            const sortedProjects = projects.sort((a, b) => {
+                let aValue, bValue;
+
+                switch (column) {
+                    case 'name':
+                        aValue = a.name.toLowerCase();
+                        bValue = b.name.toLowerCase();
+                        break;
+                    case 'client':
+                        aValue = a.clientName.toLowerCase();
+                        bValue = b.clientName.toLowerCase();
+                        break;
+                    case 'folder':
+                        aValue = (a.folderName || '').toLowerCase();
+                        bValue = (b.folderName || '').toLowerCase();
+                        break;
+                    case 'status':
+                        aValue = a.status || '';
+                        bValue = b.status || '';
+                        break;
+                    case 'date':
+                        aValue = new Date(a.createdAt);
+                        bValue = new Date(b.createdAt);
+                        break;
+                    default:
+                        return 0;
+                }
+
+                if (aValue < bValue) {
+                    return currentSortDirection === 'asc' ? -1 : 1;
+                }
+                if (aValue > bValue) {
+                    return currentSortDirection === 'asc' ? 1 : -1;
+                }
+                return 0;
+            });
+
+            // ソート結果を表示
+            displayProjects(sortedProjects);
+        }
+
+        function updateSortIcons(activeColumn) {
+            const columns = ['name', 'client', 'folder', 'status', 'date'];
+            columns.forEach(col => {
+                const icon = document.getElementById(`sort-${col}`);
+                if (icon) {
+                    if (col === activeColumn) {
+                        icon.textContent = currentSortDirection === 'asc' ? '▲' : '▼';
+                        icon.className = 'text-blue-600';
+                    } else {
+                        icon.textContent = '▼';
+                        icon.className = 'text-gray-400';
+                    }
+                }
+            });
+        }
+
+        // プロジェクト一覧を読み込み
+        function loadProjects(page = 1) {
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const itemsPerPage = 10;
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedProjects = projects.slice(startIndex, endIndex);
+            const totalPages = Math.ceil(projects.length / itemsPerPage);
+
+            const container = document.getElementById('projects-container');
+            
+            if (paginatedProjects.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                        <h3 class="mt-2 text-sm font-medium text-gray-900">プロジェクトがありません</h3>
+                        <p class="mt-1 text-sm text-gray-500">新しいプロジェクトを作成してください。</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let projectsHTML = `
+                <div class="bg-white shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">プロジェクト一覧 (${projects.length}件)</h3>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('name')">
+                                            プロジェクト名 <span id="sort-name" class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('client')">
+                                            クライアント名 <span id="sort-client" class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('folder')">
+                                            フォルダ名 <span id="sort-folder" class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('status')">
+                                            ステータス <span id="sort-status" class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('date')">
+                                            作成日 <span id="sort-date" class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            操作
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+            `;
+
+            paginatedProjects.forEach(project => {
+                const statusClass = project.status === 'active' ? 'bg-green-100 text-green-800' : 
+                                  project.status === 'ended' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800';
+                const statusText = project.status === 'active' ? '公開中' : 
+                                 project.status === 'ended' ? '終了' : '下書き';
+                
+                projectsHTML += `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">${project.name}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">${project.clientName}</div>
+                            ${project.clientEmail ? `<div class="text-sm text-gray-500">${project.clientEmail}</div>` : ''}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-mono text-gray-900">${project.folderName || '-'}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusClass}">
+                                ${statusText}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${new Date(project.createdAt).toLocaleDateString('ja-JP')}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <div class="flex space-x-2">
+                                <button onclick="openProjectDetail('${project.id}')" class="text-primary hover:text-blue-700">
+                                    詳細・編集
+                                </button>
+                                <button onclick="showLoginInfo(${JSON.stringify(project).replace(/"/g, '&quot;')})" class="text-accent hover:text-yellow-700">
+                                    ログイン情報
+                                </button>
+                                <button onclick="deleteProject('${project.id}')" class="text-red-600 hover:text-red-800">
+                                    削除
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            projectsHTML += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = projectsHTML;
+
+            // ページネーションを表示
+            if (totalPages > 1) {
+                Pagination.render('pagination-container', page, totalPages, (newPage) => {
+                    loadProjects(newPage);
                 });
+            } else {
+                document.getElementById('pagination-container').innerHTML = '';
             }
         }
 
-        // パスワード生成関数
+        // プロジェクトID生成
+        function generateProjectId(clientName) {
+            const clientId = clientName.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+            const randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `${clientId}${randomNum}`;
+        }
+
+        // パスワード生成
         function generatePassword(length) {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             let result = '';
@@ -631,99 +825,28 @@
             return result;
         }
 
-        // ログイン情報表示
-        function showLoginInfo(projectId, password, folderName) {
-            // プロジェクト情報を取得
+        // プロジェクト削除
+        function deleteProject(projectId) {
+            if (!confirm('このプロジェクトを削除しますか？この操作は取り消せません。')) {
+                return;
+            }
+
             const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-            const project = projects.find(p => p.id === projectId);
-            
-            const projectName = project ? project.name : 'プロジェクト';
-            const clientName = project ? project.clientName : 'クライアント';
-            
-            const emailText = `${clientName} 様
+            const filteredProjects = projects.filter(p => p.id !== projectId);
+            localStorage.setItem('projects', JSON.stringify(filteredProjects));
 
-お世話になっております。
+            // クライアントユーザーも削除
+            const clientUsers = JSON.parse(localStorage.getItem('clientUsers') || '[]');
+            const filteredClientUsers = clientUsers.filter(u => u.projectId !== projectId);
+            localStorage.setItem('clientUsers', JSON.stringify(filteredClientUsers));
 
-プロジェクト「${projectName}」のログイン情報をお知らせいたします。
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-【ログイン情報】
-ログインID: ${projectId}
-パスワード: ${password}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-※このパスワードは一度しか表示されませんので、
-　必ずメモを取ってからログインしてください。
-
-【ログイン方法】
-1. 以下のURLにアクセスしてください：
-　https://example.com/client/login.html
-
-2. 上記のログインIDとパスワードを入力してください。
-
-3. ログイン後、プロジェクトの設定や管理が可能になります。
-
-【キャンペーンTOPページ】
-キャンペーンのTOPページは以下のURLで公開されます：
-https://example.com/${folderName}/
-
-ご不明な点がございましたら、お気軽にお問い合わせください。
-
-よろしくお願いいたします。
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Receipt Campaign CMS サポート
-Email: support@example.com
-Tel: 03-1234-5678
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
-
-            document.getElementById('email-text').value = emailText;
-            document.getElementById('login-info-modal').classList.remove('hidden');
+            loadProjects();
         }
 
-        // ログイン情報モーダルを閉じる
-        function closeLoginInfoModal() {
-            document.getElementById('login-info-modal').classList.add('hidden');
+        // グローバルログアウト関数
+        function logout() {
+            Components.logout();
         }
-
-        // メールテキストをクリップボードにコピー
-        function copyEmailText() {
-            const emailText = document.getElementById('email-text').value;
-            const tempInput = document.createElement('input');
-            tempInput.value = emailText;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            
-            // コピー成功のフィードバック
-            const button = document.querySelector('#login-info-modal button[onclick="copyEmailText()"]');
-            const originalHTML = button.innerHTML;
-            button.innerHTML = `
-                <svg class="w-4 h-4 mr-1 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                コピー完了
-            `;
-            setTimeout(() => {
-                button.innerHTML = originalHTML;
-            }, 2000);
-        }
-
-        // 検索フィールドのイベントリスナーを追加
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('project-search').addEventListener('input', searchProjects);
-            document.getElementById('client-search').addEventListener('input', searchProjects);
-            document.getElementById('date-from').addEventListener('change', searchProjects);
-            document.getElementById('date-to').addEventListener('change', searchProjects);
-            
-            // フォルダ名のバリデーション機能を設定
-            setupFolderNameValidation();
-        });
-
-        // ページ読み込み時の初期化
-        checkAuth();
-        loadProjects();
     </script>
 </body>
 </html> 

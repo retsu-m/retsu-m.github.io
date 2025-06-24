@@ -16,6 +16,7 @@
             }
         }
     </script>
+    <script src="../assets/js/pagination.js"></script>
 </head>
 <body class="bg-gray-50">
     <div class="flex">
@@ -181,12 +182,6 @@
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-lg leading-6 font-medium text-gray-900">応募者一覧</h3>
                             <div class="flex space-x-3">
-                                <select id="page-size" onchange="changePageSize()"
-                                        class="border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                                    <option value="10">10件表示</option>
-                                    <option value="25">25件表示</option>
-                                    <option value="50">50件表示</option>
-                                </select>
                                 <button onclick="exportSubmissions()"
                                         class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                                     CSV出力
@@ -219,6 +214,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        
+                        <!-- ページネーション -->
+                        <div id="pagination-container"></div>
                     </div>
                 </div>
             </div>
@@ -245,15 +243,37 @@
     </div>
 
     <script>
+        // 応募者データ
+        let submissionsData = [];
+        let filteredSubmissions = [];
+        let currentPage = 1;
+        let itemsPerPage = 10;
+
         // 応募者管理の新機能
         function applyFilters() {
-            const nameFilter = document.getElementById('search-name').value;
-            const emailFilter = document.getElementById('search-email').value;
+            const nameFilter = document.getElementById('search-name').value.toLowerCase();
+            const emailFilter = document.getElementById('search-email').value.toLowerCase();
             const dateFilter = document.getElementById('filter-date').value;
             
-            // フィルター処理の実装（実際のデータに基づいて実装）
-            console.log('フィルター適用:', { nameFilter, emailFilter, dateFilter });
-            alert('フィルター機能は実装予定です。');
+            filteredSubmissions = submissionsData.filter(submission => {
+                const matchesName = submission.name.toLowerCase().includes(nameFilter);
+                const matchesEmail = submission.email.toLowerCase().includes(emailFilter);
+                
+                let matchesDate = true;
+                if (dateFilter) {
+                    const submissionDate = new Date(submission.date);
+                    const filterDate = new Date(dateFilter);
+                    matchesDate = submissionDate.toDateString() === filterDate.toDateString();
+                }
+                
+                return matchesName && matchesEmail && matchesDate;
+            });
+            
+            currentPage = 1;
+            renderSubmissions();
+            if (paginationInstance) {
+                paginationInstance.updateData(filteredSubmissions.length, currentPage);
+            }
         }
 
         function exportSubmissions() {
@@ -263,12 +283,6 @@
         function sortTable(column) {
             console.log('ソート:', column);
             alert('ソート機能は実装予定です。');
-        }
-
-        function changePageSize() {
-            const pageSize = document.getElementById('page-size').value;
-            console.log('ページサイズ変更:', pageSize);
-            alert('ページサイズ変更機能は実装予定です。');
         }
 
         // 簡易抽選機能
@@ -381,10 +395,8 @@
             document.getElementById('today-submissions').textContent = '3';
         }
 
-        // 応募者一覧の読み込み
+        // 応募者一覧を読み込み
         function loadSubmissions() {
-            const submissionsList = document.getElementById('submissions-list');
-            
             // サンプルデータ（実際の実装ではデータベースから取得）
             const submissions = [
                 { id: 1, name: '田中太郎', email: 'tanaka@example.com', date: '2024-01-15 10:30', receipts: 2, status: '承認済み' },
@@ -395,10 +407,10 @@
             ];
             
             // 1レシート1行で表示するためにデータを展開
-            const expandedSubmissions = [];
+            submissionsData = [];
             submissions.forEach(submission => {
                 for (let i = 0; i < submission.receipts; i++) {
-                    expandedSubmissions.push({
+                    submissionsData.push({
                         ...submission,
                         receiptNumber: i + 1,
                         receiptId: `${submission.id}-${i + 1}`
@@ -406,7 +418,19 @@
                 }
             });
             
-            submissionsList.innerHTML = expandedSubmissions.map(submission => `
+            filteredSubmissions = [...submissionsData];
+            renderSubmissions();
+            initializePagination();
+        }
+
+        // 応募者一覧を表示
+        function renderSubmissions() {
+            const submissionsList = document.getElementById('submissions-list');
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageSubmissions = filteredSubmissions.slice(startIndex, endIndex);
+            
+            submissionsList.innerHTML = pageSubmissions.map(submission => `
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${submission.name}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${submission.email}</td>
@@ -422,6 +446,29 @@
                     </td>
                 </tr>
             `).join('');
+
+            // ページネーションを更新
+            if (paginationInstance) {
+                paginationInstance.updateData(filteredSubmissions.length, currentPage);
+            }
+        }
+
+        // ページネーション初期化
+        function initializePagination() {
+            paginationInstance = new Pagination('pagination-container', {
+                currentPage: currentPage,
+                totalItems: filteredSubmissions.length,
+                itemsPerPage: itemsPerPage,
+                onPageChange: (page) => {
+                    currentPage = page;
+                    renderSubmissions();
+                },
+                onPageSizeChange: (size) => {
+                    itemsPerPage = parseInt(size);
+                    currentPage = 1;
+                    renderSubmissions();
+                }
+            });
         }
 
         function viewSubmissionDetail(submissionId) {

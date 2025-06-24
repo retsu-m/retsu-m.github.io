@@ -18,6 +18,7 @@
             }
         }
     </script>
+    <script src="../assets/js/pagination.js"></script>
 </head>
 <body class="bg-gray-100">
     <!-- ナビゲーションバー -->
@@ -192,28 +193,65 @@
                     </form>
                 </div>
             </div>
+
+            <!-- プロジェクトメンバー一覧 -->
+            <div class="mt-8 bg-white shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium text-gray-900">プロジェクトメンバー</h3>
+                        <button onclick="addProjectMember()" 
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            メンバー追加
+                        </button>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メンバー名</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メールアドレス</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">役割</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">追加日</th>
+                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200" id="members-table">
+                                <!-- メンバーアイテムはJavaScriptで動的に生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- ページネーション -->
+                    <div id="pagination-container"></div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
+        // プロジェクトメンバーデータ
+        let membersData = [];
+        let currentPage = 1;
+        let itemsPerPage = 10;
+
         // 認証チェック
         function checkAuth() {
-            const userType = localStorage.getItem('userType');
-            const username = localStorage.getItem('username');
-            
-            if (userType !== 'admin' || !username) {
-                window.location.href = '../index.html';
+            const adminName = localStorage.getItem('adminName');
+            if (!adminName) {
+                window.location.href = 'login.html';
                 return;
             }
-            
-            document.getElementById('admin-name').textContent = username;
+            document.getElementById('admin-name').textContent = adminName;
         }
 
         // ログアウト
         function logout() {
-            localStorage.removeItem('userType');
-            localStorage.removeItem('username');
-            window.location.href = '../index.html';
+            localStorage.removeItem('adminName');
+            window.location.href = 'login.html';
         }
 
         // URLパラメータからプロジェクトIDを取得
@@ -260,6 +298,171 @@
             // 応募データ（デフォルト値）
             document.getElementById('total-submissions').textContent = project.totalSubmissions || 0;
             document.getElementById('today-submissions').textContent = project.todaySubmissions || 0;
+
+            // プロジェクトメンバーを読み込み
+            loadProjectMembers(projectId);
+        }
+
+        // プロジェクトメンバーを読み込み
+        function loadProjectMembers(projectId) {
+            // ローカルストレージからメンバーデータを取得
+            const allMembers = JSON.parse(localStorage.getItem('projectMembers') || '[]');
+            membersData = allMembers.filter(member => member.projectId === projectId);
+            
+            // サンプルデータが存在しない場合は追加
+            if (membersData.length === 0) {
+                addSampleMembers(projectId);
+            }
+            
+            renderMembers();
+            initializePagination();
+        }
+
+        // サンプルメンバーを追加
+        function addSampleMembers(projectId) {
+            const sampleMembers = [
+                {
+                    id: 'member001',
+                    projectId: projectId,
+                    name: '田中太郎',
+                    email: 'tanaka@example.com',
+                    role: 'プロジェクトマネージャー',
+                    addedAt: '2024-01-10'
+                },
+                {
+                    id: 'member002',
+                    projectId: projectId,
+                    name: '佐藤花子',
+                    email: 'sato@example.com',
+                    role: 'デザイナー',
+                    addedAt: '2024-01-12'
+                },
+                {
+                    id: 'member003',
+                    projectId: projectId,
+                    name: '鈴木一郎',
+                    email: 'suzuki@example.com',
+                    role: 'エンジニア',
+                    addedAt: '2024-01-15'
+                }
+            ];
+            
+            const allMembers = JSON.parse(localStorage.getItem('projectMembers') || '[]');
+            allMembers.push(...sampleMembers);
+            localStorage.setItem('projectMembers', JSON.stringify(allMembers));
+            membersData = sampleMembers;
+        }
+
+        // プロジェクトメンバー一覧を表示
+        function renderMembers() {
+            const membersTable = document.getElementById('members-table');
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageMembers = membersData.slice(startIndex, endIndex);
+
+            membersTable.innerHTML = pageMembers.map(member => `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${member.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${member.email}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${member.role}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${member.addedAt}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button onclick="editMember('${member.id}')" class="text-primary hover:text-blue-900 mr-3">編集</button>
+                        <button onclick="removeMember('${member.id}')" class="text-red-600 hover:text-red-900">削除</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            // ページネーションを更新
+            if (paginationInstance) {
+                paginationInstance.updateData(membersData.length, currentPage);
+            }
+        }
+
+        // ページネーション初期化
+        function initializePagination() {
+            paginationInstance = new Pagination('pagination-container', {
+                currentPage: currentPage,
+                totalItems: membersData.length,
+                itemsPerPage: itemsPerPage,
+                onPageChange: (page) => {
+                    currentPage = page;
+                    renderMembers();
+                },
+                onPageSizeChange: (size) => {
+                    itemsPerPage = parseInt(size);
+                    currentPage = 1;
+                    renderMembers();
+                }
+            });
+        }
+
+        // プロジェクトメンバー追加
+        function addProjectMember() {
+            const projectId = getProjectIdFromUrl();
+            const newMember = {
+                id: 'member' + Date.now(),
+                projectId: projectId,
+                name: prompt('メンバー名を入力してください:'),
+                email: prompt('メールアドレスを入力してください:'),
+                role: prompt('役割を入力してください:'),
+                addedAt: new Date().toISOString().split('T')[0]
+            };
+
+            if (newMember.name && newMember.email && newMember.role) {
+                const allMembers = JSON.parse(localStorage.getItem('projectMembers') || '[]');
+                allMembers.push(newMember);
+                localStorage.setItem('projectMembers', JSON.stringify(allMembers));
+                
+                membersData.push(newMember);
+                renderMembers();
+                if (paginationInstance) {
+                    paginationInstance.updateData(membersData.length, currentPage);
+                }
+                alert('メンバーが追加されました。');
+            }
+        }
+
+        // プロジェクトメンバー編集
+        function editMember(memberId) {
+            const member = membersData.find(m => m.id === memberId);
+            if (member) {
+                const newName = prompt('メンバー名を入力してください:', member.name);
+                const newEmail = prompt('メールアドレスを入力してください:', member.email);
+                const newRole = prompt('役割を入力してください:', member.role);
+
+                if (newName && newEmail && newRole) {
+                    member.name = newName;
+                    member.email = newEmail;
+                    member.role = newRole;
+
+                    const allMembers = JSON.parse(localStorage.getItem('projectMembers') || '[]');
+                    const memberIndex = allMembers.findIndex(m => m.id === memberId);
+                    if (memberIndex !== -1) {
+                        allMembers[memberIndex] = member;
+                        localStorage.setItem('projectMembers', JSON.stringify(allMembers));
+                    }
+
+                    renderMembers();
+                    alert('メンバー情報が更新されました。');
+                }
+            }
+        }
+
+        // プロジェクトメンバー削除
+        function removeMember(memberId) {
+            if (confirm('このメンバーを削除しますか？')) {
+                const allMembers = JSON.parse(localStorage.getItem('projectMembers') || '[]');
+                const filteredMembers = allMembers.filter(m => m.id !== memberId);
+                localStorage.setItem('projectMembers', JSON.stringify(filteredMembers));
+                
+                membersData = membersData.filter(m => m.id !== memberId);
+                renderMembers();
+                if (paginationInstance) {
+                    paginationInstance.updateData(membersData.length, currentPage);
+                }
+                alert('メンバーが削除されました。');
+            }
         }
 
         // プロジェクト保存

@@ -93,8 +93,7 @@
             const password = document.getElementById('password').value;
 
             if (username === 'admin' && password === 'admin123') {
-                localStorage.setItem('userType', 'admin');
-                localStorage.setItem('username', username);
+                localStorage.setItem('adminName', username);
                 window.location.href = 'dashboard.html';
             } else {
                 showError('ユーザーIDまたはパスワードが正しくありません。');

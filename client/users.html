@@ -10,152 +10,170 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#3B82F6'
+                        primary: '#3B82F6',
+                        secondary: '#10B981'
                     }
                 }
             }
         }
     </script>
+    <script src="../assets/js/pagination.js"></script>
 </head>
 <body class="bg-gray-50">
-    <div class="flex">
-        <!-- サイドメニュー -->
-        <div class="w-64 bg-white shadow-sm min-h-screen">
-            <div class="p-4">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">プロジェクトメニュー</h2>
-                <nav class="space-y-2">
-                    <a href="dashboard.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
-                        </svg>
-                        ダッシュボード
-                    </a>
-                    <a href="users.html" class="flex items-center px-3 py-2 text-sm font-medium text-white bg-primary rounded-md">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                        </svg>
-                        ユーザー作成
-                    </a>
-                    <a href="submissions.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        応募者管理
-                    </a>
-                    <a href="setup.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                        プロジェクトセットアップ
-                    </a>
-                </nav>
-            </div>
-        </div>
-        <!-- メインコンテンツ -->
-        <div class="flex-1 p-8">
-            <!-- ヘッダー -->
-            <header class="bg-white shadow-sm">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between items-center h-16">
-                        <div class="flex items-center">
-                            <h1 class="text-xl font-semibold text-gray-900">[プロジェクト名]レシートキャンペーン</h1>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <div class="flex items-center space-x-2">
-                                <div class="h-8 w-8 bg-primary rounded-full flex items-center justify-center">
-                                    <span class="text-white font-medium text-sm">田</span>
-                                </div>
-                                <span class="text-sm text-gray-700">田中太郎</span>
-                            </div>
-                            <button onclick="logout()" class="text-sm text-gray-600 hover:text-gray-900">
-                                ログアウト
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </header>
+    <div id="app">
+        <!-- コンテンツはJavaScriptで動的に生成 -->
+    </div>
 
-            <!-- メインコンテンツ -->
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <!-- ページヘッダー -->
-                <div class="mb-8">
-                    <h2 class="text-2xl font-bold text-gray-900">ユーザー作成</h2>
-                    <p class="mt-2 text-sm text-gray-600">新しいユーザーアカウントを作成します。</p>
+    <!-- ユーザー作成成功モーダル -->
+    <div id="success-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                    <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
                 </div>
-
-                <!-- ユーザー作成フォーム -->
-                <div class="bg-white shadow rounded-lg">
-                    <div class="px-4 py-5 sm:p-6">
-                        <form id="user-form" class="space-y-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="username" class="block text-sm font-medium text-gray-700">ユーザー名</label>
-                                    <input type="text" id="username" name="username" required
-                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700">メールアドレス</label>
-                                    <input type="email" id="email" name="email" required
-                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="password" class="block text-sm font-medium text-gray-700">パスワード</label>
-                                    <input type="password" id="password" name="password" required
-                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                                </div>
-                                <div>
-                                    <label for="confirm-password" class="block text-sm font-medium text-gray-700">パスワード確認</label>
-                                    <input type="password" id="confirm-password" name="confirmPassword" required
-                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                                </div>
-                            </div>
-                            <div class="flex justify-end space-x-3">
-                                <button type="button" onclick="resetForm()"
-                                        class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                                    リセット
-                                </button>
-                                <button type="submit"
-                                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                                    ユーザーを作成
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- ユーザー一覧 -->
-                <div class="mt-8 bg-white shadow rounded-lg">
-                    <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">ユーザー一覧</h3>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ユーザー名</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メールアドレス</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">作成日</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200" id="user-list">
-                                    <!-- ユーザーリストがここに動的に追加されます -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">ユーザーが作成されました</h3>
+                <p class="text-sm text-gray-600 mb-4">新しいユーザーが正常に作成されました。</p>
+                <div class="flex justify-center">
+                    <button onclick="closeSuccessModal()"
+                            class="px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:bg-blue-700">
+                        閉じる
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="../assets/js/components.js"></script>
     <script>
-        // フォーム送信処理
-        document.getElementById('user-form').addEventListener('submit', function(e) {
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 認証チェック
+            if (!checkClientAuth()) {
+                return;
+            }
+
+            // プロジェクト情報を取得
+            const currentProject = JSON.parse(localStorage.getItem('currentProject') || '{}');
+            const clientUser = JSON.parse(localStorage.getItem('clientUser') || '{}');
+
+            // アプリケーションをレンダリング
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="flex">
+                    ${Components.renderClientNavigation('users', currentProject.name)}
+                    
+                    <!-- メインコンテンツ -->
+                    <div class="flex-1">
+                        ${Components.renderClientHeader(currentProject.name, clientUser.username)}
+                        
+                        <!-- メインコンテンツ -->
+                        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                            <!-- ページヘッダー -->
+                            <div class="mb-8">
+                                <h2 class="text-2xl font-bold text-gray-900">ユーザー作成</h2>
+                                <p class="mt-2 text-sm text-gray-600">キャンペーン参加者のユーザーアカウントを作成します。</p>
+                            </div>
+
+                            <!-- ユーザー作成フォーム -->
+                            <div class="bg-white shadow rounded-lg">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <form id="user-form" class="space-y-6">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label for="username" class="block text-sm font-medium text-gray-700">ユーザー名</label>
+                                                <input type="text" id="username" name="username" required
+                                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                            </div>
+                                            <div>
+                                                <label for="email" class="block text-sm font-medium text-gray-700">メールアドレス</label>
+                                                <input type="email" id="email" name="email" required
+                                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                            </div>
+                                            <div>
+                                                <label for="password" class="block text-sm font-medium text-gray-700">パスワード</label>
+                                                <input type="password" id="password" name="password" required
+                                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                            </div>
+                                            <div>
+                                                <label for="confirm-password" class="block text-sm font-medium text-gray-700">パスワード確認</label>
+                                                <input type="password" id="confirm-password" name="confirmPassword" required
+                                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-end space-x-3">
+                                            <button type="button" onclick="resetForm()"
+                                                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                                リセット
+                                            </button>
+                                            <button type="submit"
+                                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                                ユーザーを作成
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- ユーザー一覧 -->
+                            <div class="mt-8 bg-white shadow rounded-lg">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">ユーザー一覧</h3>
+                                    <div class="overflow-x-auto">
+                                        <table class="min-w-full divide-y divide-gray-200">
+                                            <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ユーザー名</th>
+                                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メールアドレス</th>
+                                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">作成日</th>
+                                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="bg-white divide-y divide-gray-200" id="user-list">
+                                                <!-- ユーザーリストがここに動的に追加されます -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                    <!-- ページネーション -->
+                                    <div id="pagination-container" class="mt-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // フォームイベントリスナーを設定
+            document.getElementById('user-form').addEventListener('submit', handleCreateUser);
+
+            // ユーザー一覧を読み込み
+            loadUsers();
+        });
+
+        // クライアント認証チェック
+        function checkClientAuth() {
+            const userType = localStorage.getItem('userType');
+            const projectId = localStorage.getItem('projectId');
+            
+            if (userType !== 'client' || !projectId) {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        // モーダル制御
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+        }
+
+        // ユーザー作成処理
+        function handleCreateUser(e) {
             e.preventDefault();
             
-            const formData = new FormData(this);
+            const formData = new FormData(e.target);
             const userData = {
                 username: formData.get('username'),
                 email: formData.get('email'),
@@ -169,26 +187,38 @@
                 return;
             }
 
-            // ユーザー作成処理（実際の実装ではサーバーサイドで処理）
+            // ユーザー作成
             createUser(userData);
-        });
+        }
 
         // ユーザー作成
         function createUser(userData) {
-            // ローカルストレージに保存（実際の実装ではサーバーサイドで処理）
-            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const projectId = localStorage.getItem('projectId');
+            
+            // プロジェクトに紐づいたユーザーを作成
             const newUser = {
-                id: Date.now(),
+                id: Date.now().toString(),
                 username: userData.username,
                 email: userData.email,
-                createdAt: new Date().toISOString()
+                password: userData.password, // 実際の実装ではハッシュ化
+                projectId: projectId,
+                role: 'participant',
+                createdAt: new Date().toISOString(),
+                status: 'active'
             };
             
+            // ユーザーを保存
+            const users = JSON.parse(localStorage.getItem('projectUsers') || '[]');
             users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('projectUsers', JSON.stringify(users));
             
-            alert('ユーザーが正常に作成されました。');
+            // 成功モーダルを表示
+            document.getElementById('success-modal').classList.remove('hidden');
+            
+            // フォームをリセット
             resetForm();
+            
+            // ユーザー一覧を再読み込み
             loadUsers();
         }
 
@@ -197,80 +227,93 @@
             document.getElementById('user-form').reset();
         }
 
-        // ユーザー一覧読み込み
-        function loadUsers() {
-            const users = JSON.parse(localStorage.getItem('users') || '[]');
+        // ユーザー一覧を読み込み
+        function loadUsers(page = 1) {
+            const projectId = localStorage.getItem('projectId');
+            const allUsers = JSON.parse(localStorage.getItem('projectUsers') || '[]');
+            
+            // プロジェクトに紐づいたユーザーのみをフィルタリング
+            const projectUsers = allUsers.filter(user => user.projectId === projectId);
+            
+            const itemsPerPage = 10;
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedUsers = projectUsers.slice(startIndex, endIndex);
+            const totalPages = Math.ceil(projectUsers.length / itemsPerPage);
+
             const userList = document.getElementById('user-list');
             
-            userList.innerHTML = users.map(user => `
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${user.username}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.email}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${new Date(user.createdAt).toLocaleDateString()}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button onclick="deleteUser(${user.id})" class="text-red-600 hover:text-red-900">削除</button>
-                    </td>
-                </tr>
-            `).join('');
+            if (paginatedUsers.length === 0) {
+                userList.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">
+                            まだユーザーが作成されていません
+                        </td>
+                    </tr>
+                `;
+            } else {
+                userList.innerHTML = paginatedUsers.map(user => `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${user.username}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.email}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${new Date(user.createdAt).toLocaleDateString('ja-JP')}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button onclick="editUser('${user.id}')" class="text-primary hover:text-blue-700 mr-3">
+                                編集
+                            </button>
+                            <button onclick="deleteUser('${user.id}')" class="text-red-600 hover:text-red-800">
+                                削除
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            // ページネーションを表示
+            if (totalPages > 1) {
+                Pagination.render('pagination-container', page, totalPages, (newPage) => {
+                    loadUsers(newPage);
+                });
+            } else {
+                document.getElementById('pagination-container').innerHTML = '';
+            }
+        }
+
+        // ユーザー編集
+        function editUser(userId) {
+            const users = JSON.parse(localStorage.getItem('projectUsers') || '[]');
+            const user = users.find(u => u.id === userId);
+            
+            if (!user) return;
+
+            const newUsername = prompt('ユーザー名を入力してください:', user.username);
+            if (!newUsername) return;
+
+            const newEmail = prompt('メールアドレスを入力してください:', user.email);
+            if (!newEmail) return;
+
+            user.username = newUsername;
+            user.email = newEmail;
+
+            localStorage.setItem('projectUsers', JSON.stringify(users));
+            loadUsers();
         }
 
         // ユーザー削除
         function deleteUser(userId) {
-            if (confirm('このユーザーを削除しますか？')) {
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                const filteredUsers = users.filter(user => user.id !== userId);
-                localStorage.setItem('users', JSON.stringify(filteredUsers));
-                loadUsers();
-                alert('ユーザーが削除されました。');
+            if (!confirm('このユーザーを削除しますか？この操作は取り消せません。')) {
+                return;
             }
-        }
 
-        // ページ読み込み時にユーザー一覧を表示
-        document.addEventListener('DOMContentLoaded', function() {
-            // サンプルユーザーデータを初期化
-            initializeSampleUsers();
+            const users = JSON.parse(localStorage.getItem('projectUsers') || '[]');
+            const filteredUsers = users.filter(u => u.id !== userId);
+            localStorage.setItem('projectUsers', JSON.stringify(filteredUsers));
             loadUsers();
-        });
-
-        // サンプルユーザーの初期化
-        function initializeSampleUsers() {
-            const users = JSON.parse(localStorage.getItem('users') || '[]');
-            
-            // ユーザーが存在しない場合のみサンプルデータを追加
-            if (users.length === 0) {
-                const sampleUsers = [
-                    {
-                        id: Date.now() - 3,
-                        username: '田中太郎',
-                        email: 'tanaka@example.com',
-                        createdAt: new Date(Date.now() - 86400000 * 30).toISOString() // 30日前
-                    },
-                    {
-                        id: Date.now() - 2,
-                        username: '佐藤花子',
-                        email: 'sato@example.com',
-                        createdAt: new Date(Date.now() - 86400000 * 15).toISOString() // 15日前
-                    },
-                    {
-                        id: Date.now() - 1,
-                        username: '鈴木一郎',
-                        email: 'suzuki@example.com',
-                        createdAt: new Date(Date.now() - 86400000 * 7).toISOString() // 7日前
-                    }
-                ];
-                
-                localStorage.setItem('users', JSON.stringify(sampleUsers));
-            }
         }
 
-        // ログアウト処理
+        // グローバルログアウト関数
         function logout() {
-            if (confirm('ログアウトしますか？')) {
-                localStorage.removeItem('userType');
-                localStorage.removeItem('projectId');
-                localStorage.removeItem('currentProject');
-                window.location.href = '../index.html';
-            }
+            Components.logoutClient();
         }
     </script>
 </body>

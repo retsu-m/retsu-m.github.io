@@ -11,594 +11,151 @@
                 extend: {
                     colors: {
                         primary: '#3B82F6',
-                        secondary: '#10B981',
-                        accent: '#F59E0B'
+                        secondary: '#10B981'
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-gray-100">
-    <!-- ナビゲーションバー -->
-    <nav class="bg-white shadow-sm border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <h1 class="text-xl font-semibold text-gray-900">レシートキャンペーンCMS</h1>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <span class="text-sm text-gray-700">管理者: <span id="admin-name">admin</span></span>
-                    <button onclick="logout()" class="text-sm text-red-600 hover:text-red-800">ログアウト</button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <div class="flex">
-        <!-- サイドメニュー -->
-        <div class="w-64 bg-white shadow-sm min-h-screen">
-            <div class="p-4">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">管理者メニュー</h2>
-                <nav class="space-y-2">
-                    <a href="dashboard.html" class="flex items-center px-3 py-2 text-sm font-medium text-white bg-primary rounded-md">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
-                        </svg>
-                        ダッシュボード
-                    </a>
-                    <a href="projects.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                        </svg>
-                        プロジェクト管理
-                    </a>
-                    <a href="users.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                        </svg>
-                        ユーザー管理
-                    </a>
-                </nav>
-            </div>
-        </div>
-
-        <!-- メインコンテンツ -->
-        <div class="flex-1 p-8">
-            <!-- ページタイトル -->
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-900">管理者ダッシュボード</h2>
-            </div>
-
-            <!-- 統計情報 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-white shadow rounded-lg p-6">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">総プロジェクト数</dt>
-                                <dd class="text-lg font-medium text-gray-900" id="total-projects">0</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white shadow rounded-lg p-6">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">総クライアント数</dt>
-                                <dd class="text-lg font-medium text-gray-900" id="total-clients">0</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- メインコンテンツ -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- 新規プロジェクト作成 -->
-                <div class="bg-white shadow rounded-lg">
-                    <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
-                            新規プロジェクト作成
-                        </h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                                <div>
-                                    <h4 class="text-sm font-medium text-gray-900">新規プロジェクト作成</h4>
-                                    <p class="text-sm text-gray-500">新しいキャンペーンプロジェクトを作成</p>
-                                </div>
-                                <button onclick="createNewProject()" 
-                                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
-                                    作成する
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 最近のアクティビティ -->
-                <div class="bg-white shadow rounded-lg">
-                    <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
-                            最近のアクティビティ
-                        </h3>
-                        <div class="flow-root">
-                            <ul class="-mb-8" id="activity-list">
-                                <!-- アクティビティはJavaScriptで動的に生成 -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body class="bg-gray-50">
+    <div id="app">
+        <!-- コンポーネント化されたナビゲーション -->
     </div>
 
-    <!-- 新規プロジェクト作成モーダル -->
-    <div id="new-project-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <div class="mt-3">
-                <h3 class="text-lg font-medium text-gray-900 mb-4">新規プロジェクト作成</h3>
-                <form id="new-project-form" class="space-y-4">
-                    <div>
-                        <label for="project-name" class="block text-sm font-medium text-gray-700">プロジェクト名</label>
-                        <input type="text" id="project-name" name="projectName" required
-                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
-                    </div>
-                    <div class="relative">
-                        <label for="client-name" class="block text-sm font-medium text-gray-700">クライアント名</label>
-                        <input type="text" id="client-name" name="clientName" required
-                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
-                               autocomplete="off">
-                        <!-- サジェストドロップダウン -->
-                        <div id="client-suggestions" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg hidden">
-                            <!-- サジェスト項目はJavaScriptで動的に生成 -->
-                        </div>
-                    </div>
-                    <div>
-                        <label for="project-description" class="block text-sm font-medium text-gray-700">説明</label>
-                        <textarea id="project-description" name="description" rows="3"
-                                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"></textarea>
-                    </div>
-                    <div class="flex justify-end space-x-3">
-                        <button type="button" onclick="closeNewProjectModal()"
-                                class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                            キャンセル
-                        </button>
-                        <button type="submit"
-                                class="px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                            作成
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- ログイン情報表示モーダル -->
-    <div id="login-info-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <div class="mt-3">
-                <h3 class="text-lg font-medium text-gray-900 mb-4">ログイン情報</h3>
-                <div class="space-y-4">
-                    <div class="bg-green-50 border border-green-200 rounded-md p-4">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium text-green-800">プロジェクトが正常に作成されました</p>
-                                <p class="text-sm text-green-700 mt-1">以下のメールテキストをクライアントにお送りください。</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">お客様向けメールテキスト</label>
-                        <div class="relative">
-                            <textarea id="email-text" readonly rows="12"
-                                      class="block w-full border-gray-300 rounded-md shadow-sm bg-gray-50 sm:text-sm resize-none"
-                                      style="font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;"></textarea>
-                            <button type="button" onclick="copyEmailText()"
-                                    class="absolute top-2 right-2 inline-flex items-center px-3 py-1 border border-gray-300 rounded-md bg-white text-gray-500 text-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                                </svg>
-                                コピー
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium text-yellow-800">重要</p>
-                                <p class="text-sm text-yellow-700 mt-1">このパスワードは一度しか表示されません。必ずメールテキストをコピーしてクライアントにお送りください。</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex justify-end">
-                        <button type="button" onclick="closeLoginInfoModal()"
-                                class="px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                            閉じる
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <script src="../assets/js/components.js"></script>
     <script>
-        // 認証チェック
-        function checkAuth() {
-            const userType = localStorage.getItem('userType');
-            const username = localStorage.getItem('username');
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Dashboard loading...');
             
-            if (userType !== 'admin' || !username) {
-                window.location.href = '../index.html';
+            // 認証チェック
+            if (!Components.checkAdminAuth()) {
+                console.log('Authentication failed, redirecting to login...');
                 return;
             }
-            
-            document.getElementById('admin-name').textContent = username;
-        }
 
-        // ログアウト
-        function logout() {
-            localStorage.removeItem('userType');
-            localStorage.removeItem('username');
-            window.location.href = '../index.html';
-        }
+            console.log('Authentication successful, rendering dashboard...');
 
-        // 統計情報を更新
-        function updateStats() {
-            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-            const uniqueClients = new Set(projects.map(p => p.clientName));
-            
-            document.getElementById('total-projects').textContent = projects.length;
-            document.getElementById('total-clients').textContent = uniqueClients.size;
-        }
-
-        // 最近のアクティビティを表示
-        function loadRecentActivities() {
-            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-            const activityList = document.getElementById('activity-list');
-            
-            // プロジェクトを作成日時でソート（新しい順）
-            const sortedProjects = projects.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            
-            // 最新の5件を表示
-            const recentProjects = sortedProjects.slice(0, 5);
-            
-            activityList.innerHTML = '';
-            
-            recentProjects.forEach(project => {
-                const timeAgo = getTimeAgo(new Date(project.createdAt));
-                const activityItem = document.createElement('li');
-                activityItem.className = 'relative pb-8';
-                activityItem.innerHTML = `
-                    <div class="relative flex space-x-3">
-                        <div>
-                            <span class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white">
-                                <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                            <div>
-                                <p class="text-sm text-gray-500">新しいプロジェクト <a href="project-detail.html?id=${project.id}" class="font-medium text-blue-600 hover:text-blue-800 underline">「${project.name}」</a> が作成されました</p>
-                            </div>
-                            <div class="text-right text-sm whitespace-nowrap text-gray-500">
-                                <time>${timeAgo}</time>
-                            </div>
-                        </div>
+            // ナビゲーションのレンダリング
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                ${Components.renderAdminNavigation('dashboard')}
+                
+                <!-- メインコンテンツ -->
+                <div class="flex-1 p-8">
+                    ${Components.renderPageTitle('ダッシュボード', 'システム全体の概要を確認できます')}
+                    
+                    <!-- 統計カード -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        ${Components.renderStatCard(
+                            '総プロジェクト数',
+                            '12',
+                            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>',
+                            'blue'
+                        )}
+                        ${Components.renderStatCard(
+                            'アクティブプロジェクト',
+                            '8',
+                            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
+                            'green'
+                        )}
+                        ${Components.renderStatCard(
+                            '総ユーザー数',
+                            '156',
+                            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>',
+                            'yellow'
+                        )}
+                        ${Components.renderStatCard(
+                            '今月の応募数',
+                            '2,847',
+                            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>',
+                            'red'
+                        )}
                     </div>
-                `;
-                activityList.appendChild(activityItem);
-            });
-            
-            // アクティビティがない場合のメッセージ
-            if (recentProjects.length === 0) {
-                activityList.innerHTML = `
-                    <li class="text-center py-8">
-                        <p class="text-gray-500">まだプロジェクトが作成されていません</p>
-                    </li>
-                `;
-            }
-        }
 
-        // 時間の経過を計算
-        function getTimeAgo(date) {
-            const now = new Date();
-            const diffInSeconds = Math.floor((now - date) / 1000);
-            
-            if (diffInSeconds < 60) {
-                return '今';
-            } else if (diffInSeconds < 3600) {
-                const minutes = Math.floor(diffInSeconds / 60);
-                return `${minutes}分前`;
-            } else if (diffInSeconds < 86400) {
-                const hours = Math.floor(diffInSeconds / 3600);
-                return `${hours}時間前`;
-            } else {
-                const days = Math.floor(diffInSeconds / 86400);
-                return `${days}日前`;
-            }
-        }
+                    <!-- 最近のプロジェクト -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        ${Components.renderCard(
+                            '最近のプロジェクト',
+                            `
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">スターバックスキャンペーン</h4>
+                                        <p class="text-sm text-gray-600">2024年1月15日開始</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">アクティブ</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">マクドナルドキャンペーン</h4>
+                                        <p class="text-sm text-gray-600">2024年1月10日開始</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">アクティブ</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">ドトールコーヒーキャンペーン</h4>
+                                        <p class="text-sm text-gray-600">2024年1月5日開始</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">準備中</span>
+                                </div>
+                            </div>
+                            `,
+                            `
+                            <div class="flex justify-between items-center">
+                                <a href="projects.html" class="text-sm text-primary hover:text-blue-700">すべてのプロジェクトを見る</a>
+                                <a href="projects.html" class="text-sm text-primary hover:text-blue-700">→</a>
+                            </div>
+                            `
+                        )}
 
-        // クライアント名のサジェスト機能
-        function setupClientSuggestions() {
-            const clientInput = document.getElementById('client-name');
-            const suggestionsDiv = document.getElementById('client-suggestions');
-            
-            clientInput.addEventListener('input', function() {
-                const inputValue = this.value.trim();
-                
-                if (inputValue.length < 2) {
-                    suggestionsDiv.classList.add('hidden');
-                    return;
-                }
-                
-                const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-                const uniqueClients = [...new Set(projects.map(p => p.clientName))];
-                
-                // 入力値にマッチするクライアント名をフィルタリング
-                const matchedClients = uniqueClients.filter(client => 
-                    client.toLowerCase().includes(inputValue.toLowerCase())
-                );
-                
-                if (matchedClients.length > 0) {
-                    suggestionsDiv.innerHTML = '';
-                    matchedClients.forEach(client => {
-                        const suggestionItem = document.createElement('div');
-                        suggestionItem.className = 'px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm';
-                        suggestionItem.textContent = client;
-                        suggestionItem.addEventListener('click', function() {
-                            clientInput.value = client;
-                            suggestionsDiv.classList.add('hidden');
-                        });
-                        suggestionsDiv.appendChild(suggestionItem);
-                    });
-                    suggestionsDiv.classList.remove('hidden');
-                } else {
-                    suggestionsDiv.classList.add('hidden');
-                }
-            });
-            
-            // フォーカスアウト時にサジェストを非表示
-            document.addEventListener('click', function(e) {
-                if (!clientInput.contains(e.target) && !suggestionsDiv.contains(e.target)) {
-                    suggestionsDiv.classList.add('hidden');
-                }
-            });
-        }
-
-        // 新規プロジェクト作成
-        function createNewProject() {
-            document.getElementById('new-project-modal').classList.remove('hidden');
-        }
-
-        function closeNewProjectModal() {
-            document.getElementById('new-project-modal').classList.add('hidden');
-            document.getElementById('new-project-form').reset();
-            document.getElementById('client-suggestions').classList.add('hidden');
-        }
-
-        // ログイン情報表示モーダルを閉じる
-        function closeLoginInfoModal() {
-            document.getElementById('login-info-modal').classList.add('hidden');
-        }
-
-        // パスワード生成関数
-        function generatePassword(length) {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let result = '';
-            for (let i = 0; i < length; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return result;
-        }
-
-        // ログイン情報表示
-        function showLoginInfo(projectId, password, projectName, clientName) {
-            const emailText = `${clientName} 様
-
-お世話になっております。
-
-プロジェクト「${projectName}」のログイン情報をお知らせいたします。
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-【ログイン情報】
-ログインID: ${projectId}
-パスワード: ${password}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-※このパスワードは一度しか表示されませんので、
-　必ずメモを取ってからログインしてください。
-
-【ログイン方法】
-1. 以下のURLにアクセスしてください：
-　https://example.com/client/login.html
-
-2. 上記のログインIDとパスワードを入力してください。
-
-3. ログイン後、プロジェクトの設定や管理が可能になります。
-
-ご不明な点がございましたら、お気軽にお問い合わせください。
-
-よろしくお願いいたします。
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Receipt Campaign CMS サポート
-Email: support@example.com
-Tel: 03-1234-5678
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
-
-            document.getElementById('email-text').value = emailText;
-            document.getElementById('login-info-modal').classList.remove('hidden');
-        }
-
-        // メールテキストをクリップボードにコピー
-        function copyEmailText() {
-            const emailText = document.getElementById('email-text').value;
-            const tempInput = document.createElement('input');
-            tempInput.value = emailText;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            
-            // コピー成功のフィードバック
-            const button = document.querySelector('#login-info-modal button[onclick="copyEmailText()"]');
-            const originalHTML = button.innerHTML;
-            button.innerHTML = `
-                <svg class="w-4 h-4 mr-1 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                コピー完了
+                        ${Components.renderCard(
+                            'システム通知',
+                            `
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                                    <div>
+                                        <p class="text-sm text-gray-900">新しいプロジェクト「タリーズコーヒーキャンペーン」が作成されました</p>
+                                        <p class="text-xs text-gray-500">2時間前</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                                    <div>
+                                        <p class="text-sm text-gray-900">「スターバックスキャンペーン」の応募数が1000件を突破しました</p>
+                                        <p class="text-xs text-gray-500">5時間前</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
+                                    <div>
+                                        <p class="text-sm text-gray-900">「マクドナルドキャンペーン」の終了日が近づいています</p>
+                                        <p class="text-xs text-gray-500">1日前</p>
+                                    </div>
+                                </div>
+                            </div>
+                            `,
+                            `
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">最新の通知</span>
+                                <button class="text-sm text-primary hover:text-blue-700">すべて見る</button>
+                            </div>
+                            `
+                        )}
+                    </div>
+                </div>
             `;
-            setTimeout(() => {
-                button.innerHTML = originalHTML;
-            }, 2000);
-        }
 
-        // フォーム送信処理
-        document.getElementById('new-project-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const projectData = {
-                name: formData.get('projectName'),
-                clientName: formData.get('clientName'),
-                description: formData.get('description'),
-                createdAt: new Date().toISOString(),
-                status: 'active'
-            };
-
-            // プロジェクトIDを生成（クライアント名の英数字部分 + ランダムな数字）
-            const clientId = projectData.clientName.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-            const randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-            const projectId = `${clientId}${randomNum}`;
-            
-            // パスワードを生成（8文字のランダム文字列）
-            const password = generatePassword(8);
-            
-            // プロジェクトデータにIDとパスワードを追加
-            projectData.id = projectId;
-            projectData.password = password;
-
-            // ローカルストレージに保存
-            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-            projects.push(projectData);
-            localStorage.setItem('projects', JSON.stringify(projects));
-
-            // フォームをリセット
-            this.reset();
-            closeNewProjectModal();
-
-            // 統計情報とアクティビティを更新
-            updateStats();
-            loadRecentActivities();
-
-            // ログイン情報を表示
-            showLoginInfo(projectId, password, projectData.name, projectData.clientName);
+            console.log('Dashboard rendered successfully');
         });
 
-        // ページ読み込み時の初期化
-        function initializePage() {
-            checkAuth();
-            
-            // サンプルプロジェクトが存在しない場合は追加
-            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-            if (projects.length === 0) {
-                addSampleProjects();
-            }
-            
-            updateStats();
-            loadRecentActivities();
-            setupClientSuggestions();
+        // グローバルログアウト関数
+        function logout() {
+            Components.logout();
         }
-
-        // サンプルプロジェクトを追加
-        function addSampleProjects() {
-            const sampleProjects = [
-                {
-                    id: 'summer001',
-                    name: '夏のレシートキャンペーン',
-                    clientName: '株式会社サマーコーポレーション',
-                    description: '夏の商品を購入してレシートをアップロードすると、抽選で豪華商品が当たるキャンペーンです。',
-                    createdAt: '2024-06-01T10:00:00.000Z',
-                    status: 'active',
-                    password: 'summer123'
-                },
-                {
-                    id: 'spring002',
-                    name: '春のレシートキャンペーン',
-                    clientName: '株式会社スプリングプロデュース',
-                    description: '春の新商品キャンペーン。レシートをアップロードしてポイントを貯めよう！',
-                    createdAt: '2024-03-15T14:30:00.000Z',
-                    status: 'active',
-                    password: 'spring456'
-                },
-                {
-                    id: 'winter003',
-                    name: '冬のレシートキャンペーン',
-                    clientName: '株式会社ウィンターエンタープライズ',
-                    description: '冬の特別キャンペーン。暖かい商品のレシートをアップロードしてプレゼントをゲット！',
-                    createdAt: '2024-12-01T09:15:00.000Z',
-                    status: 'active',
-                    password: 'winter789'
-                },
-                {
-                    id: 'autumn004',
-                    name: '秋のレシートキャンペーン',
-                    clientName: '株式会社オータムプロダクション',
-                    description: '秋の味覚キャンペーン。秋の食材を使ったレシートをアップロードして特典を獲得！',
-                    createdAt: '2024-09-10T16:45:00.000Z',
-                    status: 'active',
-                    password: 'autumn012'
-                },
-                {
-                    id: 'newyear005',
-                    name: '新年レシートキャンペーン',
-                    clientName: '株式会社ニューイヤーコーポレーション',
-                    description: '新年特別キャンペーン。新年の買い物レシートをアップロードして福袋をゲット！',
-                    createdAt: '2024-01-01T00:00:00.000Z',
-                    status: 'active',
-                    password: 'newyear345'
-                }
-            ];
-            
-            localStorage.setItem('projects', JSON.stringify(sampleProjects));
-        }
-
-        // ページ読み込み時の実行
-        initializePage();
     </script>
 </body>
 </html> 

@@ -92,12 +92,46 @@
             const projectId = document.getElementById('project-id').value;
             const password = document.getElementById('password').value;
 
-            if (projectId === 'project001' && password === 'client123') {
+            // プロジェクトデータから認証
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const project = projects.find(p => p.id === projectId && p.password === password);
+
+            if (project) {
+                // ログイン成功
                 localStorage.setItem('userType', 'client');
                 localStorage.setItem('projectId', projectId);
-                window.location.href = 'setup.html';
+                localStorage.setItem('currentProject', JSON.stringify(project));
+                localStorage.setItem('clientUser', JSON.stringify(project.clientUser));
+                
+                // ダッシュボードにリダイレクト
+                window.location.href = 'dashboard.html';
             } else {
-                showError('プロジェクトIDまたはパスワードが正しくありません。');
+                // デモ用のフォールバック認証
+                if (projectId === 'project001' && password === 'client123') {
+                    // デモ用プロジェクトデータを作成
+                    const demoProject = {
+                        id: 'project001',
+                        name: 'デモプロジェクト',
+                        clientName: 'デモクライアント',
+                        description: 'デモ用のプロジェクトです',
+                        status: 'active',
+                        clientUser: {
+                            username: 'デモクライアント',
+                            email: 'demo@example.com',
+                            role: 'client',
+                            projectId: 'project001'
+                        }
+                    };
+                    
+                    localStorage.setItem('userType', 'client');
+                    localStorage.setItem('projectId', projectId);
+                    localStorage.setItem('currentProject', JSON.stringify(demoProject));
+                    localStorage.setItem('clientUser', JSON.stringify(demoProject.clientUser));
+                    
+                    window.location.href = 'dashboard.html';
+                } else {
+                    showError('プロジェクトIDまたはパスワードが正しくありません。');
+                }
             }
         });
 
@@ -109,6 +143,39 @@
                 errorDiv.classList.add('hidden');
             }, 5000);
         }
+
+        // ページ読み込み時にデモデータを初期化（初回のみ）
+        document.addEventListener('DOMContentLoaded', function() {
+            const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+            const demoProject = projects.find(p => p.id === 'project001');
+            
+            if (!demoProject) {
+                // デモ用プロジェクトデータを作成
+                const demoProjectData = {
+                    id: 'project001',
+                    name: 'デモプロジェクト',
+                    clientName: 'デモクライアント',
+                    description: 'デモ用のプロジェクトです',
+                    createdAt: new Date().toISOString(),
+                    status: 'active',
+                    password: 'client123',
+                    clientUser: {
+                        username: 'デモクライアント',
+                        email: 'demo@example.com',
+                        role: 'client',
+                        projectId: 'project001'
+                    }
+                };
+                
+                projects.push(demoProjectData);
+                localStorage.setItem('projects', JSON.stringify(projects));
+                
+                // クライアントユーザーも保存
+                const clientUsers = JSON.parse(localStorage.getItem('clientUsers') || '[]');
+                clientUsers.push(demoProjectData.clientUser);
+                localStorage.setItem('clientUsers', JSON.stringify(clientUsers));
+            }
+        });
     </script>
 </body>
 </html> 
