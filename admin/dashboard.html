@@ -27,15 +27,10 @@
     <script>
         // ページ読み込み時の初期化
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Dashboard loading...');
-            
             // 認証チェック
             if (!Components.checkAdminAuth()) {
-                console.log('Authentication failed, redirecting to login...');
                 return;
             }
-
-            console.log('Authentication successful, rendering dashboard...');
 
             // ナビゲーションのレンダリング
             const app = document.getElementById('app');
@@ -113,8 +108,6 @@
                     </div>
                 </div>
             `;
-
-            console.log('Dashboard rendered successfully');
         });
 
         // グローバルログアウト関数
@@ -123,4 +116,4 @@
         }
     </script>
 </body>
-</html> 
+</html>  

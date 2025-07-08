@@ -120,12 +120,9 @@ class Components {
 
     // 共通の認証チェック関数
     static checkAdminAuth() {
-        console.log('Checking admin authentication...');
         const adminName = localStorage.getItem('adminName');
-        console.log('Admin name from localStorage:', adminName);
         
         if (!adminName) {
-            console.log('No admin name found, redirecting to login...');
             window.location.href = 'login.html';
             return false;
         }
@@ -133,12 +130,8 @@ class Components {
         const adminNameElement = document.getElementById('admin-name');
         if (adminNameElement) {
             adminNameElement.textContent = adminName;
-            console.log('Admin name set in UI:', adminName);
-        } else {
-            console.log('Admin name element not found');
         }
         
-        console.log('Authentication successful');
         return true;
     }
 
@@ -242,4 +235,4 @@ class Components {
 }
 
 // グローバル関数として公開
-window.Components = Components; 
+window.Components = Components;  
