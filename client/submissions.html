@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>応募者管理 - Receipt Campaign CMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="../assets/js/pagination.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="flex">
+        <!-- サイドメニュー -->
+        <div class="w-64 bg-white shadow-sm min-h-screen">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">プロジェクトメニュー</h2>
+                <nav class="space-y-2">
+                    <a href="dashboard.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
+                        </svg>
+                        ダッシュボード
+                    </a>
+                    <a href="users.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                        ユーザー作成
+                    </a>
+                    <a href="submissions.html" class="flex items-center px-3 py-2 text-sm font-medium text-white bg-primary rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        応募者管理
+                    </a>
+                    <a href="setup.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        プロジェクトセットアップ
+                    </a>
+                </nav>
+            </div>
+        </div>
+        <!-- メインコンテンツ -->
+        <div class="flex-1 p-8">
+            <!-- ヘッダー -->
+            <header class="bg-white shadow-sm">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center h-16">
+                        <div class="flex items-center">
+                            <h1 class="text-xl font-semibold text-gray-900">[プロジェクト名]レシートキャンペーン</h1>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-2">
+                                <div class="h-8 w-8 bg-primary rounded-full flex items-center justify-center">
+                                    <span class="text-white font-medium text-sm">田</span>
+                                </div>
+                                <span class="text-sm text-gray-700">田中太郎</span>
+                            </div>
+                            <button onclick="logout()" class="text-sm text-gray-600 hover:text-gray-900">
+                                ログアウト
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- メインコンテンツ -->
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <!-- ページヘッダー -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900">応募者管理</h2>
+                    <p class="mt-2 text-sm text-gray-600">キャンペーンへの応募者を管理します。</p>
+                </div>
+
+                <!-- 統計情報 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <dl>
+                                        <dt class="text-sm font-medium text-gray-500 truncate">総応募数</dt>
+                                        <dd class="text-lg font-medium text-gray-900" id="total-submissions">0</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <dl>
+                                        <dt class="text-sm font-medium text-gray-500 truncate">今日の応募数</dt>
+                                        <dd class="text-lg font-medium text-gray-900" id="today-submissions">0</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 簡易抽選機能 -->
+                <div class="bg-white shadow rounded-lg mb-6">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">簡易抽選</h3>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-1">
+                                <label for="lottery-count" class="block text-sm font-medium text-gray-700">抽選人数</label>
+                                <input type="number" id="lottery-count" min="1" value="5"
+                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                       placeholder="抽選する人数を入力">
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="runLotteryAndExport()"
+                                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                    抽選してエクスポート
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- フィルター・検索 -->
+                <div class="bg-white shadow rounded-lg mb-6">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">フィルター・検索</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div>
+                                <label for="search-name" class="block text-sm font-medium text-gray-700">名前</label>
+                                <input type="text" id="search-name" placeholder="名前で検索"
+                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                            </div>
+                            <div>
+                                <label for="search-email" class="block text-sm font-medium text-gray-700">メールアドレス</label>
+                                <input type="email" id="search-email" placeholder="メールで検索"
+                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                            </div>
+                            <div>
+                                <label for="filter-date" class="block text-sm font-medium text-gray-700">応募日</label>
+                                <input type="date" id="filter-date"
+                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                            </div>
+                            <div class="flex items-end">
+                                <button onclick="applyFilters()"
+                                        class="w-full inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                    フィルター適用
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 応募者一覧 -->
+                <div class="bg-white shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">応募者一覧</h3>
+                            <div class="flex space-x-3">
+                                <button onclick="exportSubmissions()"
+                                        class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                    CSV出力
+                                </button>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('name')">
+                                            名前 <span class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('email')">
+                                            メールアドレス <span class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable('date')">
+                                            応募日時 <span class="text-gray-400">▼</span>
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            レシートURL
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            操作
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200" id="submissions-list">
+                                    <!-- 応募者リストがここに動的に追加されます -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- ページネーション -->
+                        <div id="pagination-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 応募者詳細表示モーダル -->
+            <div id="submission-detail-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+                <div class="relative top-10 mx-auto p-5 border w-11/12 max-w-6xl shadow-lg rounded-md bg-white">
+                    <div class="mt-3">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">応募者詳細</h3>
+                            <button onclick="closeSubmissionDetailModal()" class="text-gray-400 hover:text-gray-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="submission-detail-content">
+                            <!-- 応募者詳細情報がここに表示されます -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 応募者データ
+        let submissionsData = [];
+        let filteredSubmissions = [];
+        let currentPage = 1;
+        let itemsPerPage = 10;
+
+        // 応募者管理の新機能
+        function applyFilters() {
+            const nameFilter = document.getElementById('search-name').value.toLowerCase();
+            const emailFilter = document.getElementById('search-email').value.toLowerCase();
+            const dateFilter = document.getElementById('filter-date').value;
+            
+            filteredSubmissions = submissionsData.filter(submission => {
+                const matchesName = submission.name.toLowerCase().includes(nameFilter);
+                const matchesEmail = submission.email.toLowerCase().includes(emailFilter);
+                
+                let matchesDate = true;
+                if (dateFilter) {
+                    const submissionDate = new Date(submission.date);
+                    const filterDate = new Date(dateFilter);
+                    matchesDate = submissionDate.toDateString() === filterDate.toDateString();
+                }
+                
+                return matchesName && matchesEmail && matchesDate;
+            });
+            
+            currentPage = 1;
+            renderSubmissions();
+            if (paginationInstance) {
+                paginationInstance.updateData(filteredSubmissions.length, currentPage);
+            }
+        }
+
+        function exportSubmissions() {
+            alert('CSV出力機能は実装予定です。');
+        }
+
+        function sortTable(column) {
+            console.log('ソート:', column);
+            alert('ソート機能は実装予定です。');
+        }
+
+        // 簡易抽選機能
+        function runLotteryAndExport() {
+            const count = parseInt(document.getElementById('lottery-count').value);
+            if (isNaN(count) || count < 1) {
+                alert('有効な抽選人数を入力してください。');
+                return;
+            }
+
+            // サンプルデータ（実際の実装ではデータベースから取得）
+            const submissions = [
+                { id: 1, name: '田中太郎', email: 'tanaka@example.com', date: '2024-01-15', receipts: 2 },
+                { id: 2, name: '佐藤花子', email: 'sato@example.com', date: '2024-01-16', receipts: 1 },
+                { id: 3, name: '鈴木一郎', email: 'suzuki@example.com', date: '2024-01-17', receipts: 3 },
+                { id: 4, name: '高橋美咲', email: 'takahashi@example.com', date: '2024-01-18', receipts: 1 },
+                { id: 5, name: '渡辺健太', email: 'watanabe@example.com', date: '2024-01-19', receipts: 2 }
+            ];
+
+            // ランダム抽選
+            const winners = [];
+            const shuffled = [...submissions].sort(() => 0.5 - Math.random());
+            for (let i = 0; i < Math.min(count, shuffled.length); i++) {
+                winners.push(shuffled[i]);
+            }
+
+            // 抽選結果を表示
+            showLotteryResults(winners);
+            
+            // 抽選結果をエクスポート
+            exportLotteryResults(winners);
+        }
+
+        function showLotteryResults(winners) {
+            const modal = document.getElementById('submission-detail-modal');
+            const content = document.getElementById('submission-detail-content');
+            
+            content.innerHTML = `
+                <div class="mb-6">
+                    <h4 class="text-xl font-bold text-gray-900 mb-4">抽選結果</h4>
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                        <p class="text-green-800 font-medium">${winners.length}名の当選者が選ばれました！</p>
+                    </div>
+                    <div class="space-y-3">
+                        ${winners.map((winner, index) => `
+                            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <h5 class="font-medium text-gray-900">${index + 1}. ${winner.name}</h5>
+                                        <p class="text-sm text-gray-600">${winner.email}</p>
+                                        <p class="text-sm text-gray-500">応募日: ${winner.date}</p>
+                                    </div>
+                                    <button onclick="viewReceipts(${winner.id})" 
+                                            class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-primary bg-blue-50 hover:bg-blue-100">
+                                        レシート確認
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function exportLotteryResults(winners) {
+            // CSVデータを作成
+            const csvContent = [
+                ['順位', '名前', 'メールアドレス', '応募日'],
+                ...winners.map((winner, index) => [
+                    index + 1,
+                    winner.name,
+                    winner.email,
+                    winner.date
+                ])
+            ].map(row => row.join(',')).join('\n');
+
+            // CSVファイルをダウンロード
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `抽選結果_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function viewReceipts(submissionId) {
+            alert(`応募者 ${submissionId} のレシート確認機能は実装予定です。`);
+        }
+
+        function closeSubmissionDetailModal() {
+            document.getElementById('submission-detail-modal').classList.add('hidden');
+        }
+
+        // 応募者削除
+        function deleteSubmission(submissionId) {
+            if (confirm('この応募者を削除しますか？')) {
+                alert(`応募者 ${submissionId} の削除機能は実装予定です。`);
+            }
+        }
+
+        // 統計情報の更新
+        function updateStatistics() {
+            // サンプルデータ（実際の実装ではデータベースから取得）
+            document.getElementById('total-submissions').textContent = '25';
+            document.getElementById('today-submissions').textContent = '3';
+        }
+
+        // 応募者一覧を読み込み
+        function loadSubmissions() {
+            // サンプルデータ（実際の実装ではデータベースから取得）
+            const submissions = [
+                { id: 1, name: '田中太郎', email: 'tanaka@example.com', date: '2024-01-15 10:30', receipts: 2, status: '承認済み' },
+                { id: 2, name: '佐藤花子', email: 'sato@example.com', date: '2024-01-16 14:20', receipts: 1, status: '審査中' },
+                { id: 3, name: '鈴木一郎', email: 'suzuki@example.com', date: '2024-01-17 09:15', receipts: 3, status: '承認済み' },
+                { id: 4, name: '高橋美咲', email: 'takahashi@example.com', date: '2024-01-18 16:45', receipts: 1, status: '却下' },
+                { id: 5, name: '渡辺健太', email: 'watanabe@example.com', date: '2024-01-19 11:30', receipts: 2, status: '承認済み' }
+            ];
+            
+            // 1レシート1行で表示するためにデータを展開
+            submissionsData = [];
+            submissions.forEach(submission => {
+                for (let i = 0; i < submission.receipts; i++) {
+                    submissionsData.push({
+                        ...submission,
+                        receiptNumber: i + 1,
+                        receiptId: `${submission.id}-${i + 1}`
+                    });
+                }
+            });
+            
+            filteredSubmissions = [...submissionsData];
+            renderSubmissions();
+            initializePagination();
+        }
+
+        // 応募者一覧を表示
+        function renderSubmissions() {
+            const submissionsList = document.getElementById('submissions-list');
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageSubmissions = filteredSubmissions.slice(startIndex, endIndex);
+            
+            submissionsList.innerHTML = pageSubmissions.map(submission => `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${submission.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${submission.email}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${submission.date}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <a href="/receipts/${submission.receiptId}.jpg" target="_blank" class="text-primary hover:text-blue-700 underline">
+                            レシート${submission.receiptNumber}を表示
+                        </a>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                        <button onclick="viewSubmissionDetail(${submission.id})" class="text-primary hover:text-blue-700">詳細</button>
+                        <button onclick="deleteSubmission(${submission.id})" class="text-red-600 hover:text-red-900">削除</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            // ページネーションを更新
+            if (paginationInstance) {
+                paginationInstance.updateData(filteredSubmissions.length, currentPage);
+            }
+        }
+
+        // ページネーション初期化
+        function initializePagination() {
+            paginationInstance = new Pagination('pagination-container', {
+                currentPage: currentPage,
+                totalItems: filteredSubmissions.length,
+                itemsPerPage: itemsPerPage,
+                onPageChange: (page) => {
+                    currentPage = page;
+                    renderSubmissions();
+                },
+                onPageSizeChange: (size) => {
+                    itemsPerPage = parseInt(size);
+                    currentPage = 1;
+                    renderSubmissions();
+                }
+            });
+        }
+
+        function viewSubmissionDetail(submissionId) {
+            const modal = document.getElementById('submission-detail-modal');
+            const content = document.getElementById('submission-detail-content');
+            
+            content.innerHTML = `
+                <div class="mb-6">
+                    <h4 class="text-xl font-bold text-gray-900 mb-4">応募者詳細情報</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="font-medium text-gray-900 mb-2">基本情報</h5>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-medium">名前:</span> 田中太郎</div>
+                                <div><span class="font-medium">メールアドレス:</span> tanaka@example.com</div>
+                                <div><span class="font-medium">電話番号:</span> 090-1234-5678</div>
+                                <div><span class="font-medium">応募日時:</span> 2024-01-15 10:30</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-gray-900 mb-2">アンケート回答</h5>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-medium">ご意見・ご感想:</span></div>
+                                <div class="bg-gray-50 p-3 rounded">とても良いキャンペーンでした。また参加したいと思います。</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="font-medium text-gray-900 mb-4">レシート画像</h5>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="bg-gray-100 h-32 rounded flex items-center justify-center mb-2">
+                                <span class="text-gray-500">レシート画像1</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">receipt1.jpg</span>
+                                <a href="/receipts/1-1.jpg" target="_blank" class="text-primary hover:text-blue-700 text-sm underline">画像を表示</a>
+                            </div>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="bg-gray-100 h-32 rounded flex items-center justify-center mb-2">
+                                <span class="text-gray-500">レシート画像2</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">receipt2.jpg</span>
+                                <a href="/receipts/1-2.jpg" target="_blank" class="text-primary hover:text-blue-700 text-sm underline">画像を表示</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatistics();
+            loadSubmissions();
+        });
+
+        // ログアウト処理
+        function logout() {
+            if (confirm('ログアウトしますか？')) {
+                localStorage.removeItem('userType');
+                localStorage.removeItem('projectId');
+                localStorage.removeItem('currentProject');
+                window.location.href = '../index.html';
+            }
+        }
+    </script>
+</body>
+</html> 

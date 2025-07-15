@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レシートキャンペーンCMS サイトマップ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#F59E0B',
+                        admin: '#8B5CF6',
+                        client: '#06B6D4',
+                        campaign: '#F97316'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <!-- ヘッダー -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">レシートキャンペーンCMS サイトマップ</h1>
+            <p class="text-lg text-gray-600">個人情報収集機能を備えたレシートキャンペーン管理システム</p>
+        </div>
+
+        <!-- 凡例 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">凡例</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="flex items-center">
+                    <div class="w-4 h-4 bg-admin rounded mr-2"></div>
+                    <span class="text-sm">管理者機能</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-4 h-4 bg-client rounded mr-2"></div>
+                    <span class="text-sm">クライアント機能</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-4 h-4 bg-campaign rounded mr-2"></div>
+                    <span class="text-sm">キャンペーンページ</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-4 h-4 bg-gray-400 rounded mr-2"></div>
+                    <span class="text-sm">共通ページ</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- メインサイトマップ -->
+        <div class="space-y-8">
+            <!-- 共通ページ -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <div class="w-4 h-4 bg-gray-400 rounded mr-2"></div>
+                    共通ページ
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../index.html" class="underline hover:text-primary">ログイン選択画面</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../index.html" class="underline hover:text-primary">index.html</a></p>
+                        <p class="text-xs text-gray-500">管理者・クライアントのログイン方法選択</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                8KB
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 管理者機能 -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <div class="w-4 h-4 bg-admin rounded mr-2"></div>
+                    管理者機能 (/admin/)
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../admin/login.html" class="underline hover:text-primary">管理者ログイン</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../admin/login.html" class="underline hover:text-primary">admin/login.html</a></p>
+                        <p class="text-xs text-gray-500">管理者専用ログイン画面</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-admin text-white">
+                                6KB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../admin/dashboard.html" class="underline hover:text-primary">管理者ダッシュボード</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../admin/dashboard.html" class="underline hover:text-primary">admin/dashboard.html</a></p>
+                        <p class="text-xs text-gray-500">統計情報、新規プロジェクト作成</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-admin text-white">
+                                22KB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../admin/projects.html" class="underline hover:text-primary">プロジェクト管理</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../admin/projects.html" class="underline hover:text-primary">admin/projects.html</a></p>
+                        <p class="text-xs text-gray-500">全プロジェクトの一覧・管理</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-admin text-white">
+                                33KB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../admin/project-detail.html" class="underline hover:text-primary">プロジェクト詳細</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../admin/project-detail.html" class="underline hover:text-primary">admin/project-detail.html</a></p>
+                        <p class="text-xs text-gray-500">個別プロジェクトの詳細管理</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-admin text-white">
+                                16KB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../admin/users.html" class="underline hover:text-primary">ユーザー管理</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../admin/users.html" class="underline hover:text-primary">admin/users.html</a></p>
+                        <p class="text-xs text-gray-500">クライアントユーザーの管理</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-admin text-white">
+                                27KB
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- クライアント機能 -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <div class="w-4 h-4 bg-client rounded mr-2"></div>
+                    クライアント機能 (/client/)
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../client/login.html" class="underline hover:text-primary">クライアントログイン</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../client/login.html" class="underline hover:text-primary">client/login.html</a></p>
+                        <p class="text-xs text-gray-500">クライアント専用ログイン画面</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-client text-white">
+                                6KB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../client/dashboard.html" class="underline hover:text-primary">クライアントダッシュボード</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../client/dashboard.html" class="underline hover:text-primary">client/dashboard.html</a></p>
+                        <p class="text-xs text-gray-500">プロジェクト概要、統計情報</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-client text-white">
+                                22KB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../client/setup.html" class="underline hover:text-primary">プロジェクトセットアップ</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../client/setup.html" class="underline hover:text-primary">client/setup.html</a></p>
+                        <p class="text-xs text-gray-500">キャンペーン設定、個人情報フォーム設定</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-client text-white">
+                                36KB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../client/submissions.html" class="underline hover:text-primary">応募者管理</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../client/submissions.html" class="underline hover:text-primary">client/submissions.html</a></p>
+                        <p class="text-xs text-gray-500">応募データ一覧、CSVエクスポート</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-client text-white">
+                                33KB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../client/users.html" class="underline hover:text-primary">ユーザー作成</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../client/users.html" class="underline hover:text-primary">client/users.html</a></p>
+                        <p class="text-xs text-gray-500">プロジェクトメンバー管理</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-client text-white">
+                                15KB
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- キャンペーンページ -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <div class="w-4 h-4 bg-campaign rounded mr-2"></div>
+                    キャンペーンページ (/campaign/)
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../campaign/top.html" class="underline hover:text-primary">キャンペーントップ</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../campaign/top.html" class="underline hover:text-primary">campaign/top.html</a></p>
+                        <p class="text-xs text-gray-500">キャンペーンのメインページ</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-campaign text-white">
+                                22KB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../campaign/form.html" class="underline hover:text-primary">応募フォーム</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../campaign/form.html" class="underline hover:text-primary">campaign/form.html</a></p>
+                        <p class="text-xs text-gray-500">個人情報入力、アンケート、レシートアップロード</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-campaign text-white">
+                                28KB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../campaign/confirm.html" class="underline hover:text-primary">確認画面</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../campaign/confirm.html" class="underline hover:text-primary">campaign/confirm.html</a></p>
+                        <p class="text-xs text-gray-500">応募内容の確認</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-campaign text-white">
+                                14KB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="font-medium text-gray-900 mb-2"><a href="../campaign/complete.html" class="underline hover:text-primary">完了画面</a></h3>
+                        <p class="text-sm text-gray-600 mb-2"><a href="../campaign/complete.html" class="underline hover:text-primary">campaign/complete.html</a></p>
+                        <p class="text-xs text-gray-500">応募完了、応募番号表示</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-campaign text-white">
+                                7.7KB
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- フロー図 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mt-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-6">ユーザーフロー</h2>
+            
+            <!-- 管理者フロー -->
+            <div class="mb-8">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">管理者フロー</h3>
+                <div class="flex flex-wrap items-center space-x-2 text-sm">
+                    <span class="px-3 py-1 bg-gray-100 rounded">ログイン</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span class="px-3 py-1 bg-admin text-white rounded">ダッシュボード</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span class="px-3 py-1 bg-admin text-white rounded">プロジェクト管理</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span class="px-3 py-1 bg-admin text-white rounded">ユーザー管理</span>
+                </div>
+            </div>
+
+            <!-- クライアントフロー -->
+            <div class="mb-8">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">クライアントフロー</h3>
+                <div class="flex flex-wrap items-center space-x-2 text-sm">
+                    <span class="px-3 py-1 bg-gray-100 rounded">ログイン</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span class="px-3 py-1 bg-client text-white rounded">ダッシュボード</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span class="px-3 py-1 bg-client text-white rounded">プロジェクトセットアップ</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span class="px-3 py-1 bg-client text-white rounded">応募者管理</span>
+                </div>
+            </div>
+
+            <!-- キャンペーンフロー -->
+            <div>
+                <h3 class="text-lg font-medium text-gray-900 mb-4">キャンペーンフロー</h3>
+                <div class="flex flex-wrap items-center space-x-2 text-sm">
+                    <span class="px-3 py-1 bg-campaign text-white rounded">トップページ</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span class="px-3 py-1 bg-campaign text-white rounded">応募フォーム</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span class="px-3 py-1 bg-campaign text-white rounded">確認画面</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span class="px-3 py-1 bg-campaign text-white rounded">完了画面</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 統計情報 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mt-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-6">統計情報</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gray-900">14</div>
+                    <div class="text-sm text-gray-600">総ページ数</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gray-900">~320KB</div>
+                    <div class="text-sm text-gray-600">総ファイルサイズ</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gray-900">3</div>
+                    <div class="text-sm text-gray-600">ユーザータイプ</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gray-900">4</div>
+                    <div class="text-sm text-gray-600">主要機能</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 新機能ハイライト -->
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 mt-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">✨ 新機能ハイライト</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white rounded-lg p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">分離されたログイン機能</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• 管理者専用ログイン画面 (admin/login.html)</li>
+                        <li>• クライアント専用ログイン画面 (client/login.html)</li>
+                        <li>• ログイン方法選択画面 (index.html)</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">個人情報フォーム設定</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• 名前、メール、郵便番号、住所、電話番号の必須設定</li>
+                        <li>• メールアドレス確認機能</li>
+                        <li>• リアルタイムバリデーション</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">強化されたバリデーション</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• 郵便番号形式チェック</li>
+                        <li>• 電話番号形式チェック</li>
+                        <li>• メールアドレス一致確認</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">改善されたユーザーエクスペリエンス</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• 直感的なログイン画面選択</li>
+                        <li>• 専用デザインによる明確な区別</li>
+                        <li>• スムーズなナビゲーション</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <div class="text-center mt-12 text-gray-500">
+            <p>レシートキャンペーンCMS - 個人情報収集機能付きキャンペーン管理システム</p>
+            <p class="text-sm mt-2">最終更新: 2024年</p>
+        </div>
+    </div>
+</body>
+</html> 

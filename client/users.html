@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ユーザー作成 - Receipt Campaign CMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="../assets/js/pagination.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div id="app">
+        <!-- コンテンツはJavaScriptで動的に生成 -->
+    </div>
+
+    <!-- ユーザー作成成功モーダル -->
+    <div id="success-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                    <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">ユーザーが作成されました</h3>
+                <p class="text-sm text-gray-600 mb-4">新しいユーザーが正常に作成されました。</p>
+                <div class="flex justify-center">
+                    <button onclick="closeSuccessModal()"
+                            class="px-4 py-2 text-sm font-medium text-white bg-primary border border-transparent rounded-md hover:bg-blue-700">
+                        閉じる
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/components.js"></script>
+    <script>
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 認証チェック
+            if (!checkClientAuth()) {
+                return;
+            }
+
+            // プロジェクト情報を取得
+            const currentProject = JSON.parse(localStorage.getItem('currentProject') || '{}');
+            const clientUser = JSON.parse(localStorage.getItem('clientUser') || '{}');
+
+            // アプリケーションをレンダリング
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="flex">
+                    ${Components.renderClientNavigation('users', currentProject.name)}
+                    
+                    <!-- メインコンテンツ -->
+                    <div class="flex-1">
+                        ${Components.renderClientHeader(currentProject.name, clientUser.username)}
+                        
+                        <!-- メインコンテンツ -->
+                        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                            <!-- ページヘッダー -->
+                            <div class="mb-8">
+                                <h2 class="text-2xl font-bold text-gray-900">ユーザー作成</h2>
+                                <p class="mt-2 text-sm text-gray-600">キャンペーン参加者のユーザーアカウントを作成します。</p>
+                            </div>
+
+                            <!-- ユーザー作成フォーム -->
+                            <div class="bg-white shadow rounded-lg">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <form id="user-form" class="space-y-6">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label for="username" class="block text-sm font-medium text-gray-700">ユーザー名</label>
+                                                <input type="text" id="username" name="username" required
+                                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                            </div>
+                                            <div>
+                                                <label for="email" class="block text-sm font-medium text-gray-700">メールアドレス</label>
+                                                <input type="email" id="email" name="email" required
+                                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                            </div>
+                                            <div>
+                                                <label for="password" class="block text-sm font-medium text-gray-700">パスワード</label>
+                                                <input type="password" id="password" name="password" required
+                                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                            </div>
+                                            <div>
+                                                <label for="confirm-password" class="block text-sm font-medium text-gray-700">パスワード確認</label>
+                                                <input type="password" id="confirm-password" name="confirmPassword" required
+                                                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-end space-x-3">
+                                            <button type="button" onclick="resetForm()"
+                                                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                                リセット
+                                            </button>
+                                            <button type="submit"
+                                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                                ユーザーを作成
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- ユーザー一覧 -->
+                            <div class="mt-8 bg-white shadow rounded-lg">
+                                <div class="px-4 py-5 sm:p-6">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">ユーザー一覧</h3>
+                                    <div class="overflow-x-auto">
+                                        <table class="min-w-full divide-y divide-gray-200">
+                                            <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ユーザー名</th>
+                                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">メールアドレス</th>
+                                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">作成日</th>
+                                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="bg-white divide-y divide-gray-200" id="user-list">
+                                                <!-- ユーザーリストがここに動的に追加されます -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                    <!-- ページネーション -->
+                                    <div id="pagination-container" class="mt-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // フォームイベントリスナーを設定
+            document.getElementById('user-form').addEventListener('submit', handleCreateUser);
+
+            // ユーザー一覧を読み込み
+            loadUsers();
+        });
+
+        // クライアント認証チェック
+        function checkClientAuth() {
+            const userType = localStorage.getItem('userType');
+            const projectId = localStorage.getItem('projectId');
+            
+            if (userType !== 'client' || !projectId) {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        // モーダル制御
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+        }
+
+        // ユーザー作成処理
+        function handleCreateUser(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const userData = {
+                username: formData.get('username'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                confirmPassword: formData.get('confirmPassword')
+            };
+
+            // バリデーション
+            if (userData.password !== userData.confirmPassword) {
+                alert('パスワードが一致しません。');
+                return;
+            }
+
+            // ユーザー作成
+            createUser(userData);
+        }
+
+        // ユーザー作成
+        function createUser(userData) {
+            const projectId = localStorage.getItem('projectId');
+            
+            // プロジェクトに紐づいたユーザーを作成
+            const newUser = {
+                id: Date.now().toString(),
+                username: userData.username,
+                email: userData.email,
+                password: userData.password, // 実際の実装ではハッシュ化
+                projectId: projectId,
+                role: 'participant',
+                createdAt: new Date().toISOString(),
+                status: 'active'
+            };
+            
+            // ユーザーを保存
+            const users = JSON.parse(localStorage.getItem('projectUsers') || '[]');
+            users.push(newUser);
+            localStorage.setItem('projectUsers', JSON.stringify(users));
+            
+            // 成功モーダルを表示
+            document.getElementById('success-modal').classList.remove('hidden');
+            
+            // フォームをリセット
+            resetForm();
+            
+            // ユーザー一覧を再読み込み
+            loadUsers();
+        }
+
+        // フォームリセット
+        function resetForm() {
+            document.getElementById('user-form').reset();
+        }
+
+        // ユーザー一覧を読み込み
+        function loadUsers(page = 1) {
+            const projectId = localStorage.getItem('projectId');
+            const allUsers = JSON.parse(localStorage.getItem('projectUsers') || '[]');
+            
+            // プロジェクトに紐づいたユーザーのみをフィルタリング
+            const projectUsers = allUsers.filter(user => user.projectId === projectId);
+            
+            const itemsPerPage = 10;
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedUsers = projectUsers.slice(startIndex, endIndex);
+            const totalPages = Math.ceil(projectUsers.length / itemsPerPage);
+
+            const userList = document.getElementById('user-list');
+            
+            if (paginatedUsers.length === 0) {
+                userList.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">
+                            まだユーザーが作成されていません
+                        </td>
+                    </tr>
+                `;
+            } else {
+                userList.innerHTML = paginatedUsers.map(user => `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${user.username}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${user.email}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${new Date(user.createdAt).toLocaleDateString('ja-JP')}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button onclick="editUser('${user.id}')" class="text-primary hover:text-blue-700 mr-3">
+                                編集
+                            </button>
+                            <button onclick="deleteUser('${user.id}')" class="text-red-600 hover:text-red-800">
+                                削除
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            // ページネーションを表示
+            if (totalPages > 1) {
+                Pagination.render('pagination-container', page, totalPages, (newPage) => {
+                    loadUsers(newPage);
+                });
+            } else {
+                document.getElementById('pagination-container').innerHTML = '';
+            }
+        }
+
+        // ユーザー編集
+        function editUser(userId) {
+            const users = JSON.parse(localStorage.getItem('projectUsers') || '[]');
+            const user = users.find(u => u.id === userId);
+            
+            if (!user) return;
+
+            const newUsername = prompt('ユーザー名を入力してください:', user.username);
+            if (!newUsername) return;
+
+            const newEmail = prompt('メールアドレスを入力してください:', user.email);
+            if (!newEmail) return;
+
+            user.username = newUsername;
+            user.email = newEmail;
+
+            localStorage.setItem('projectUsers', JSON.stringify(users));
+            loadUsers();
+        }
+
+        // ユーザー削除
+        function deleteUser(userId) {
+            if (!confirm('このユーザーを削除しますか？この操作は取り消せません。')) {
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('projectUsers') || '[]');
+            const filteredUsers = users.filter(u => u.id !== userId);
+            localStorage.setItem('projectUsers', JSON.stringify(filteredUsers));
+            loadUsers();
+        }
+
+        // グローバルログアウト関数
+        function logout() {
+            Components.logoutClient();
+        }
+    </script>
+</body>
+</html> 

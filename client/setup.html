@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロジェクトセットアップ - Receipt Campaign CMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <div class="flex">
+        <!-- サイドメニュー -->
+        <div class="w-64 bg-white shadow-sm min-h-screen">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">プロジェクトメニュー</h2>
+                <nav class="space-y-2">
+                    <a href="dashboard.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
+                        </svg>
+                        ダッシュボード
+                    </a>
+                    <a href="users.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                        ユーザー作成
+                    </a>
+                    <a href="submissions.html" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        応募者管理
+                    </a>
+                    <a href="setup.html" class="flex items-center px-3 py-2 text-sm font-medium text-white bg-primary rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        プロジェクトセットアップ
+                    </a>
+                </nav>
+            </div>
+        </div>
+        <!-- メインコンテンツ -->
+        <div class="flex-1 p-8">
+            <!-- ヘッダー -->
+            <header class="bg-white shadow-sm">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center h-16">
+                        <div class="flex items-center">
+                            <h1 class="text-xl font-semibold text-gray-900">[プロジェクト名]レシートキャンペーン</h1>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-2">
+                                <div class="h-8 w-8 bg-primary rounded-full flex items-center justify-center">
+                                    <span class="text-white font-medium text-sm">田</span>
+                                </div>
+                                <span class="text-sm text-gray-700">田中太郎</span>
+                            </div>
+                            <button onclick="logout()" class="text-sm text-gray-600 hover:text-gray-900">
+                                ログアウト
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- メインコンテンツ -->
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <!-- ページヘッダー -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">プロジェクトセットアップ</h2>
+                            <p class="mt-2 text-sm text-gray-600">キャンペーンの詳細設定を行います。</p>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button id="update-button" onclick="updateProject()" 
+                                    class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                                更新
+                            </button>
+                            <button onclick="previewProject()" 
+                                    class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                プレビュー
+                            </button>
+                            <button onclick="publishProject()" 
+                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                公開
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- タブナビゲーション -->
+                <div class="border-b border-gray-200 mb-8">
+                    <nav class="-mb-px flex space-x-8">
+                        <button onclick="showTab('campaign')" id="tab-campaign" 
+                                class="border-primary text-primary whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+                            キャンペーン設定
+                        </button>
+                        <button onclick="showTab('form')" id="tab-form" 
+                                class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+                            フォーム設定
+                        </button>
+                        <button onclick="showTab('visual')" id="tab-visual" 
+                                class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+                            メインビジュアル設定
+                        </button>
+                        <button onclick="showTab('email')" id="tab-email" 
+                                class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+                            メール設定
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- キャンペーン設定タブ -->
+                <div id="campaign-tab" class="space-y-6">
+                    <!-- キャンペーン設計 -->
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">キャンペーン設計</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div>
+                                    <label for="campaign-title" class="block text-sm font-medium text-gray-700">キャンペーンタイトル</label>
+                                    <input type="text" id="campaign-title" name="campaignTitle" required
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
+                                </div>
+                                <div>
+                                    <label for="campaign-start" class="block text-sm font-medium text-gray-700">キャンペーン開始日</label>
+                                    <input type="datetime-local" id="campaign-start" name="campaignStart" required
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
+                                </div>
+                                <div>
+                                    <label for="campaign-end" class="block text-sm font-medium text-gray-700">キャンペーン終了日</label>
+                                    <input type="datetime-local" id="campaign-end" name="campaignEnd" required
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- キャンペーンサイトテキスト -->
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">キャンペーンサイトテキスト</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="target-products" class="block text-sm font-medium text-gray-700">対象商品</label>
+                                    <textarea id="target-products" name="targetProducts" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="例：当社取り扱いの全商品
+※特定の商品のみ対象とする場合は、商品名や商品コードを明記してください。"></textarea>
+                                </div>
+                                <div>
+                                    <label for="target-stores" class="block text-sm font-medium text-gray-700">対象店舗</label>
+                                    <textarea id="target-stores" name="targetStores" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="例：全国の当社直営店舗
+※店舗名や地域を明記する場合は、具体的に記載してください。"></textarea>
+                                </div>
+                                <div>
+                                    <label for="application-method" class="block text-sm font-medium text-gray-700">応募方法</label>
+                                    <textarea id="application-method" name="applicationMethod" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="1. 対象商品を購入
+2. レシートの写真を撮影
+3. 本サイトから応募フォームに必要事項を入力
+4. レシート画像をアップロード
+5. 応募完了"></textarea>
+                                </div>
+                                <div>
+                                    <label for="prizes" class="block text-sm font-medium text-gray-700">賞品・当選者数</label>
+                                    <textarea id="prizes" name="prizes" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="【賞品】
+1等：商品券10万円分（1名様）
+2等：商品券5万円分（5名様）
+3等：商品券1万円分（20名様）
+
+【当選者数】
+合計26名様"></textarea>
+                                </div>
+                                <div>
+                                    <label for="receipt-period" class="block text-sm font-medium text-gray-700">キャンペーン期間（対象となるレシートの期間）</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-1">
+                                        <div>
+                                            <label for="receipt-start" class="block text-xs font-medium text-gray-600">開始日時</label>
+                                            <input type="datetime-local" id="receipt-start" name="receiptStart" required
+                                                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+                                        <div>
+                                            <label for="receipt-end" class="block text-xs font-medium text-gray-600">終了日時</label>
+                                            <input type="datetime-local" id="receipt-end" name="receiptEnd" required
+                                                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="application-period" class="block text-sm font-medium text-gray-700">応募受付期間</label>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-1">
+                                        <div>
+                                            <label for="application-start" class="block text-xs font-medium text-gray-600">開始日時</label>
+                                            <input type="datetime-local" id="application-start" name="applicationStart" required
+                                                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+                                        <div>
+                                            <label for="application-end" class="block text-xs font-medium text-gray-600">終了日時</label>
+                                            <input type="datetime-local" id="application-end" name="applicationEnd" required
+                                                   class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="eligibility" class="block text-sm font-medium text-gray-700">応募資格</label>
+                                    <textarea id="eligibility" name="eligibility" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="・日本国内にお住まいの方
+・18歳以上の方
+・当社の対象商品を購入された方
+・レシートをお持ちの方
+・インターネットにアクセスできる環境をお持ちの方"></textarea>
+                                </div>
+                                <div>
+                                    <label for="announcement" class="block text-sm font-medium text-gray-700">当選発表・賞品発送</label>
+                                    <textarea id="announcement" name="announcement" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="【当選発表】
+2024年○月○日（○）に当選者様のメールアドレス宛に当選通知メールを送信いたします。
+
+【賞品発送】
+当選通知メール送信後、約1週間以内に賞品を発送いたします。
+※配送状況により、お届けまでにお時間をいただく場合がございます。"></textarea>
+                                </div>
+                                <div>
+                                    <label for="notes" class="block text-sm font-medium text-gray-700">ご注意</label>
+                                    <textarea id="notes" name="notes" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="・レシートは鮮明に撮影してください
+・1つのレシートにつき1回の応募となります
+・同一人物による複数応募は無効となります
+・賞品の交換・返品はできません
+・当選者のご都合により賞品が受け取れない場合は、当選を無効とさせていただきます"></textarea>
+                                </div>
+                                <div>
+                                    <label for="environment" class="block text-sm font-medium text-gray-700">推奨環境</label>
+                                    <textarea id="environment" name="environment" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="【推奨ブラウザ】
+・Google Chrome（最新版）
+・Safari（最新版）
+・Firefox（最新版）
+・Microsoft Edge（最新版）
+
+【推奨デバイス】
+・スマートフォン（iOS 12.0以上、Android 8.0以上）
+・タブレット
+・PC（Windows 10以上、macOS 10.14以上）"></textarea>
+                                </div>
+                                <div>
+                                    <label for="privacy" class="block text-sm font-medium text-gray-700">個人情報の取り扱いについて</label>
+                                    <textarea id="privacy" name="privacy" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="お客様からお預かりした個人情報は、本キャンペーンの運営、当選通知、賞品発送、お問い合わせ対応の目的でのみ使用いたします。
+
+当社は、お客様の個人情報を適切に管理し、以下の場合を除き、個人情報を第三者に開示いたしません。
+・お客様の同意がある場合
+・法令に基づき開示することが必要である場合
+
+個人情報の取り扱いに関する詳細は、当社のプライバシーポリシーをご確認ください。"></textarea>
+                                </div>
+                                <div>
+                                    <label for="law" class="block text-sm font-medium text-gray-700">準拠法及び管轄裁判所</label>
+                                    <textarea id="law" name="law" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="本キャンペーンに関する一切の事項については、日本法が適用されます。
+
+本キャンペーンに関して紛争が生じた場合には、当社の本店所在地を管轄する裁判所を第一審の専属的合意管轄裁判所とします。"></textarea>
+                                </div>
+                                <div>
+                                    <label for="contact" class="block text-sm font-medium text-gray-700">お問い合わせ先</label>
+                                    <textarea id="contact" name="contact" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="【お問い合わせ先】
+株式会社○○○
+キャンペーン事務局
+
+【電話番号】
+0120-○○○-○○○
+（平日 9:00〜18:00）
+
+【メールアドレス】
+campaign@○○○.co.jp
+
+【受付時間】
+平日 9:00〜18:00（土日祝日・年末年始を除く）"></textarea>
+                                </div>
+                                <div>
+                                    <label for="terms" class="block text-sm font-medium text-gray-700">利用規約</label>
+                                    <textarea id="terms" name="terms" rows="5"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"
+                                              placeholder="第1条（適用）
+本規約は、当社が提供するレシートキャンペーンサービス（以下「本サービス」）の利用条件を定めるものです。
+
+第2条（利用登録）
+1. 本サービスの利用を希望する者は、本規約に同意の上、当社の定める方法によって利用登録を行うものとします。
+2. 当社は、利用登録申請者が以下の事由に該当する場合、利用登録の申請を承認しないことがあります。
+
+第3条（禁止事項）
+利用者は、本サービスの利用にあたり、以下の行為をしてはなりません。
+
+第4条（免責事項）
+当社は、本サービスに関して、利用者と他の利用者または第三者との間において生じた取引、連絡または紛争等について一切責任を負いません。
+
+第5条（サービス内容の変更等）
+当社は、利用者に通知することにより、本サービスの内容を変更しまたは本サービスの提供を中止することができるものとします。
+
+第6条（利用規約の変更）
+当社は、必要と判断した場合には、利用者に通知することなくいつでも本規約を変更することができるものとします。
+
+第7条（準拠法・裁判管轄）
+1. 本規約の解釈にあたっては、日本法を準拠法とします。
+2. 本サービスに関して紛争が生じた場合には、当社の本店所在地を管轄する裁判所を専属的合意管轄とします。"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- キャンペーン設定タブの更新ボタン -->
+                <div id="campaign-update-section" class="mt-6 flex justify-end">
+                    <button id="campaign-update-button" onclick="updateProject()" 
+                            class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        更新
+                    </button>
+                </div>
+
+                <!-- フォーム設定タブ -->
+                <div id="form-tab" class="hidden space-y-6">
+                    <!-- 個人情報フォーム設定 -->
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">個人情報フォーム設定</h3>
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="name-required" name="nameRequired" checked disabled
+                                               class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                                        <label for="name-required" class="ml-2 block text-sm text-gray-900">
+                                            名前 <span class="text-red-500">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="email-required" name="emailRequired" checked disabled
+                                               class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                                        <label for="email-required" class="ml-2 block text-sm text-gray-900">
+                                            メールアドレス <span class="text-red-500">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="email-confirm-required" name="emailConfirmRequired" checked disabled
+                                               class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                                        <label for="email-confirm-required" class="ml-2 block text-sm text-gray-900">
+                                            メールアドレス確認用 <span class="text-red-500">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="postal-required" name="postalRequired" checked disabled
+                                               class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                                        <label for="postal-required" class="ml-2 block text-sm text-gray-900">
+                                            郵便番号 <span class="text-red-500">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="address-required" name="addressRequired" checked disabled
+                                               class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                                        <label for="address-required" class="ml-2 block text-sm text-gray-900">
+                                            住所 <span class="text-red-500">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input type="checkbox" id="phone-required" name="phoneRequired" checked disabled
+                                               class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                                        <label for="phone-required" class="ml-2 block text-sm text-gray-900">
+                                            電話番号 <span class="text-red-500">*</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <svg class="h-5 w-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm font-medium text-blue-800">個人情報項目について</p>
+                                            <p class="text-sm text-blue-700 mt-1">上記の項目は必須項目として設定されており、応募フォームに自動的に表示されます。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- アンケート項目設定 -->
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">アンケート項目設定</h3>
+                                <button onclick="addQuestion()" 
+                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                    質問を追加
+                                </button>
+                            </div>
+                            <div id="questions-container" class="space-y-4">
+                                <!-- 質問項目がここに動的に追加されます -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- レシートアップロード設定 -->
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">レシートアップロード設定</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="max-uploads" class="block text-sm font-medium text-gray-700">最大アップロード枚数</label>
+                                    <input type="number" id="max-uploads" name="maxUploads" min="1" max="20" value="5"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
+                                    <p class="mt-1 text-sm text-gray-500">1〜20枚の間で設定してください</p>
+                                </div>
+                                <div>
+                                    <label for="upload-description" class="block text-sm font-medium text-gray-700">アップロード説明</label>
+                                    <textarea id="upload-description" name="uploadDescription" rows="3"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              placeholder="レシートアップロードについての説明を入力してください"
+                                              onchange="markAsChanged()"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- フォーム設定タブの更新ボタン -->
+                <div id="form-update-section" class="mt-6 flex justify-end">
+                    <button id="form-update-button" onclick="updateProject()" 
+                            class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        更新
+                    </button>
+                </div>
+
+                <!-- メインビジュアル設定タブ -->
+                <div id="visual-tab" class="hidden space-y-6">
+                    <!-- メインビジュアル -->
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">メインビジュアル</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">画像をアップロード</label>
+                                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                        <div class="space-y-1 text-center">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                            <div class="flex text-sm text-gray-600">
+                                                <label for="main-visual" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary">
+                                                    <span>画像を選択</span>
+                                                    <input id="main-visual" name="mainVisual" type="file" class="sr-only" accept="image/*">
+                                                </label>
+                                                <p class="pl-1">またはドラッグ&ドロップ</p>
+                                            </div>
+                                            <p class="text-xs text-gray-500">一枚まで、推奨サイズ: 1440×縦成り行き、最大10MB</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="image-preview" class="hidden">
+                                    <img id="preview-img" src="" alt="プレビュー" class="max-w-full h-auto rounded-lg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ビジュアル設計 -->
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">ビジュアル設計</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="background-color" class="block text-sm font-medium text-gray-700">背景色</label>
+                                    <input type="color" id="background-color" name="backgroundColor" value="#ffffff"
+                                           class="mt-1 block w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                           onchange="markAsChanged()">
+                                </div>
+                                <div>
+                                    <label for="text-color" class="block text-sm font-medium text-gray-700">文字色</label>
+                                    <input type="color" id="text-color" name="textColor" value="#000000"
+                                           class="mt-1 block w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                           onchange="markAsChanged()">
+                                </div>
+                                <div>
+                                    <label for="link-color" class="block text-sm font-medium text-gray-700">リンク色</label>
+                                    <input type="color" id="link-color" name="linkColor" value="#3B82F6"
+                                           class="mt-1 block w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                           onchange="markAsChanged()">
+                                </div>
+                                <div>
+                                    <label for="button-color" class="block text-sm font-medium text-gray-700">ボタン色</label>
+                                    <input type="color" id="button-color" name="buttonColor" value="#3B82F6"
+                                           class="mt-1 block w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                           onchange="markAsChanged()">
+                                </div>
+                                <div>
+                                    <label for="button-text-color" class="block text-sm font-medium text-gray-700">ボタン内文字色</label>
+                                    <input type="color" id="button-text-color" name="buttonTextColor" value="#ffffff"
+                                           class="mt-1 block w-full h-10 border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                           onchange="markAsChanged()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- メインビジュアル設定タブの更新ボタン -->
+                    <div id="visual-update-section" class="mt-6 flex justify-end">
+                        <button id="visual-update-button" onclick="updateProject()" 
+                                class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            更新
+                        </button>
+                    </div>
+                </div>
+
+                <!-- メール設定タブ -->
+                <div id="email-tab" class="hidden space-y-6">
+                    <!-- メール設定 -->
+                    <div class="bg-white shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">メール設定</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="email-from" class="block text-sm font-medium text-gray-700">送信元メールアドレス</label>
+                                    <input type="email" id="email-from" name="emailFrom" required
+                                           placeholder="noreply@example.com"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
+                                    <p class="mt-1 text-xs text-gray-500">応募者に送信されるメールの送信元アドレスを設定します</p>
+                                </div>
+                                <div>
+                                    <label for="email-subject" class="block text-sm font-medium text-gray-700">メールタイトル</label>
+                                    <input type="text" id="email-subject" name="emailSubject" required
+                                           placeholder="【キャンペーン名】応募完了のお知らせ"
+                                           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                           onchange="markAsChanged()">
+                                    <p class="mt-1 text-xs text-gray-500">応募完了時に送信されるメールのタイトルを設定します</p>
+                                </div>
+                                <div>
+                                    <label for="email-body" class="block text-sm font-medium text-gray-700">メール本文</label>
+                                    <textarea id="email-body" name="emailBody" rows="12" required
+                                              placeholder="お客様
+
+この度は、キャンペーンにご応募いただき、ありがとうございます。
+
+応募内容を確認いたしました。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【応募内容】
+お名前: {name}
+メールアドレス: {email}
+応募日時: {submission_date}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+抽選結果は後日、メールにてお知らせいたします。
+
+ご不明な点がございましたら、お気軽にお問い合わせください。
+
+よろしくお願いいたします。"
+                                              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                              onchange="markAsChanged()"></textarea>
+                                    <p class="mt-1 text-xs text-gray-500">
+                                        メール本文では以下の変数が使用できます：<br>
+                                        {name}: 応募者名, {email}: メールアドレス, {submission_date}: 応募日時
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- メール設定タブの更新ボタン -->
+                    <div id="email-update-section" class="mt-6 flex justify-end">
+                        <button id="email-update-button" onclick="updateProject()" 
+                                class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            更新
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let questionCount = 0;
+        let hasChanges = false;
+        const MAX_QUESTIONS = 5;
+
+        // タブ切り替え
+        function showTab(tabName) {
+            // すべてのタブを非表示
+            document.getElementById('campaign-tab').classList.add('hidden');
+            document.getElementById('form-tab').classList.add('hidden');
+            document.getElementById('visual-tab').classList.add('hidden');
+            document.getElementById('email-tab').classList.add('hidden');
+            
+            // すべてのタブボタンのスタイルをリセット
+            document.getElementById('tab-campaign').classList.remove('border-primary', 'text-primary');
+            document.getElementById('tab-campaign').classList.add('border-transparent', 'text-gray-500');
+            document.getElementById('tab-form').classList.remove('border-primary', 'text-primary');
+            document.getElementById('tab-form').classList.add('border-transparent', 'text-gray-500');
+            document.getElementById('tab-visual').classList.remove('border-primary', 'text-primary');
+            document.getElementById('tab-visual').classList.add('border-transparent', 'text-gray-500');
+            document.getElementById('tab-email').classList.remove('border-primary', 'text-primary');
+            document.getElementById('tab-email').classList.add('border-transparent', 'text-gray-500');
+            
+            // 選択されたタブを表示
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+            
+            // 選択されたタブボタンのスタイルを変更
+            document.getElementById('tab-' + tabName).classList.remove('border-transparent', 'text-gray-500');
+            document.getElementById('tab-' + tabName).classList.add('border-primary', 'text-primary');
+        }
+
+        // 質問追加
+        function addQuestion() {
+            const currentQuestions = document.querySelectorAll('#questions-container > div').length;
+            if (currentQuestions >= MAX_QUESTIONS) {
+                alert(`質問は最大${MAX_QUESTIONS}個まで追加できます。`);
+                return;
+            }
+
+            questionCount++;
+            const container = document.getElementById('questions-container');
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'border border-gray-200 rounded-lg p-4';
+            questionDiv.id = `question-${questionCount}`;
+            questionDiv.innerHTML = `
+                <div class="flex justify-between items-start mb-4">
+                    <h4 class="text-md font-medium text-gray-900">質問 ${questionCount}</h4>
+                    <button onclick="removeQuestion(${questionCount})" class="text-red-600 hover:text-red-800">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">質問内容</label>
+                        <input type="text" name="question_${questionCount}" required
+                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                               onchange="markAsChanged()">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">回答形式</label>
+                        <select name="question_type_${questionCount}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                onchange="handleQuestionTypeChange(${questionCount}); markAsChanged()">
+                            <option value="text">一行テキスト</option>
+                            <option value="textarea">長文テキスト</option>
+                            <option value="radio">ラジオボタン（単一選択）</option>
+                            <option value="checkbox">チェックボックス（複数選択）</option>
+                            <option value="select">プルダウン（単一選択）</option>
+                        </select>
+                    </div>
+                    <div id="answer-form-${questionCount}" class="hidden">
+                        <!-- 回答形式に応じたフォームがここに動的に表示されます -->
+                    </div>
+                    <div>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="required_${questionCount}" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                                   onchange="markAsChanged()">
+                            <span class="ml-2 block text-sm text-gray-900">必須項目</span>
+                        </label>
+                    </div>
+                </div>
+            `;
+            container.appendChild(questionDiv);
+            markAsChanged();
+        }
+
+        // 質問削除
+        function removeQuestion(questionId) {
+            const questionElement = document.getElementById(`question-${questionId}`);
+            if (questionElement) {
+                questionElement.remove();
+                renumberQuestions();
+                markAsChanged();
+            }
+        }
+
+        // 質問のナンバリングを再設定
+        function renumberQuestions() {
+            const questions = document.querySelectorAll('#questions-container > div');
+            questions.forEach((question, index) => {
+                const questionNumber = index + 1;
+                const titleElement = question.querySelector('h4');
+                if (titleElement) {
+                    titleElement.textContent = `質問 ${questionNumber}`;
+                }
+                
+                // 新しいIDを設定
+                const oldId = question.id;
+                const newId = `question-${questionNumber}`;
+                question.id = newId;
+                
+                // 内部の要素のIDも更新
+                const answerForm = question.querySelector('[id^="answer-form-"]');
+                if (answerForm) {
+                    answerForm.id = `answer-form-${questionNumber}`;
+                }
+                
+                // 削除ボタンのonclickを更新
+                const deleteButton = question.querySelector('button[onclick^="removeQuestion"]');
+                if (deleteButton) {
+                    deleteButton.onclick = () => removeQuestion(questionNumber);
+                }
+                
+                // 回答形式のselectのonchangeを更新
+                const typeSelect = question.querySelector('select[name^="question_type_"]');
+                if (typeSelect) {
+                    typeSelect.onchange = () => {
+                        handleQuestionTypeChange(questionNumber);
+                        markAsChanged();
+                    };
+                }
+            });
+        }
+
+        // 質問タイプ変更時の処理
+        function handleQuestionTypeChange(questionId) {
+            const questionType = document.querySelector(`select[name="question_type_${questionId}"]`).value;
+            const answerFormDiv = document.getElementById(`answer-form-${questionId}`);
+            
+            // 既存のフォームをクリア
+            answerFormDiv.innerHTML = '';
+            answerFormDiv.classList.remove('hidden');
+            
+            switch (questionType) {
+                case 'text':
+                    // 一行テキスト - 何も表示しない（デフォルトのinputが使用される）
+                    answerFormDiv.classList.add('hidden');
+                    break;
+                    
+                case 'textarea':
+                    // 長文テキスト - プレースホルダーを表示
+                    answerFormDiv.innerHTML = `
+                        <div class="bg-blue-50 border border-blue-200 rounded-md p-3">
+                            <p class="text-sm text-blue-700">長文テキストエリアが表示されます</p>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'radio':
+                case 'checkbox':
+                    // ラジオボタン/チェックボックス - 選択肢編集フォーム
+                    answerFormDiv.innerHTML = `
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">選択肢</label>
+                            <div class="space-y-2">
+                                <input type="text" name="option_${questionId}_1" placeholder="選択肢1"
+                                       class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                       onchange="markAsChanged()">
+                                <input type="text" name="option_${questionId}_2" placeholder="選択肢2"
+                                       class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                       onchange="markAsChanged()">
+                                <button type="button" onclick="addOption(${questionId})" class="text-sm text-primary hover:text-blue-700">
+                                    + 選択肢を追加
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'select':
+                    // プルダウン - 改行区切りのテキストエリア
+                    answerFormDiv.innerHTML = `
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">選択肢（改行で区切って入力）</label>
+                            <textarea name="select_options_${questionId}" rows="4" placeholder="選択肢1&#10;選択肢2&#10;選択肢3"
+                                      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                      onchange="markAsChanged()"></textarea>
+                            <p class="mt-1 text-xs text-gray-500">各選択肢を改行で区切って入力してください</p>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        // 選択肢追加（ラジオボタン/チェックボックス用）
+        function addOption(questionId) {
+            const answerFormDiv = document.getElementById(`answer-form-${questionId}`);
+            const optionInputs = answerFormDiv.querySelectorAll('input[type="text"]');
+            const optionCount = optionInputs.length + 1;
+            
+            const newOption = document.createElement('input');
+            newOption.type = 'text';
+            newOption.name = `option_${questionId}_${optionCount}`;
+            newOption.placeholder = `選択肢${optionCount}`;
+            newOption.className = 'block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm';
+            newOption.onchange = markAsChanged;
+            
+            // 追加ボタンの前に挿入
+            const addButton = answerFormDiv.querySelector('button');
+            answerFormDiv.insertBefore(newOption, addButton);
+            markAsChanged();
+        }
+
+        // 変更をマーク
+        function markAsChanged() {
+            hasChanges = true;
+            showUpdateButton();
+        }
+
+        // 更新ボタンを表示
+        function showUpdateButton() {
+            // ヘッダーの更新ボタン
+            const updateButton = document.getElementById('update-button');
+            if (updateButton) {
+                updateButton.classList.remove('hidden');
+            }
+            
+            // 現在表示されているタブの更新ボタン
+            const campaignTab = document.getElementById('campaign-tab');
+            const formTab = document.getElementById('form-tab');
+            const visualTab = document.getElementById('visual-tab');
+            const emailTab = document.getElementById('email-tab');
+            
+            if (!campaignTab.classList.contains('hidden')) {
+                const campaignUpdateButton = document.getElementById('campaign-update-button');
+                if (campaignUpdateButton) {
+                    campaignUpdateButton.classList.remove('hidden');
+                }
+            }
+            
+            if (!formTab.classList.contains('hidden')) {
+                const formUpdateButton = document.getElementById('form-update-button');
+                if (formUpdateButton) {
+                    formUpdateButton.classList.remove('hidden');
+                }
+            }
+            
+            if (!visualTab.classList.contains('hidden')) {
+                const visualUpdateButton = document.getElementById('visual-update-button');
+                if (visualUpdateButton) {
+                    visualUpdateButton.classList.remove('hidden');
+                }
+            }
+            
+            if (!emailTab.classList.contains('hidden')) {
+                const emailUpdateButton = document.getElementById('email-update-button');
+                if (emailUpdateButton) {
+                    emailUpdateButton.classList.remove('hidden');
+                }
+            }
+        }
+
+        // 更新処理
+        function updateProject() {
+            if (confirm('変更を保存しますか？')) {
+                // ここで実際の更新処理を行う
+                alert('変更が保存されました。');
+                hasChanges = false;
+                
+                // すべての更新ボタンを非表示にする
+                const updateButtons = [
+                    'update-button',
+                    'campaign-update-button',
+                    'form-update-button',
+                    'visual-update-button',
+                    'email-update-button'
+                ];
+                
+                updateButtons.forEach(buttonId => {
+                    const button = document.getElementById(buttonId);
+                    if (button) {
+                        button.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        // デフォルトのアンケート項目を追加
+        function addDefaultQuestions() {
+            const defaultQuestions = [
+                {
+                    question: 'この商品を購入した理由を教えてください',
+                    type: 'textarea',
+                    required: true
+                },
+                {
+                    question: 'この商品の満足度を教えてください',
+                    type: 'radio',
+                    options: ['非常に満足', '満足', '普通', '不満', '非常に不満'],
+                    required: true
+                },
+                {
+                    question: '今後もこの商品を購入したいですか？',
+                    type: 'select',
+                    options: ['はい', 'いいえ', 'わからない'],
+                    required: false
+                }
+            ];
+
+            defaultQuestions.forEach((q, index) => {
+                questionCount++;
+                const container = document.getElementById('questions-container');
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'border border-gray-200 rounded-lg p-4';
+                questionDiv.id = `question-${questionCount}`;
+                
+                let answerFormHtml = '';
+                if (q.type === 'textarea') {
+                    answerFormHtml = `
+                        <div id="answer-form-${questionCount}" class="bg-blue-50 border border-blue-200 rounded-md p-3">
+                            <p class="text-sm text-blue-700">長文テキストエリアが表示されます</p>
+                        </div>
+                    `;
+                } else if (q.type === 'radio') {
+                    answerFormHtml = `
+                        <div id="answer-form-${questionCount}" class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">選択肢</label>
+                            ${q.options.map((option, optIndex) => `
+                                <input type="text" name="option_${questionCount}_${optIndex + 1}" value="${option}"
+                                       class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                       onchange="markAsChanged()">
+                            `).join('')}
+                            <button type="button" onclick="addOption(${questionCount})" class="text-sm text-primary hover:text-blue-700">
+                                + 選択肢を追加
+                            </button>
+                        </div>
+                    `;
+                } else if (q.type === 'select') {
+                    answerFormHtml = `
+                        <div id="answer-form-${questionCount}">
+                            <label class="block text-sm font-medium text-gray-700">選択肢（改行で区切って入力）</label>
+                            <textarea name="select_options_${questionCount}" rows="4"
+                                      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                      onchange="markAsChanged()">${q.options.join('\n')}</textarea>
+                            <p class="mt-1 text-xs text-gray-500">各選択肢を改行で区切って入力してください</p>
+                        </div>
+                    `;
+                }
+
+                questionDiv.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-md font-medium text-gray-900">質問 ${questionCount}</h4>
+                        <button onclick="removeQuestion(${questionCount})" class="text-red-600 hover:text-red-800">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">質問内容</label>
+                            <input type="text" name="question_${questionCount}" value="${q.question}" required
+                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                   onchange="markAsChanged()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">回答形式</label>
+                            <select name="question_type_${questionCount}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                                    onchange="handleQuestionTypeChange(${questionCount}); markAsChanged()">
+                                <option value="text" ${q.type === 'text' ? 'selected' : ''}>一行テキスト</option>
+                                <option value="textarea" ${q.type === 'textarea' ? 'selected' : ''}>長文テキスト</option>
+                                <option value="radio" ${q.type === 'radio' ? 'selected' : ''}>ラジオボタン（単一選択）</option>
+                                <option value="checkbox" ${q.type === 'checkbox' ? 'selected' : ''}>チェックボックス（複数選択）</option>
+                                <option value="select" ${q.type === 'select' ? 'selected' : ''}>プルダウン（単一選択）</option>
+                            </select>
+                        </div>
+                        ${answerFormHtml}
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="required_${questionCount}" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                                       ${q.required ? 'checked' : ''} onchange="markAsChanged()">
+                                <span class="ml-2 block text-sm text-gray-900">必須項目</span>
+                            </label>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // 画像プレビュー
+        document.getElementById('main-visual').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview-img').src = e.target.result;
+                    document.getElementById('image-preview').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // プレビュー機能
+        function previewProject() {
+            alert('プレビュー機能は実装予定です。');
+        }
+
+        // 公開機能
+        function publishProject() {
+            if (confirm('プロジェクトを公開しますか？')) {
+                alert('プロジェクトが公開されました。');
+            }
+        }
+
+        // ログアウト処理
+        function logout() {
+            if (confirm('ログアウトしますか？')) {
+                localStorage.removeItem('userType');
+                localStorage.removeItem('projectId');
+                localStorage.removeItem('currentProject');
+                window.location.href = '../index.html';
+            }
+        }
+
+        // 初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            // デフォルトでキャンペーン設定タブを表示
+            showTab('campaign');
+            
+            // デフォルトのアンケート項目を追加
+            addDefaultQuestions();
+        });
+    </script>
+</body>
+</html> 

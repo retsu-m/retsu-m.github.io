@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者ダッシュボード - レシートキャンペーンCMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <div id="app">
+        <!-- コンポーネント化されたナビゲーション -->
+    </div>
+
+    <script src="../assets/js/components.js"></script>
+    <script>
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Dashboard loading...');
+            
+            // 認証チェック
+            if (!Components.checkAdminAuth()) {
+                console.log('Authentication failed, redirecting to login...');
+                return;
+            }
+
+            console.log('Authentication successful, rendering dashboard...');
+
+            // ナビゲーションのレンダリング
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                ${Components.renderAdminNavigation('dashboard')}
+                
+                <!-- メインコンテンツ -->
+                <div class="flex-1 p-8">
+                    ${Components.renderPageTitle('ダッシュボード', 'システム全体の概要を確認できます')}
+                    
+                    <!-- 統計カード -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        ${Components.renderStatCard(
+                            '総プロジェクト数',
+                            '12',
+                            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>',
+                            'blue'
+                        )}
+                        ${Components.renderStatCard(
+                            'アクティブプロジェクト',
+                            '8',
+                            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
+                            'green'
+                        )}
+                        ${Components.renderStatCard(
+                            '総ユーザー数',
+                            '156',
+                            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>',
+                            'yellow'
+                        )}
+                        ${Components.renderStatCard(
+                            '今月の応募数',
+                            '2,847',
+                            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>',
+                            'red'
+                        )}
+                    </div>
+
+                    <!-- 最近のプロジェクト -->
+                    <div class="grid grid-cols-1 gap-8">
+                        ${Components.renderCard(
+                            '最近のプロジェクト',
+                            `
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">スターバックスキャンペーン</h4>
+                                        <p class="text-sm text-gray-600">2024年1月15日開始</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">アクティブ</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">マクドナルドキャンペーン</h4>
+                                        <p class="text-sm text-gray-600">2024年1月10日開始</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">アクティブ</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">ドトールコーヒーキャンペーン</h4>
+                                        <p class="text-sm text-gray-600">2024年1月5日開始</p>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">準備中</span>
+                                </div>
+                            </div>
+                            `,
+                            `
+                            <div class="flex justify-between items-center">
+                                <a href="projects.html" class="text-sm text-primary hover:text-blue-700">すべてのプロジェクトを見る</a>
+                                <a href="projects.html" class="text-sm text-primary hover:text-blue-700">→</a>
+                            </div>
+                            `
+                        )}
+                    </div>
+                </div>
+            `;
+
+            console.log('Dashboard rendered successfully');
+        });
+
+        // グローバルログアウト関数
+        function logout() {
+            Components.logout();
+        }
+    </script>
+</body>
+</html> 

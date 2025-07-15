@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>応募完了 - 夏のレシートキャンペーン</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- ヘッダー -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="top.html" class="text-xl font-semibold text-gray-900">夏のレシートキャンペーン</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600">ステップ 3/3</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <!-- プログレスバー -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                        <span class="text-gray-500 text-sm font-medium">1</span>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-500">応募フォーム</span>
+                </div>
+                <div class="flex-1 mx-4">
+                    <div class="h-1 bg-gray-200 rounded-full">
+                        <div class="h-1 bg-primary rounded-full" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                        <span class="text-gray-500 text-sm font-medium">2</span>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-500">確認</span>
+                </div>
+                <div class="flex-1 mx-4">
+                    <div class="h-1 bg-gray-200 rounded-full">
+                        <div class="h-1 bg-primary rounded-full" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <span class="ml-2 text-sm font-medium text-gray-900">完了</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 完了メッセージ -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-6 py-12 text-center">
+                <!-- 成功アイコン -->
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
+                    <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">応募完了</h2>
+                <p class="text-lg text-gray-600 mb-8">
+                    キャンペーンへのご応募ありがとうございました。<br>
+                    応募内容を確認の上、当選発表までお待ちください。
+                </p>
+                <p class="text-base text-gray-600 mb-8">
+                    当選は発送をもって返させていただきます。
+                </p>
+
+                <!-- ボタン -->
+                <div class="space-y-4">
+                    <a href="top.html" 
+                       class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        トップページに戻る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 mt-12">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-lg font-semibold text-white mb-4">お問い合わせ先</h3>
+                <p class="text-gray-300">
+                    キャンペーンに関するお問い合わせは以下までお願いいたします。<br>
+                    メール: campaign@example.com<br>
+                    電話: 03-1234-5678（平日9:00〜18:00）
+                </p>
+                <p class="mt-8 text-sm text-gray-400">
+                    © キャンペーン作成年 [キャンペーン名] All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            sendCompletionEmail();
+            var year = localStorage.getItem('projectYear') || new Date().getFullYear();
+            var footer = document.querySelector('footer .text-gray-400');
+            if (footer) {
+                footer.textContent = `© ${year} [キャンペーン名] All rights reserved.`;
+            }
+        });
+
+        // 完了メール送信（シミュレーション）
+        function sendCompletionEmail() {
+            const applicationData = localStorage.getItem('applicationData');
+            if (applicationData) {
+                const data = JSON.parse(applicationData);
+                const email = data.questions['メールアドレス'];
+                
+                if (email) {
+                    console.log(`完了メールを ${email} に送信しました`);
+                    // 実際の実装ではサーバーサイドでメール送信処理を実行
+                }
+            }
+        }
+
+        // ページ離脱時の確認
+        window.addEventListener('beforeunload', function(e) {
+            // 応募完了後は離脱確認を表示しない
+            return;
+        });
+    </script>
+</body>
+</html> 

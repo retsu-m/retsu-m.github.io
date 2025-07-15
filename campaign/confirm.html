@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>確認画面 - 夏のレシートキャンペーン</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- ヘッダー -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="top.html" class="text-xl font-semibold text-gray-900">夏のレシートキャンペーン</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600">ステップ 2/3</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <!-- プログレスバー -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                        <span class="text-gray-500 text-sm font-medium">1</span>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-500">応募フォーム</span>
+                </div>
+                <div class="flex-1 mx-4">
+                    <div class="h-1 bg-gray-200 rounded-full">
+                        <div class="h-1 bg-primary rounded-full" style="width: 66%"></div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                        <span class="text-white text-sm font-medium">2</span>
+                    </div>
+                    <span class="ml-2 text-sm font-medium text-gray-900">確認</span>
+                </div>
+                <div class="flex-1 mx-4">
+                    <div class="h-1 bg-gray-200 rounded-full">
+                        <div class="h-1 bg-primary rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                        <span class="text-gray-500 text-sm font-medium">3</span>
+                    </div>
+                    <span class="ml-2 text-sm text-gray-500">完了</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 確認内容 -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-6 py-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">応募内容の確認</h2>
+                
+                <div class="space-y-8">
+                    <!-- 個人情報 -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">個人情報</h3>
+                        <div id="personal-info-confirm" class="space-y-4">
+                            <!-- 個人情報はJavaScriptで動的に生成 -->
+                        </div>
+                    </div>
+
+                    <!-- アンケート回答 -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">アンケート回答</h3>
+                        <div id="question-confirm" class="space-y-4">
+                            <!-- 質問回答はJavaScriptで動的に生成 -->
+                        </div>
+                    </div>
+
+                    <!-- レシートアップロード -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">レシートアップロード</h3>
+                        <div id="receipt-confirm" class="space-y-4">
+                            <!-- レシート情報はJavaScriptで動的に生成 -->
+                        </div>
+                    </div>
+
+                    <!-- 注意事項 -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-yellow-800">ご確認ください</h3>
+                                <div class="mt-2 text-sm text-yellow-700">
+                                    <ul class="list-disc list-inside space-y-1">
+                                        <li>上記の内容で応募を確定します</li>
+                                        <li>応募確定後は内容の変更はできません</li>
+                                        <li>当選発表はメールでご連絡いたします</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ボタン -->
+                    <div class="flex justify-between pt-6 border-t border-gray-200">
+                        <button onclick="goBack()" 
+                                class="inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            修正する
+                        </button>
+                        <button onclick="submitApplication()" 
+                                class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-secondary hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
+                            応募を確定する
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-gray-800">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="mt-8 text-sm text-gray-400">
+                    © キャンペーン作成年 [キャンペーン名] All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let applicationData = {};
+
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadApplicationData();
+            renderConfirmation();
+            var year = localStorage.getItem('projectYear') || new Date().getFullYear();
+            var footer = document.querySelector('footer .text-gray-400');
+            if (footer) {
+                footer.textContent = `© ${year} [キャンペーン名] All rights reserved.`;
+            }
+        });
+
+        // アプリケーションデータを読み込み
+        function loadApplicationData() {
+            const data = localStorage.getItem('applicationData');
+            if (data) {
+                applicationData = JSON.parse(data);
+            } else {
+                // データがない場合はフォームページにリダイレクト
+                window.location.href = 'form.html';
+            }
+        }
+
+        // 確認内容を表示
+        function renderConfirmation() {
+            renderPersonalInfoConfirm();
+            renderQuestionConfirm();
+            renderReceiptConfirm();
+        }
+
+        // 個人情報を表示
+        function renderPersonalInfoConfirm() {
+            const personalInfoConfirm = document.getElementById('personal-info-confirm');
+            personalInfoConfirm.innerHTML = '';
+
+            const personalInfoLabels = {
+                name: '名前',
+                email: 'メールアドレス',
+                email_confirm: 'メールアドレス確認用',
+                postal_code: '郵便番号',
+                address: '住所',
+                phone: '電話番号'
+            };
+
+            Object.keys(applicationData.personalInfo).forEach(key => {
+                const value = applicationData.personalInfo[key];
+                const label = personalInfoLabels[key] || key;
+                const div = document.createElement('div');
+                div.className = 'bg-gray-50 rounded-lg p-4';
+                div.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-1">
+                            <span class="text-sm font-medium text-gray-900">${label}</span>
+                        </div>
+                        <div class="md:col-span-2">
+                            <span class="text-sm text-gray-600">${value || '未入力'}</span>
+                        </div>
+                    </div>
+                `;
+                personalInfoConfirm.appendChild(div);
+            });
+        }
+
+        // 質問回答を表示
+        function renderQuestionConfirm() {
+            const questionConfirm = document.getElementById('question-confirm');
+            questionConfirm.innerHTML = '';
+
+            Object.keys(applicationData.questions).forEach(question => {
+                const answer = applicationData.questions[question];
+                const div = document.createElement('div');
+                div.className = 'bg-gray-50 rounded-lg p-4';
+                div.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-1">
+                            <span class="text-sm font-medium text-gray-900">${question}</span>
+                        </div>
+                        <div class="md:col-span-2">
+                            <span class="text-sm text-gray-600">${answer || '未入力'}</span>
+                        </div>
+                    </div>
+                `;
+                questionConfirm.appendChild(div);
+            });
+        }
+
+        // レシート情報を表示
+        function renderReceiptConfirm() {
+            const receiptConfirm = document.getElementById('receipt-confirm');
+            receiptConfirm.innerHTML = '';
+
+            if (applicationData.receipts && applicationData.receipts.length > 0) {
+                applicationData.receipts.forEach((receipt, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-gray-50 rounded-lg p-4';
+                    div.innerHTML = `
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <svg class="w-8 h-8 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">レシート ${index + 1}</p>
+                                    <p class="text-sm text-gray-600">${receipt.name} (${formatFileSize(receipt.size)})</p>
+                                </div>
+                            </div>
+                        </div>
+                        ${receipt.data ? `<div class="mt-4">
+                            <img src="${receipt.data}" alt="レシート画像" class="max-w-xs mx-auto rounded-lg shadow-sm border border-gray-200">
+                        </div>` : ''}
+                    `;
+                    receiptConfirm.appendChild(div);
+                });
+            } else {
+                receiptConfirm.innerHTML = `
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <p class="text-sm text-gray-600">レシートがアップロードされていません</p>
+                    </div>
+                `
+            }
+        }
+
+        // ファイルサイズをフォーマット
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // 戻るボタン
+        function goBack() {
+            window.location.href = 'form.html';
+        }
+
+        // 応募確定
+        function submitApplication() {
+            // 実際の実装ではサーバーにデータを送信
+            
+            // 完了画面へ遷移
+            window.location.href = 'complete.html';
+        }
+    </script>
+</body>
+</html>
