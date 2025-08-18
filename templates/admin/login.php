@@ -1,3 +1,62 @@
+<?php
+// Start the session at the very beginning
+session_start();
+
+// If user is already logged in, redirect to dashboard
+if (isset($_SESSION['admin_id'])) {
+    header('Location: dashboard.php');
+    // exit; // Removed for sandbox compatibility
+}
+
+// This path assumes that login.php is in templates/admin/, so we go up three levels to the root
+// Note: This is fragile. A better solution would be to have a bootstrap file that defines constants.
+// For now, this will work because of how public/index.php calls the template.
+// ROOT_PATH is defined in public/index.php, so we can rely on it here.
+require_once ROOT_PATH . '/src/lib/Database.php';
+
+$errorMessage = '';
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    if (empty($username) || empty($password)) {
+        $errorMessage = 'ユーザーIDとパスワードを入力してください。';
+    } else {
+        try {
+            $pdo = Database::getConnection();
+            $stmt = $pdo->prepare("SELECT * FROM admins WHERE username = ?");
+            $stmt->execute([$username]);
+            $admin = $stmt->fetch();
+
+            if ($admin && password_verify($password, $admin['password_hash'])) {
+                // Password is correct, set session variables
+                $_SESSION['admin_id'] = $admin['id'];
+                $_SESSION['admin_username'] = $admin['username'];
+
+                // Regenerate session ID for security
+                session_regenerate_id(true);
+
+                // Redirect to the admin dashboard
+                header('Location: dashboard.php');
+                // exit; // Removed for sandbox compatibility
+            } else {
+                // Invalid credentials
+                $errorMessage = 'ユーザーIDまたはパスワードが正しくありません。';
+            }
+        } catch (PDOException $e) {
+            // In a real app, log this error.
+            $errorMessage = 'データベースエラーが発生しました。';
+        }
+    }
+}
+
+/*
+ * To add a test admin user, run this SQL query:
+ * INSERT INTO admins (username, password_hash) VALUES ('admin', PASSWORD_HASH('admin123', PASSWORD_DEFAULT));
+ */
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -37,7 +96,7 @@
             </div>
             
             <div class="bg-white py-8 px-6 shadow rounded-lg">
-                <form id="admin-login-form" class="space-y-6">
+                <form id="admin-login-form" class="space-y-6" method="POST" action="login.php">
                     <div>
                         <label for="username" class="block text-sm font-medium text-gray-700">
                             ユーザーID
@@ -54,6 +113,13 @@
                                class="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                                placeholder="パスワードを入力">
                     </div>
+
+                    <?php if (!empty($errorMessage)): ?>
+                    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                        <p><?php echo htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8'); ?></p>
+                    </div>
+                    <?php endif; ?>
+
                     <div>
                         <button type="submit" 
                                 class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
@@ -61,10 +127,6 @@
                         </button>
                     </div>
                 </form>
-
-                <!-- エラーメッセージ -->
-                <div id="error-message" class="hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mt-4">
-                </div>
             </div>
 
             <!-- デモ情報 -->
@@ -73,41 +135,17 @@
                 <div class="text-xs text-blue-700">
                     <p><strong>ユーザーID:</strong> admin</p>
                     <p><strong>パスワード:</strong> admin123</p>
+                    <p class="mt-1 text-xs text-gray-500">* このログインはPHPバックエンドで処理されます。</p>
                 </div>
             </div>
 
             <!-- 戻るリンク -->
             <div class="text-center">
-                <a href="../index.html" class="text-sm text-gray-600 hover:text-gray-900">
+                <a href="../index.php" class="text-sm text-gray-600 hover:text-gray-900">
                     ← ログイン画面選択に戻る
                 </a>
             </div>
         </div>
     </div>
-
-    <script>
-        // 管理者ログイン処理
-        document.getElementById('admin-login-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            if (username === 'admin' && password === 'admin123') {
-                localStorage.setItem('adminName', username);
-                window.location.href = 'dashboard.html';
-            } else {
-                showError('ユーザーIDまたはパスワードが正しくありません。');
-            }
-        });
-
-        function showError(message) {
-            const errorDiv = document.getElementById('error-message');
-            errorDiv.textContent = message;
-            errorDiv.classList.remove('hidden');
-            setTimeout(() => {
-                errorDiv.classList.add('hidden');
-            }, 5000);
-        }
-    </script>
 </body>
-</html> 
+</html>
